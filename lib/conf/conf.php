@@ -1,8 +1,8 @@
 <?php
 $host= "localhost";
-$user= "root";
-$pass= "";
-$database = "adso2712";
+$user= "5432";
+$pass= "1234";
+$database = "proyecto";
 $port = "3306";
 
 ?>

@@ -24,11 +24,11 @@ private function setConnect(){
 }
 
 private function connect(){
-    $this->link=mysqli_connect($this->host,$this->user,$this->pass,$this->database);
+    $this->link=pg_connect($this->host,$this->user,$this->pass,$this->database);
     if($this->link){
         //echo"Conexion exitosa <br>";
     }else{
-        die(mysqli_error($this->link));
+        die(pg_error($this->link));
     }
     
 }
@@ -37,7 +37,7 @@ public function getConnect(){
     return $this->link;
 }
 public function close(){
-    mysqli_close($this->link);
+    pg_close($this->link);
 }
 }
 
