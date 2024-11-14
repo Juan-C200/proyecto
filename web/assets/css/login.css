@@ -1,0 +1,79 @@
+/*dy {
+    background-image: linear-gradient(to bottom, #125D7D, #C8EAF9);
+    height: 100vh; Asegura que el body ocupe toda la altura de la pantalla 
+    margin: 0;  Elimina márgenes para evitar espacios */
+/*}*/
+
+body {
+    background: linear-gradient(to bottom, #125D7D 0%, #C8EAF9 100%);
+    height: 100vh;
+    margin: 0;
+    background-position: center; 
+}
+
+.container{
+  width: 800px;
+  height: 420px;
+margin-top: 100px;
+padding: 10px;
+}
+
+.box1{
+  height: 450px;
+  
+  background-image: 
+    linear-gradient(
+      rgba(0, 0, 0, 0.3), /* Capa semitransparente de color negro */
+      rgba(0, 0, 0, 0.3)
+    ), 
+  url('../img/bus.jpg');
+  background-size: cover;
+ 
+}
+
+.box2{
+    height: 300px;
+    width: 300px;
+}
+
+.primer-input {
+    background-color: transparent;
+    border: none; 
+    border-bottom: 2px solid white; 
+    color: white;
+  }
+
+  /* Estilo para el placeholder */
+  .primer-input::placeholder {
+    color: white; 
+  }
+
+  .btnCrearCuenta{
+    background-color: transparent;
+    border: 2px solid white; 
+    color: white;
+    border-radius: 5px;
+    margin-left: 35px;
+    margin-top: 50px;
+
+  }
+
+  .btnCrearCuenta:hover{
+    background-color: white;
+    color: black;
+    font-size: 1rem; /* Aumenta el tamaño del texto */
+    font-weight: bold;
+  }
+
+  .btn-acceder-submit {
+    font-size: 1rem; /* Aumenta el tamaño del texto */
+    font-weight: bold; /* Texto en negrita */
+    color: white; /* Texto blanco */
+    border: 2px solid white; /* Borde blanco y más grueso */
+    background-color: transparent; /* Fondo transparente */
+  }
+
+  .btn-acceder-submit:hover{
+    background-color: white;
+    color: black;
+  }
