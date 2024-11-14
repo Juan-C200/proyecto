@@ -1,44 +1,38 @@
 <?php
-class Connection {
-    private $host;
-    private $user;
-    private $pass;
-    private $database;
-    private $port;
-    private $link;
 
+class Conexion {
+    private $host = 'localhost';
+    private $port = '5432';
+    private $dbname = 'geovisor';
+    private $user = 'postgres';
+    private $password = '12345';
+    private $conn;
 
-function __construct(){
-    $this->setConnect(); 
-    $this->connect();
-}
-private function setConnect(){
-    require_once 'conf.php';
-
-    $this->host = $host;
-    $this->user = $user;
-    $this->pass = $pass;
-    $this->port = $port;
-    $this->database = $database;
-
-}
-
-private function connect(){
-    $this->link=pg_connect($this->host,$this->user,$this->pass,$this->database);
-    if($this->link){
-        //echo"Conexion exitosa <br>";
-    }else{
-        die(pg_error($this->link));
+    public function __construct() {
+        $this->connect();
     }
-    
-}
 
-public function getConnect(){
-    return $this->link;
-}
-public function close(){
-    pg_close($this->link);
-}
+
+
+    private function connect() {
+        $conn_string = "host=$this->host port=$this->port dbname=$this->dbname user=$this->user password=$this->password";
+        $this->conn = pg_connect($conn_string);
+
+        if (!$this->conn) {
+            die("Error en la conexión: " . pg_last_error());
+        }else{
+        //echo "Conexion exitosa";
+
+        }
+    }
+
+    public function getConnect() {
+        return $this->conn;
+    }
+
+    public function close() {
+        pg_close($this->conn);
+    }
 }
 
 
