@@ -86,29 +86,29 @@
                 type: 'POST',
                 success: function(data){
                     $('tbody').html(data);
-                    console.log(data);
+                    
                 }
 
             });
         });
 
-        $(document).on('click',"#cambiar_estado_tarea", function(){
-            let id = $(this).attr("data-id");
-            let url = $(this).attr("data-url");
-            let tarea = $(this).attr("data-tarea");
+        // $(document).on('click',"#cambiar_estado_tarea", function(){
+        //     let id = $(this).attr("data-id");
+        //     let url = $(this).attr("data-url");
+        //     let tarea = $(this).attr("data-tarea");
+            
 
+        //     $.ajax({
+        //         url:url,
+        //         data:{id, tarea},
+        //         type: 'POST',
+        //         success: function(data){
+        //             $('tbody').html(data);
+        //             console.log(data);
+        //         }
 
-            $.ajax({
-                url:url,
-                data:{id, tarea},
-                type: 'POST',
-                success: function(data){
-                    $('tbody').html(data);
-                    console.log(data);
-                }
-
-            });
-        });
+        //     });
+        // });
 
         $(document).on("click","#copyList",function(){
             let listUser = $("#listUser").html();

@@ -28,8 +28,9 @@ class UsuariosController{
         }elseif($estadoId == 2){
             $statusToModify = 1;
         }
+        echo $usuarioId;
 
-        $sql="UPDATE usuarios SET estado_id=$statusToModify WHERE estado_id=$usuarioId";
+        $sql="UPDATE usuarios SET estado_id=$statusToModify WHERE usuario_id=$usuarioId";
 
         $ejecutar=$obj->update($sql);
 
@@ -39,7 +40,9 @@ class UsuariosController{
                 JOIN roles r ON r.rol_id = u.rol_id
                 JOIN estados e ON e.estado_id = u.estado_id";
             
-            $usuarios=$obj->consult($sql);
+            $result=$obj->consult($sql);
+
+            $usuarios = pg_fetch_all($result);
 
             include_once "../view/usuarios/buscar.php";
         }else{
