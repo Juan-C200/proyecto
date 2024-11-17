@@ -2,6 +2,11 @@
     
     include_once "../lib/helpers.php";
     include_once "../view/partials/head.php";
+
+    if(!isset($_SESSION['auth'])){
+        redirect("login.php");
+    }else{
+
     echo "<body>";
         echo"<div class = 'container'>";
     include_once "../view/partials/navbar.php";
@@ -18,4 +23,5 @@
     include_once "../view/partials/footer.php";
     echo "</body>";
     echo "</html>";
+    }
 ?>
