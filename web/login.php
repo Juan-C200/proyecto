@@ -25,11 +25,12 @@
                     
                     <div class="input-group mb-4">
                       <span class="input-group-text bg-transparent border-0"><i class="fas fa-lock"></i></span>
-                     <input type="password" class="primer-input form-control" placeholder="Contraseña">
-                     <span class="input-group-text bg-transparent" id="t-password">
-                          <i class="fas fa-eye"></i>
+                     <input type="password" class="primer-input form-control" placeholder="Contraseña" id="clave" name="clave">
+                     <span class="input-group-text bg-transparent" id="t-password" style="cursor: pointer;">
+                          <i class="fas fa-eye" id="eye-icon"></i>
                       </span>
                     </div>
+                    
 
                     <div class="text-center">
                         <input type="submit" value="Acceder" class="btn btn-acceder-submit mt-3"><br><br>
@@ -40,7 +41,23 @@
             </div>
         </div>
     </div>
-
+     
+    <script>
+    // Función para alternar la visibilidad de la contraseña
+    $('#t-password').click(function() {
+        
+        var passwordField = $('#clave');
+        var icon = $('#eye-icon');
+        
+        if (passwordField.attr('type') === 'password') {
+            passwordField.attr('type', 'text');
+            icon.removeClass('fa-eye').addClass('fa-eye-slash');
+        } else {
+            passwordField.attr('type', 'password');
+            icon.removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+    });
+    </script>
     
 </body>
 </html>
