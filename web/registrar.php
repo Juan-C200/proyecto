@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $validacionController->checkForm();
     
 }
-var_dump($_SESSION['errores']);
+
 
 ?>
 
