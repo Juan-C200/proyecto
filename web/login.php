@@ -21,6 +21,7 @@
               </div>
          </div>
 
+<?php echo "aaaaaaaaa"; ?>
          <div class="col text-center">
               <div class="box1 form-control p-5 border rounded-3">
                    <h2 class="text-white">Inicio Sesion</h2><br>                 
