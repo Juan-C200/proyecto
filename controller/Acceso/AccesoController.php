@@ -4,19 +4,19 @@ class AccesoController {
     public function login(){
 
         $obj = new AccesoModel();
-        $user = $_POST['user'];
-        $pass = $_POST['pass'];
+        $email = $_POST['email'];
+        $contraseña = $_POST['password'];
 
-        $sql = "SELECT * FROM usuarios WHERE usuarioEmail='$user'";
+        $sql = "SELECT * FROM usuarios WHERE correo='$email'";
 
         $usuario = $obj -> consult($sql);
 
-        $hash = password_hash($pass, PASSWORD_DEFAULT);
+        $hash = password_hash($contraseña, PASSWORD_DEFAULT);
 
 
         if (mysqli_num_rows($usuario)>0){
             foreach($usuario as $usu){
-                if(password_verify($pass, $usu['usuario_id'])){
+                if(password_verify($contraseña, $usu['usuario_id'])){
                     $_SESSION['primer_nombre'] = $usu['primer_nombre'];
                     $_SESSION['segundo_nombre'] = $usu['segundo_nombre'];
                     $_SESSION['primer_apellido'] = $usu['primer_apellido'];

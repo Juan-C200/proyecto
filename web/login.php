@@ -1,3 +1,8 @@
+<?php
+    include_once '../lib/helpers.php';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,31 +19,37 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-12 col-sm-10 col-md-8 col-lg-6">
-                <div class="box1 form-control p-5 mt-1 border rounded-3">
-                    
-                    <h2 class="text-center text-white mb-4">Inicio Sesion</h2>         
-                    <div class="input-group mb-4">
-                    <span class="input-group-text bg-transparent border-0"><i class="fas fa-user"></i></span>
-                    <input type="text" class="primer-input form-control mb-3" placeholder="Nombre de usuario">
-                    </div>        
-                    
-                    <div class="input-group mb-4">
-                      <span class="input-group-text bg-transparent border-0"><i class="fas fa-lock"></i></span>
-                     <input type="password" class="primer-input form-control" placeholder="Contraseña" id="clave" name="clave">
-                     <span class="input-group-text bg-transparent" id="t-password" style="cursor: pointer;">
-                          <i class="fas fa-eye" id="eye-icon"></i>
-                      </span>
-                    </div>
-                    
 
-                    <div class="text-center">
-                        <input type="submit" value="Acceder" class="btn btn-acceder-submit mt-3"><br><br>
-                        <a href="registrar.php" target="_self" class="text-white">¿Ya tienes cuenta?      <b>Registrarse</a>
+                <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+                    <div class="box1 form-control p-5 mt-1 border rounded-3">
+                        
+                        
+                        <h2 class="text-center text-white mb-4">Inicio Sesion</h2>    
+                        <form action="<?php echo getUrl("Usuarios", "Usuarios", "login", false, "ajax"); ?>" method="post">
+
+                            <div class="input-group mb-4">
+
+                                <span class="input-group-text bg-transparent border-0"><i class="fas fa-user"></i></span>
+                                <input type="text" class="primer-input form-control mb-3" name ="email" placeholder="Correo">
+                            </div>        
+                            
+                            <div class="input-group mb-4">
+                                <span class="input-group-text bg-transparent border-0"><i class="fas fa-lock"></i></span>
+                                <input type="password" class="primer-input form-control" name="password" placeholder="Contraseña" id="clave" name="clave">
+                                <span class="input-group-text bg-transparent" id="t-password" style="cursor: pointer;">
+                                    <i class="fas fa-eye" id="eye-icon"></i>
+                                </span>
+                            </div>
+                            
+
+                            <div class="text-center">
+                                <input type="submit" value="Acceder" class="btn btn-acceder-submit mt-3"><br><br>
+                                <a href="<?php echo getUrl("Usuarios", "Usuarios", "getCreate");?>" target="_self" class="text-white">¿Ya tienes cuenta?      <b>Registrarse</a>
+                            </div>
+                        </form>
                     </div>
-                    
                 </div>
-            </div>
+            
         </div>
     </div>
      

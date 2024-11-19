@@ -7,7 +7,7 @@
         public function insert($sql){
             $result = pg_query($this->getConnect(), $sql);
             if(!$result){
-                echo pg_error($this->getConnect());
+                echo pg_last_error($this->getConnect());
             }
             return $result;
         }

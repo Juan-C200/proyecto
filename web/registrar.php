@@ -1,15 +1,4 @@
-<?php
 
-require_once '../controller/acceso/ValidacionController.php';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $validacionController = new ValidacionController();
-    $validacionController->checkForm();
-    
-}
-
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     <div class="container">
    
-    <form action="" method="POST" id="registroForm">
+    <form action="<?php echo getUrl("Usuarios", "Usuarios", "postCreate"); ?> " method="POST" id="registroForm">
        <div class="row justify-content-center">
          <h3 class="text-center text-white mb-1 mt-1">Registro Usuario</h3>
          
@@ -162,9 +151,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               </div>
           </div>
 
-          <div class="d-flex justify-content-center mt-3">
-              <button type="submit" class="btn btn-outline-success text-center">Registrar</button>
+          
           </div>
+          <div class="d-flex justify-content-center mt-3">
+              <input type="submit" class="btn btn-outline-success text-center" value="Enviar"></input>
+          </div>
+          
         </form>
     </div>
 

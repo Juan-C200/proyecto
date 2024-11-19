@@ -82,7 +82,7 @@
     }
     
     function validarContrasena($input){
-        $patron="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$/";
+        $patron="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$/";
         return preg_match($patron,$input) === 1;
     }
 
