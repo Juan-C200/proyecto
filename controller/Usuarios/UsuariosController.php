@@ -71,14 +71,17 @@ class UsuariosController{
         $segundo_nombre = $_POST['segundo_nombre'] ?? '';
         $primer_apellido = $_POST['primer_apellido'] ?? '';
         $segundo_apellido = $_POST['segundo_apellido'] ?? '';
+        $sexo = $_POST['sexo'] ?? '';
         $correo= $_POST['correo'] ?? '';
         $telefono= $_POST['telefono'] ?? '';
         $direccion= $_POST['direccion'] ?? '';
         $contraseña= $_POST['contraseña'] ?? '';
         $confContraseña = $_POST['confContraseña'] ?? '';
         
+        
         $validacion = true;
         $_SESSION['errores']=[];
+        
     
         // Validación de cada campo
         if (empty($tipo_documento)) {
@@ -110,6 +113,14 @@ class UsuariosController{
             $validacion = false;
         }else if (validarCampoLetras($primer_apellido) == false) {
             $_SESSION['errores']['primer_apellido'] = "El campo 'primer_apellido' debe contener solo letras";
+            $validacion = false;
+        }
+
+        if (empty($sexo)) {
+            $_SESSION['errores']['sexo'] = "El campo 'sexo' es requerido";
+            $validacion = false;
+        }else if (validarCampoLetras($sexo) == false) {
+            $_SESSION['errores']['sexo'] = "El campo 'sexo' debe contener solo letras";
             $validacion = false;
         }
     
@@ -167,8 +178,8 @@ class UsuariosController{
             $hash = password_hash($contraseña, PASSWORD_DEFAULT);
     
             // SQL para insertar usuario
-            $sql = "INSERT INTO usuarios (usuario_id, tipo_documento, numero_documento, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, correo, telefono, direccion, contraseña, estado_id, rol_id)
-                    VALUES ($id,'$tipo_documento', '$numero_documento', '$primer_nombre', '$segundo_nombre', '$primer_apellido', '$segundo_apellido', '$correo', '$telefono', '$direccion', '$hash', 1, 1)";
+            $sql = "INSERT INTO usuarios (usuario_id, tipo_documento, numero_documento, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, sexo, correo, telefono, direccion, contraseña, estado_id, rol_id)
+                    VALUES ($id,'$tipo_documento', '$numero_documento', '$primer_nombre', '$segundo_nombre', '$primer_apellido', '$segundo_apellido', '$sexo', '$correo', '$telefono', '$direccion', '$hash', 1, 1)";
     
             // Ejecutar SQL
             $ejecutar = $obj->insert($sql);

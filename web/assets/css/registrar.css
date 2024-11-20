@@ -1,15 +1,27 @@
 body {
-    background-image: url('../img/fondo4.jpg');
-      background-repeat: no-repeat;
-      
-       
-        
-    }
+  /* background-image: url('../img/fondo4.jpg'); */
+  /* background-repeat: no-repeat; */
   
-  .boxDatos{
     
-      background-color: rgba(169, 169, 169, 0.4);
-  }  
-  .container-scroll{
-    max-height: 650px;
-  }
+      
+      
+}
+
+h4{
+  color: aliceblue;
+}
+
+label{
+  font-weight: normal;
+}
+p{
+  font-weight: normal;
+}
+  
+.boxDatos{
+  
+    background-color: rgba(169, 169, 169, 0.4);
+}  
+.container-scroll{
+  max-height: 650px;
+}

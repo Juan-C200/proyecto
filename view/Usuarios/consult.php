@@ -14,6 +14,7 @@
                 <th>Numero de documento</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
+                <th>Sexo</th>
                 <th>Email</th>
                 <th>Telefono</th>
                 <th>Direccion</th>
@@ -31,6 +32,7 @@
                         echo "<td>".$usu['numero_documento']."</td>";
                         echo "<td>".$usu['primer_nombre']." ".$usu['segundo_nombre']."</td>";
                         echo "<td>".$usu['primer_apellido']." ".$usu['segundo_apellido']."</td>";
+                        echo "<td>".$usu['sexo']."</td>";
                         echo "<td>".$usu['correo']."</td>";
                         echo "<td>".$usu['telefono']."</td>";
                         echo "<td>".$usu['direccion']."</td>";
