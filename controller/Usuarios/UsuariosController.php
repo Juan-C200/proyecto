@@ -74,9 +74,16 @@ class UsuariosController{
         $sexo = $_POST['sexo'] ?? '';
         $correo= $_POST['correo'] ?? '';
         $telefono= $_POST['telefono'] ?? '';
-        $direccion= $_POST['direccion'] ?? '';
         $contraseña= $_POST['contraseña'] ?? '';
         $confContraseña = $_POST['confContraseña'] ?? '';
+
+        $campo1 = $_POST['campo1'] ?? '';
+        $campo2 = $_POST['campo2'] ?? '';
+        $campo3 = $_POST['campo3'] ?? '';
+        $campo4 = $_POST['campo4'] ?? '';
+        $campo5 = $_POST['campo5'] ?? '';
+
+        $direccion = $campo1." ".$campo2." ".$campo3."# ".$campo4." - ".$campo5;
         
         
         $validacion = true;

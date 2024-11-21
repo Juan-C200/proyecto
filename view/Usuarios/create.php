@@ -1,10 +1,10 @@
-<body class="bg-dark">
+<body class="bg-dark pb-5">
 
-    <div class="container">
+    <div class="container pt-5">
 
         <form action="<?php echo getUrl("Usuarios", "Usuarios", "postCreate"); ?> " method="POST" id="registroForm">
             <div class="row justify-content-center">
-                <h3 class="text-center text-white mb-1 mt-1">Registro Usuario</h3>
+                <h3 class="text-center text-white mb-1 mt-1">Registrar Usuario</h3>
 
                 <p class="text-white"><b>Los campos especificados con (*) son campos obligatorios.</p>
 
@@ -142,17 +142,55 @@
 
                         <div class="col">
                             <div class="row">
-                                <label for="" class="form-label text-white col-md-12">Direccion*</label>
-                                <label for="" class="form-label text-white col-md-1">crra</label>
-                                <input type="text" class="boxDatos col-md-1 mb-3 rounded-2" placeholder="13">
-                                <input type="text" class="boxDatos ms-1 col-md-1 mb-3 rounded-2" placeholder="B">
-                                <input type="text" class="boxDatos ms-1 col-md-1 mb-3 rounded-2" placeholder="bis">
-                                <label for="" class="form-label text-white col-md-1">#</label>
-                                <input type="text" class="boxDatos col-md-1 mb-3 rounded-2" placeholder="72">
-                                <input type="text" class="boxDatos  col-md-1 mb-3 rounded-2" placeholder="A">
-                                <label for="" class="form-label text-white col-md-1">-</label>
-                                <input type="text" class="boxDatos col-md-1 mb-3 rounded-2" placeholder="104">
-                                <input type="text" class="form-control boxDatos mb-3 rounded-5" placeholder="">
+                                <h5 for="" class="form-label text-white pt-4">Dirección</h5>
+
+                                <div class="col-md-4 p-2">
+                                    <label for="" class="form-label text-white">Tipo de vía*</label>
+                                    <select name="campo1" class="form-control boxDatos rounded-5" id="">
+                                        <option value="">Seleccione...</option>
+                                        <option value="Calle">Calle</option>
+                                        <option value="Carrera">Carrera</option>
+                                        <option value="Avenida">Avenida</option>
+                                        <option value="Transversal">Transversal</option>
+                                        <option value="Circular">Circular</option>
+                                        <option value="Diagonal">Diagonal</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-md-4 p-2">
+                                    <label for="" class="form-label text-white">Nombre o número de vía*</label>
+                                    <input type="text" name="campo2" class="form-control boxDatos rounded-5">
+                                </div>
+
+                                <div class="col-md-4 p-2">
+                                    <label for="" class="form-label text-white">Prefijo o cuadrante</label>
+                                    <select name="campo3" class="form-control boxDatos rounded-5" id="">
+                                        <option value="">Seleccione...</option>
+                                        <option value="Calle ">Norte</option>
+                                        <option value="Carrera ">Sur</option>
+                                        <option value="Avenida ">Este</option>
+                                        <option value="Transversal ">Oeste</option>
+                                    </select>
+                                </div>
+
+                                <label for="" class="form-label text-white">Número de placa*</label>
+
+                                <div class="col-md-1">
+                                    <h4 for="" class="form-label text-white m-1">#</h4>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <input type="text" name="campo4" class="form-control boxDatos rounded-5">
+                                </div>
+
+                                <div class="col-md-1">
+                                    <h4 for="" class="form-label text-white m-1">-</h4>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <input type="text" name="campo5" class="form-control boxDatos rounded-5">
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
