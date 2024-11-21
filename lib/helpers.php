@@ -1,4 +1,5 @@
 <?php
+    include_once "../view/partials/head.php";
     session_start();
     function redirect($url) {
         echo "<script type='text/javascript'>"

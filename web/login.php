@@ -1,5 +1,6 @@
 <?php
     include_once '../lib/helpers.php';
+    
 ?>
 
 
@@ -29,7 +30,7 @@
 
                             <div class="input-group mb-4">
 
-                                <span class="input-group-text bg-transparent border-0"><i class="fas fa-user"></i></span>
+                                <span class="input-group-text bg-transparent border-0"><i class="fas fa-user pb-3"></i></span>
                                 <input type="text" class="primer-input form-control mb-3" name ="email" placeholder="Correo">
                             </div>        
                             
@@ -44,7 +45,7 @@
 
                             <div class="text-center">
                                 <input type="submit" value="Acceder" class="btn btn-acceder-submit mt-3"><br><br>
-                                <a href="<?php echo getUrl("Usuarios", "Usuarios", "getCreate");?>" target="_self" class="text-white">¿Ya tienes cuenta?      <b>Registrarse</a>
+                                <a href="<?php echo getUrl("Usuarios", "Usuarios", "getCreate",false, "ajax");?>" target="_self" class="text-white">¿Ya tienes cuenta?      <b>Registrarse</a>
                             </div>
                         </form>
                     </div>

@@ -3,9 +3,9 @@
     include_once "../lib/helpers.php";
     include_once "../view/partials/head.php";
     
-    // if(!isset($_SESSION['auth'])){
-    //     redirect("login.php");
-    // }
+    if(!isset($_SESSION['auth'])){
+        redirect("login.php");
+    }
     unset($_SESSION['errores']);
     
     echo "<body>";

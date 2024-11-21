@@ -34,7 +34,7 @@
 
             $resp= pg_fetch_row($result);
 
-            return $resp[0]+1;
+            return $resp[0] ? $resp[0] + 1 : 1;
             
         }
     

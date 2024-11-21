@@ -39,6 +39,16 @@
             <li><a class="dropdown-item" href="<?php echo getUrl("Acceso", "Acceso", "getLogin");?>">Iniciar sesion</a></li>
           </ul>
         </li>
+        <?php if(isset($_SESSION['auth'])){?>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <?= $_SESSION['usuario_nombre1']?>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="<?php echo getUrl("Acceso", "Acceso", "logout");?>">Cerrar sesion</a></li>            
+          </ul>
+        </li>
+        <?php }?>
       </ul>
     </div>
   </div>

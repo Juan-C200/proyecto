@@ -7,8 +7,8 @@ class UsuariosController{
     public function getUsuarios(){
         $obj = new UsuariosModel();
         $sql = "SELECT * FROM usuarios u
-                JOIN roles r ON r.rol_id = u.rol_id
-                JOIN estados e ON e.estado_id = u.estado_id";
+                JOIN roles r ON r.rol_id = u.usuario_rol
+                JOIN estados e ON e.estado_id = u.usuario_estado";
         $result = $obj->consult($sql);
 
         $usuarios = pg_fetch_all($result);
@@ -30,15 +30,15 @@ class UsuariosController{
         }
         echo $usuarioId;
 
-        $sql="UPDATE usuarios SET estado_id=$statusToModify WHERE usuario_id=$usuarioId";
+        $sql="UPDATE usuarios SET usuario_estado=$statusToModify WHERE usuario_id=$usuarioId";
 
         $ejecutar=$obj->update($sql);
 
         if($ejecutar){
 
             $sql = "SELECT * FROM usuarios u
-                JOIN roles r ON r.rol_id = u.rol_id
-                JOIN estados e ON e.estado_id = u.estado_id";
+                JOIN roles r ON r.rol_id = u.usuario_rol
+                JOIN estados e ON e.estado_id = u.usuario_estado";
             
             $result=$obj->consult($sql);
 
@@ -169,9 +169,11 @@ class UsuariosController{
             $validacion = false;
         }
     
-        if ($segundo_apellido != null && validarCampoLetras($segundo_nombre ) == false) {
-            $_SESSION['errores']['segundo_apellido'] = "El campo 'segundo_apellido' debe contener solo letras.";
-            $validacion = false;
+        if (!empty($segundo_apellidoempty)){
+            if (validarCampoLetras($segundo_nombre ) == false) {
+                $_SESSION['errores']['segundo_apellido'] = "El campo 'segundo_apellido' debe contener solo letras.";
+                $validacion = false;
+            }
         }
     
         
@@ -185,8 +187,8 @@ class UsuariosController{
             $hash = password_hash($contraseña, PASSWORD_DEFAULT);
     
             // SQL para insertar usuario
-            $sql = "INSERT INTO usuarios (usuario_id, tipo_documento, numero_documento, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, sexo, correo, telefono, direccion, contraseña, estado_id, rol_id)
-                    VALUES ($id,'$tipo_documento', '$numero_documento', '$primer_nombre', '$segundo_nombre', '$primer_apellido', '$segundo_apellido', '$sexo', '$correo', '$telefono', '$direccion', '$hash', 1, 1)";
+            $sql = "INSERT INTO usuarios (usuario_id, usuario_tipo_docu, usuario_numero_docu, usuario_nombre1, usuario_nombre2, usuario_apellido1, usuario_apellido2, usuario_genero, usuario_telefono, usuario_correo, usuario_direccion, usuario_contrasena, usuario_rol, usuario_estado)
+                    VALUES ($id,'$tipo_documento', '$numero_documento', '$primer_nombre', '$segundo_nombre', '$primer_apellido', '$segundo_apellido', '$sexo', '$telefono', '$correo', '$direccion', '$hash', 1, 1)";
     
             // Ejecutar SQL
             $ejecutar = $obj->insert($sql);
@@ -211,7 +213,7 @@ class UsuariosController{
         $email = $_POST['email'];
         $contraseña = $_POST['password'];
 
-        $sql = "SELECT * FROM usuarios WHERE correo='$email'";
+        $sql = "SELECT * FROM usuarios WHERE usuario_correo='$email'";
 
         $result = $obj->consult($sql);
 
@@ -222,14 +224,21 @@ class UsuariosController{
 
         if (count($usuario)>0){
             foreach($usuario as $usu){
-                if(password_verify($contraseña, $usu['contraseña'])){
-                    $_SESSION['primer_nombre'] = $usu['primer_nombre'];
-                    $_SESSION['segundo_nombre'] = $usu['segundo_nombre'];
-                    $_SESSION['primer_apellido'] = $usu['primer_apellido'];
-                    $_SESSION['segundo_apellido'] = $usu['segundo_apellido'];
-                    $_SESSION['correo'] = $usu['correo'];
-                    $_SESSION['telefono'] = $usu['telefono'];
-                    $_SESSION['direccion'] = $usu['direccion'];
+                if(password_verify($contraseña, $usu['usuario_contrasena'])){
+                    $_SESSION['usuario_id'] = $usu['usuario_id'];
+                    $_SESSION['usuario_tipo_docu'] = $usu['usuario_tipo_docu'];
+                    $_SESSION['usuario_numero_docu'] = $usu['usuario_numero_docu'];
+                    $_SESSION['usuario_nombre1'] = $usu['usuario_nombre1'];
+                    $_SESSION['usuario_nombre2'] = $usu['usuario_nombre2'];
+                    $_SESSION['usuario_apellido1'] = $usu['usuario_apellido1'];
+                    $_SESSION['usuario_apellido2'] = $usu['usuario_apellido2'];
+                    $_SESSION['usuario_genero'] = $usu['usuario_genero'];
+                    $_SESSION['usuario_telefono'] = $usu['usuario_telefono'];
+                    $_SESSION['usuario_correo'] = $usu['usuario_correo'];
+                    $_SESSION['usuario_direccion'] = $usu['usuario_direccion'];
+                    $_SESSION['usuario_contrasena'] = $usu['usuario_contrasena'];
+                    $_SESSION['usuario_rol'] = $usu['usuario_rol'];
+                    $_SESSION['usuario_estado'] = $usu['usuario_estado'];
                     $_SESSION['auth'] = "ok";
                     redirect("index.php");
                 } else {
