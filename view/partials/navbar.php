@@ -45,7 +45,8 @@
             <?= $_SESSION['usuario_nombre1']?>
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<?php echo getUrl("Acceso", "Acceso", "logout");?>">Cerrar sesion</a></li>            
+            <li><a class="dropdown-item" href="<?php echo getUrl("Usuarios", "Usuarios", "getPanelAdmin");?>">Panel Administrativo</a></li>             
+            <li><a class="dropdown-item" href="<?php echo getUrl("Usuarios", "Usuarios", "logout");?>">Cerrar sesion</a></li>            
           </ul>
         </li>
         <?php }?>

@@ -17,6 +17,47 @@ class UsuariosController{
         include_once '../view/usuarios/consult.php';
     }
 
+    public function getUpdate(){
+        $obj = new UsuariosModel();
+
+        $usuario_id= $_GET['usuario_id'];
+
+        $sql = "SELECT * FROM usuarios WHERE usuario_id = $usuario_id";
+        $usuarios = $obj->consult($sql);
+
+
+        $sql = "SELECT * FROM roles";
+        $roles = $obj->consult($sql);
+        
+
+        include_once '../view/Usuarios/update.php';
+
+    }
+
+    public function postUpdate(){
+
+        $obj = new UsuariosModel();
+
+        $usuarioNombre = $_POST['usuarioNombre'];
+        $usuarioApellido = $_POST['usuarioApellido'];
+        $usuarioEmail = $_POST['usuarioEmail'];
+        $usuarioClave = $_POST['usuarioClave'];
+        $rolId = $_POST['rolId'];
+        $usuarioId = $_POST['usuarioId'];
+
+        $sql = "UPDATE usuarios SET usuarioNombre = '$usuarioNombre', usuarioApellido = '$usuarioApellido', usuarioEmail = '$usuarioEmail', usuarioClave = '$usuarioClave', rolId = $rolId WHERE usuarioId = $usuarioId";
+        $ejecutar = $obj->insert($sql);
+        echo $sql;
+
+        if($ejecutar){
+            redirect(getUrl("Usuarios","Usuarios","getUsuarios"));
+        }else{
+            echo "Se ha producido un error al insertar";
+        }
+
+
+    }
+
     public function postUpdateStatus(){
         $obj = new UsuariosModel();
 
@@ -213,7 +254,9 @@ class UsuariosController{
         $email = $_POST['email'];
         $contraseña = $_POST['password'];
 
-        $sql = "SELECT * FROM usuarios WHERE usuario_correo='$email'";
+        $sql = "SELECT * FROM usuarios u
+                JOIN roles r ON r.rol_id = u.usuario_rol
+                JOIN estados e ON e.estado_id = u.usuario_estado WHERE u.usuario_correo='$email' AND u.usuario_estado=1";
 
         $result = $obj->consult($sql);
 
@@ -238,6 +281,7 @@ class UsuariosController{
                     $_SESSION['usuario_direccion'] = $usu['usuario_direccion'];
                     $_SESSION['usuario_contrasena'] = $usu['usuario_contrasena'];
                     $_SESSION['usuario_rol'] = $usu['usuario_rol'];
+                    $_SESSION['rol_nombre'] = $usu['rol_nombre'];
                     $_SESSION['usuario_estado'] = $usu['usuario_estado'];
                     $_SESSION['auth'] = "ok";
                     redirect("index.php");
@@ -259,6 +303,11 @@ class UsuariosController{
     public function logout(){
         session_destroy();
         redirect("login.php");
+        
+    }
+
+    public function getPanelAdmin(){
+        include_once '../view/Usuarios/panelAdmin.php';
         
     }
 }
