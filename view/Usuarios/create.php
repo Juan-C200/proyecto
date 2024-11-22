@@ -16,9 +16,12 @@
                         <select type="text" class="form-control boxDatos rounded-5" id="tipoDocumento"
                             name="tipo_documento">
                             <option value="">Seleccione...</option>
-                            <option value="Cedula de ciudadania">Cedula de ciudadania</option>
-                            <option value="Cedula de extranjeria">Cedula de extranjeria</option>
-                            <option value="Pasaporte">Pasaporte</option>
+                            <?php 
+                                foreach($tipos_documentos as $tipo_documento){
+                                    echo "<option value='".$tipo_documento['tipo_docu_id']."'>".$tipo_documento['tipo_docu_nombre']."</option>";
+                                }    
+                            ?>
+                            
                         </select>
 
                         <?php

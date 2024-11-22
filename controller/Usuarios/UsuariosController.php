@@ -8,7 +8,8 @@ class UsuariosController{
         $obj = new UsuariosModel();
         $sql = "SELECT * FROM usuarios u
                 JOIN roles r ON r.rol_id = u.usuario_rol
-                JOIN estados e ON e.estado_id = u.usuario_estado";
+                JOIN estados e ON e.estado_id = u.usuario_estado
+                JOIN tipo_documento tp ON tp.tipo_docu_id = u.usuario_tipo_docu_id";
         $result = $obj->consult($sql);
 
         $usuarios = pg_fetch_all($result);
@@ -19,16 +20,11 @@ class UsuariosController{
 
     public function getUpdate(){
         $obj = new UsuariosModel();
+        $sql = "SELECT * FROM tipo_documento";
+            
+        $result=$obj->consult($sql);
 
-        $usuario_id= $_GET['usuario_id'];
-
-        $sql = "SELECT * FROM usuarios WHERE usuario_id = $usuario_id";
-        $usuarios = $obj->consult($sql);
-
-
-        $sql = "SELECT * FROM roles";
-        $roles = $obj->consult($sql);
-        
+        $tipos_documentos = pg_fetch_all($result);
 
         include_once '../view/Usuarios/update.php';
 
@@ -92,7 +88,15 @@ class UsuariosController{
 
     }
 
+
     public function getCreate(){
+
+        $obj = new UsuariosModel();
+        $sql = "SELECT * FROM tipo_documento";
+            
+        $result=$obj->consult($sql);
+
+        $tipos_documentos = pg_fetch_all($result);
 
         include_once "../view/usuarios/create.php";
     }
@@ -100,7 +104,7 @@ class UsuariosController{
     function postCreate() {
     
        
-            unset($_SESSION['errores']);
+        unset($_SESSION['errores']);
         
         
         $obj=new UsuariosModel();
@@ -134,9 +138,6 @@ class UsuariosController{
         // Validación de cada campo
         if (empty($tipo_documento)) {
             $_SESSION['errores']['tipo_documento'] = "El campo 'tipo de documento' es requerido.";
-            $validacion = false;
-        }else if (validarCampoNumeros($tipo_documento)) {
-            $_SESSION['errores']['tipo_documento'] = "El campo 'tipo de documento' solo debe contener letras.";
             $validacion = false;
         }
     
@@ -228,8 +229,8 @@ class UsuariosController{
             $hash = password_hash($contraseña, PASSWORD_DEFAULT);
     
             // SQL para insertar usuario
-            $sql = "INSERT INTO usuarios (usuario_id, usuario_tipo_docu, usuario_numero_docu, usuario_nombre1, usuario_nombre2, usuario_apellido1, usuario_apellido2, usuario_genero, usuario_telefono, usuario_correo, usuario_direccion, usuario_contrasena, usuario_rol, usuario_estado)
-                    VALUES ($id,'$tipo_documento', '$numero_documento', '$primer_nombre', '$segundo_nombre', '$primer_apellido', '$segundo_apellido', '$sexo', '$telefono', '$correo', '$direccion', '$hash', 1, 1)";
+            $sql = "INSERT INTO usuarios (usuario_id, usuario_tipo_docu_id, usuario_numero_docu, usuario_nombre1, usuario_nombre2, usuario_apellido1, usuario_apellido2, usuario_genero, usuario_telefono, usuario_correo, usuario_direccion, usuario_contrasena, usuario_rol, usuario_estado)
+                    VALUES ($id, $tipo_documento, '$numero_documento', '$primer_nombre', '$segundo_nombre', '$primer_apellido', '$segundo_apellido', '$sexo', '$telefono', '$correo', '$direccion', '$hash', 1, 1)";
     
             // Ejecutar SQL
             $ejecutar = $obj->insert($sql);
@@ -269,7 +270,7 @@ class UsuariosController{
             foreach($usuario as $usu){
                 if(password_verify($contraseña, $usu['usuario_contrasena'])){
                     $_SESSION['usuario_id'] = $usu['usuario_id'];
-                    $_SESSION['usuario_tipo_docu'] = $usu['usuario_tipo_docu'];
+                    $_SESSION['usuario_tipo_docu_id'] = $usu['usuario_tipo_docu_id'];
                     $_SESSION['usuario_numero_docu'] = $usu['usuario_numero_docu'];
                     $_SESSION['usuario_nombre1'] = $usu['usuario_nombre1'];
                     $_SESSION['usuario_nombre2'] = $usu['usuario_nombre2'];

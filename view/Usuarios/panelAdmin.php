@@ -9,7 +9,7 @@
             </div>
             
                 <div class="boxDatos col-md-6  border rounded-3 ms-4 p-4 ">
-                    <a href="<?php echo getUrl("Usuarios","Usuarios","getUsuarios"); ?>">
+                    <a href="<?php echo getUrl("Usuarios","Usuarios","getUpdate",array("usuario_id"=>$_SESSION['usuario_id'])); ?>">
                         <h1 class="text-white text-center">Editar Perfil</h2>
                     </a>
                 </div>

@@ -1,14 +1,10 @@
-<?php
-    foreach($usuario as $usu){
-
-?>
 <body class="bg-dark pb-5">
 
     <div class="container pt-5">
 
-        <form action="<?php echo getUrl("Usuarios", "Usuarios", "postUpdate"); ?> " method="POST" id="registroForm">
+        <form action="<?php echo getUrl("Usuarios", "Usuarios", "postCreate"); ?> " method="POST" id="registroForm">
             <div class="row justify-content-center">
-                <h3 class="text-center text-white mb-1 mt-1">Editar Perfil</h3>
+                <h3 class="text-center text-white mb-1 mt-1">Editar perfil</h3>
 
                 <p class="text-white"><b>Los campos especificados con (*) son campos obligatorios.</p>
 
@@ -20,9 +16,19 @@
                         <select type="text" class="form-control boxDatos rounded-5" id="tipoDocumento"
                             name="tipo_documento">
                             <option value="">Seleccione...</option>
-                            <option value="Cedula de ciudadania">Cedula de ciudadania</option>
-                            <option value="Cedula de extranjeria">Cedula de extranjeria</option>
-                            <option value="Pasaporte">Pasaporte</option>
+                            <?php 
+                                
+                                foreach($tipos_documentos as $tipo_documento){
+                                    if($_SESSION['usuario_tipo_docu_id'] == $tipo_documento['tipo_docu_id']){
+                                        $selected="selected";
+                                    }else{
+                                        $selected="";
+                                    }
+                                    
+                                    echo "<option value='".$tipo_documento['tipo_docu_id']."' ".$selected.">".$tipo_documento['tipo_docu_nombre']."</option>";
+                                }    
+                            ?>
+                            
                         </select>
 
                         <?php
@@ -36,7 +42,7 @@
                         <label for="numeroDocumento" class="form-label text-white">Numero Documento*</label>
                         <input type="text" class="form-control boxDatos rounded-5" id="numeroDocumento"
                             name="numero_documento"
-                            value="<?php echo isset($_POST['numero_documento']) ? htmlspecialchars($_POST['numero_documento']) : ''; ?>">
+                            value="<?php echo $_SESSION['usuario_numero_docu']; ?>">
 
                         <?php
                         if (isset($_SESSION['errores']['numero_documento'])) {
@@ -50,7 +56,7 @@
                         <label for="primer_nombre" class="form-label text-white">Primer Nombre*</label>
                         <input type="text" class="form-control boxDatos rounded-5" id="primer_nombre"
                             name="primer_nombre"
-                            value="<?php echo isset($_POST['primer_nombre']) ? htmlspecialchars($_POST['primer_nombre']) : ''; ?>">
+                            value="<?php echo $_SESSION['usuario_nombre1']; ?>">
 
                         <?php
                         if (isset($_SESSION['errores']['primer_nombre'])) {
@@ -63,7 +69,7 @@
                         <label for="segundo_nombre" class="form-label text-white">Segundo Nombre</label>
                         <input type="text" class="form-control boxDatos rounded-5" id="segundo_nombre"
                             name="segundo_nombre"
-                            value="<?php echo isset($_POST['segundo_nombre']) ? htmlspecialchars($_POST['segundo_nombre']) : ''; ?>">
+                            value="<?php echo $_SESSION['usuario_nombre2']; ?>">
                         <?php
                         if (isset($_SESSION['errores']['segundo_nombre'])) {
                             echo "<p class='text-danger'>" . $_SESSION['errores']['segundo_nombre'] . "</p>";
@@ -76,7 +82,7 @@
                         <label for="primer_apellido" class="form-label text-white">Primer Apellido*</label>
                         <input type="text" class="form-control boxDatos rounded-5" id="primer_apellido"
                             name="primer_apellido"
-                            value="<?php echo isset($_POST['primer_apellido']) ? htmlspecialchars($_POST['primer_apellido']) : ''; ?>">
+                            value="<?php echo $_SESSION['usuario_apellido1']; ?>">
                         <?php
                         if (isset($_SESSION['errores']['primer_apellido'])) {
                             echo "<p class='text-danger'>" . $_SESSION['errores']['primer_apellido'] . "</p>";
@@ -89,7 +95,7 @@
                         <label for="segundo_apellido" class="form-label text-white col-md-8">Segundo Apellido</label>
                         <input type="text" class="form-control boxDatos rounded-5" id="segundo_apellido"
                             name="segundo_apellido"
-                            value="<?php echo isset($_POST['segundo_apellido']) ? htmlspecialchars($_POST['segundo_apellido']) : ''; ?>">
+                            value="<?php echo $_SESSION['usuario_apellido2'];?>">
                         <?php
                         if (isset($_SESSION['errores']['segundo_apellido'])) {
                             echo "<p class='error text-danger'>" . $_SESSION['errores']['segundo_apellido'] . "</p>";
@@ -103,8 +109,21 @@
                         <select type="text" class="form-control boxDatos rounded-5" id="genero"
                             name="sexo">
                         <option value="">Seleccione...</option>
-                        <option value="Masculino">Masculino</option>
-                        <option value="Femenino">Femenino</option>
+
+                        <?php 
+
+                            $generos =array("Masculino","Femenino");
+                            for($i = 0; $i < count($generos); $i++){
+                                if($_SESSION['usuario_genero'] == $generos[$i]){
+                                    $selected="selected";
+                                }else{
+                                    $selected="";
+                                }
+                                $id=$i + 1;
+                                echo "<option value='".$id."' ".$selected.">".$generos[$i]."</option>";
+                            }    
+                        
+                        ?>
                         </select>
                         <?php
                         if (isset($_SESSION['errores']['sexo'])) {
@@ -122,7 +141,7 @@
                         <div class="col-md-6">
                             <label for="correo" class="form-label text-white col-md-6">Correo*</label>
                             <input type="email" class="form-control boxDatos rounded-5" id="correo" name="correo"
-                                value="<?php echo isset($_POST['correo']) ? htmlspecialchars($_POST['correo']) : ''; ?>">
+                                value="<?php echo $_SESSION['usuario_correo'];?>">
 
                             <?php
                             if (isset($_SESSION['errores']['correo'])) {
@@ -135,7 +154,7 @@
                             <label for="telefono" class="form-label text-white col-md-8">Telefono o Celular*</label>
                             <input type="text" class="form-control boxDatos rounded-5" id="telefono"
                                 name="telefono"
-                                value="<?php echo isset($_POST['telefono']) ? htmlspecialchars($_POST['telefono']) : ''; ?>">
+                                value="<?php echo $_SESSION['usuario_telefono'];?>">
                             <?php
                             if (isset($_SESSION['errores']['telefono'])) {
                                 echo "<p class='text-danger'>" . $_SESSION['errores']['telefono'] . "</p>";
@@ -152,28 +171,62 @@
                                     <label for="" class="form-label text-white">Tipo de vía*</label>
                                     <select name="campo1" class="form-control boxDatos rounded-5" id="">
                                         <option value="">Seleccione...</option>
-                                        <option value="Calle">Calle</option>
-                                        <option value="Carrera">Carrera</option>
-                                        <option value="Avenida">Avenida</option>
-                                        <option value="Transversal">Transversal</option>
-                                        <option value="Circular">Circular</option>
-                                        <option value="Diagonal">Diagonal</option>
+
+                                        <?php 
+                                            $tipos_via = array("Calle","Carrera","Avenida","Transversal","Circular","Diagonal");
+                                            $direccion =explode(" ",$_SESSION['usuario_direccion']);
+
+
+                                            //sacar el primer numero de placa
+                                            $posicion = count($direccion) - 3;
+                                            $num_placa1 = $direccion[$posicion];
+
+                                            //sacar el segundo numero de placa
+                                            $posicion = count($direccion) - 1;
+                                            $num_placa2 = $direccion[$posicion];
+                                            
+                                            
+
+                                            for($i = 0; $i < count($tipos_via); $i++){
+                                                if($direccion[0] == $tipos_via[$i]){
+                                                    $selected="selected";
+                                                }else{
+                                                    $selected="";
+                                                }
+                                                
+                                                echo "<option value='".$tipos_via[$i]."' ".$selected.">".$tipos_via[$i]."</option>";
+                                            }    
+                                        
+                                        ?>
                                     </select>
                                 </div>
                                 
                                 <div class="col-md-4 p-2">
                                     <label for="" class="form-label text-white">Nombre o número de vía*</label>
-                                    <input type="text" name="campo2" class="form-control boxDatos rounded-5">
+                                    <input type="text" value="<?php echo $direccion[1];?>" name="campo2" class="form-control boxDatos rounded-5">
                                 </div>
 
                                 <div class="col-md-4 p-2">
                                     <label for="" class="form-label text-white">Prefijo o cuadrante</label>
-                                    <select name="campo3" class="form-control boxDatos rounded-5" id="">
+                                    <select name="campo3" class="form-control boxDatos rounded-5" id="prefijo">
                                         <option value="">Seleccione...</option>
-                                        <option value="Calle ">Norte</option>
-                                        <option value="Carrera ">Sur</option>
-                                        <option value="Avenida ">Este</option>
-                                        <option value="Transversal ">Oeste</option>
+
+                                        <?php 
+                                            echo var_dump($direccion);
+                                            $prefijos = array("Norte","Sur","Este","Oeste");
+
+                                            for($i = 0; $i < count($prefijos); $i++){
+                                                if($direccion[2] == $prefijos[$i]){
+                                                    $selected="selected";
+                                                }else{
+                                                    $selected="";
+                                                }
+                                                
+                                                echo "<option value='".$prefijos[$i]."' ".$selected.">".$prefijos[$i]."</option>";
+                                            }    
+                                        
+                                        ?>
+
                                     </select>
                                 </div>
 
@@ -184,7 +237,7 @@
                                 </div>
 
                                 <div class="col-md-3">
-                                    <input type="text" name="campo4" class="form-control boxDatos rounded-5">
+                                    <input type="text" value="<?php echo $num_placa1;?>" name="campo4" class="form-control boxDatos rounded-5">
                                 </div>
 
                                 <div class="col-md-1">
@@ -192,7 +245,7 @@
                                 </div>
 
                                 <div class="col-md-3">
-                                    <input type="text" name="campo5" class="form-control boxDatos rounded-5">
+                                    <input type="text" value="<?php echo $num_placa2;?>" name="campo5" class="form-control boxDatos rounded-5">
                                 </div>
                                 
                             </div>
@@ -251,9 +304,6 @@
 
         </form>
     </div>
-<?php
-    }
-?>
 
     <script>
         // Función para alternar la visibilidad de la contraseña

@@ -28,7 +28,7 @@
                 foreach($usuarios as $usu){
                     echo "<tr>";
                         echo "<td>".$usu['usuario_id']."</td>";
-                        echo "<td>".$usu['usuario_tipo_docu']."</td>";
+                        echo "<td>".$usu['tipo_docu_nombre']."</td>";
                         echo "<td>".$usu['usuario_numero_docu']."</td>";
                         echo "<td>".$usu['usuario_nombre1']." ".$usu['usuario_nombre2']."</td>";
                         echo "<td>".$usu['usuario_apellido1']." ".$usu['usuario_apellido2']."</td>";
