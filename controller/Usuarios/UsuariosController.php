@@ -115,10 +115,10 @@ class UsuariosController{
         }
     
         if (empty($numero_documento)) {
-            $_SESSION['errores']['numero_documento'] = "El campo 'numero_documento' es requerido.";
+            $_SESSION['errores']['numero_documento'] = "El campo 'Numero de documento' es requerido.";
             $validacion = false;
         }else if (validarCampoNumeros($numero_documento) == false) {
-            $_SESSION['errores']['numero_documento'] = "El campo 'numero_documento' solo debe contener numeros.";
+            $_SESSION['errores']['numero_documento'] = "El campo 'Numero de documento' solo debe contener numeros.";
             $validacion = false;
         }
     
@@ -186,13 +186,13 @@ class UsuariosController{
     
             if ($ejecutar) {
                 unset($_SESSION['errores']); 
-                redirect(getUrl("Usuarios","Usuarios","getUpdate",array("usu_id"=>$id   )));
+                redirect(getUrl("Usuarios","Usuarios","getUpdate",array("usu_id"=>$id)));
                 
             } else {
                 
             }
         } else {
-            include_once '../view/Usuarios/update.php';
+            redirect(getUrl("Usuarios","Usuarios","getUpdate",array("usu_id"=>$id),"ajax"));
             
         }
          

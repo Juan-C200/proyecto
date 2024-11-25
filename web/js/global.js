@@ -80,7 +80,7 @@
                     console.log(data);
                     if(data.includes("correcta")){
                         $("#form_update").submit();
-                        alert("Se actualizo el usuario correctamente.");
+                        alert("La contraseña es correcta.");
                     }else{
                         
                         $('#error_contraseña').removeClass('d-none');
