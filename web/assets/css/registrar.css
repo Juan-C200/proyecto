@@ -1,10 +1,5 @@
-body {
-  /* background-image: url('../img/fondo4.jpg'); */
-  /* background-repeat: no-repeat; */
-  
-    
-      
-      
+.blur{
+  filter: blur(5px) !important;
 }
 
 h4{
@@ -25,6 +20,7 @@ p{
 .container-scroll{
   max-height: 650px;
 }
+
 
 
 

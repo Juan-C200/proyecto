@@ -69,7 +69,7 @@
     }
 
     function validarCampoLetras($input){
-        $patron="/^[a-zA-Z\s]+$/";
+        $patron = "/^[a-zA-ZÑñ\s]+$/";
         return preg_match($patron,$input) === 1;
     }
     function validarCampoNumeros($input){

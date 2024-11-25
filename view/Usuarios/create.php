@@ -18,7 +18,7 @@
                             <option value="">Seleccione...</option>
                             <?php 
                                 foreach($tipos_documentos as $tipo_documento){
-                                    echo "<option value='".$tipo_documento['tipo_docu_id']."'>".$tipo_documento['tipo_docu_nombre']."</option>";
+                                    echo "<option value='".$tipo_documento['tipo_docu_id']."'>".$tipo_documento['tipo_docu_codigo']." - ".$tipo_documento['tipo_docu_nombre']."</option>";
                                 }    
                             ?>
                             
@@ -112,6 +112,41 @@
                         ?>
 
                     </div>
+
+                    <?php
+                        if (isset($_SESSION['auth'])) {
+                            if($_SESSION['rol_nombre'] == "Administrador"){
+                                
+                    ?>  
+
+                                <div class="col-md-3 p-2">
+                                    <label for="rol" class="form-label text-white">Rol*</label>
+                                    <select type="text" class="form-control boxDatos rounded-5"
+                                        name="rol_id">
+                                    <?php 
+                                        foreach($roles as $rol){
+                                            echo "<option value='".$rol['rol_id']."'>".$rol['rol_nombre']."</option>";
+                                        }    
+                                    ?>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3 p-2">
+                                    <label for="estado" class="form-label text-white">Estado*</label>
+                                    <select type="text" class="form-control boxDatos rounded-5"
+                                        name="est_id">
+                                    <?php 
+                                        foreach($estados as $estado){
+                                            echo "<option value='".$estado['est_id']."'>".$estado['est_nombre']."</option>";
+                                        }    
+                                    ?>
+                                    </select>
+                                </div>
+
+                    <?php     
+                            }
+                        }
+                    ?>
                 </div>
 
                 <div class="row mt-3 ms-0">

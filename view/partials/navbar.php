@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Adso571</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,15 +40,15 @@
           </ul>
         </li>
         <?php if(isset($_SESSION['auth'])){?>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <?= $_SESSION['usuario_nombre1']?>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<?php echo getUrl("Usuarios", "Usuarios", "getPanelAdmin");?>">Panel Administrativo</a></li>             
-            <li><a class="dropdown-item" href="<?php echo getUrl("Usuarios", "Usuarios", "logout");?>">Cerrar sesion</a></li>            
-          </ul>
-        </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <?= $_SESSION['usu_nombre1']?>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="<?php echo getUrl("Usuarios", "Usuarios", "getPanelAdmin");?>">Panel Administrativo</a></li>             
+                    <li><a class="dropdown-item" href="<?php echo getUrl("Usuarios", "Usuarios", "logout");?>">Cerrar sesion</a></li>            
+                  </ul>
+                </li>
         <?php }?>
       </ul>
     </div>

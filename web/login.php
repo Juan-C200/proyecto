@@ -1,6 +1,6 @@
 <?php
     include_once '../lib/helpers.php';
-    
+
 ?>
 
 
@@ -40,8 +40,14 @@
                                 <span class="input-group-text bg-transparent" id="t-password" style="cursor: pointer;">
                                     <i class="fas fa-eye" id="eye-icon"></i>
                                 </span>
+                                
                             </div>
-                            
+                            <?php
+                                if(isset($_SESSION['errores'])){
+                                    echo "<p>".$_SESSION['errores']."</p>";
+                                }
+                                    
+                                ?>
 
                             <div class="text-center">
                                 <input type="submit" value="Acceder" class="btn btn-acceder-submit mt-3"><br><br>

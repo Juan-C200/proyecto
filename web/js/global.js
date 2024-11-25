@@ -1,78 +1,24 @@
     $(document).ready(function(){
-
-        $('#form').submit(function(event){
-
-            //evita el envio del formulario si hay errores
-            event.preventDefault();
-            let mensajes=[];
-
-            //limpia mensajes de errores previos
-            $('#error').html('');
-
-            //bandera para verificar si hay errores
-            let esValido = true;
-
-            //validar campo de nombre
-            const nombre= $('#nombre').val().trim();
-            if(nombre === ""){
-                mensajes.push("El campo Nombre es obligatorio");
-                esValido = false;
-
-            }
-
-            //validar campo apellido
-            const apellido= $('#apellido').val().trim();
-            if(apellido === ""){
-                mensajes.push("El campo Apellido es obligatorio");
-                esValido = false;
-
-            }
-
-            if(esValido){
-                $('#error').fadeOut(300);
-                this.submit();
-            }else{
-                $('#error').fadeIn(400);
-                $('#error').html(mensajes.map(msg =>  `${msg}<br>`).join(''));
-                $('#error').removeClass('d-none');
-                
-            }
-
-
-        });
-
+        
         $(document).on('keyup',"#buscar", function(){
 
             let buscar = $(this).val();
             let url = $(this).attr("data-url");
 
-            $.ajax({
-                url : url,
-                type : 'POST',
-                data : {'buscar': buscar},
-                success : function(data){
-                    $('tbody').html(data);
-                    console.log(data);
-                }
-            });
+            setTimeout(()=>{
+                $.ajax({
+                    url : url,
+                    type : 'POST',
+                    data : {'buscar': buscar},
+                    success : function(data){
+                        $('tbody').html(data);
+                        
+                    }
+                });
+            },1000);
         });
 
-        $(document).on('keyup',"#buscarTarea", function(){
-
-            let buscar = $(this).val();
-            let url = $(this).attr("data-url");
-
-            $.ajax({
-                url : url,
-                type : 'POST',
-                data : {'buscar': buscar},
-                success : function(data){
-                    $('tbody').html(data);
-                    console.log(data);
-                }
-            });
-        });
-
+        
         $(document).on('click',"#cambiar_estado", function(){
             let id = $(this).attr("data-id");
             let url = $(this).attr("data-url");
@@ -92,42 +38,61 @@
             });
         });
 
-        // $(document).on('click',"#cambiar_estado_tarea", function(){
-        //     let id = $(this).attr("data-id");
-        //     let url = $(this).attr("data-url");
-        //     let tarea = $(this).attr("data-tarea");
-            
 
-        //     $.ajax({
-        //         url:url,
-        //         data:{id, tarea},
-        //         type: 'POST',
-        //         success: function(data){
-        //             $('tbody').html(data);
-        //             console.log(data);
-        //         }
+        //abrir modal
+        $(document).on('click',"#boton_editar", function(){
 
-        //     });
-        // });
+            event.preventDefault();
 
-        $(document).on("click","#copyList",function(){
-            let listUser = $("#listUser").html();
-           
-            $("#responsables").append(
-                "<div class='col-md-4 form-group'>"+
-                    "<label>Responsable</label>"+
-                    "<div class='row'>"+
-                        "<div class='col-md-10'>"+listUser+"</div>"+
-                        "<div class='col-md-2'>"+
-                            "<button class='btn btn-danger' type='button' id='removeList'>-</button>"+
-                        "</div>"+
-                    "</div>"+
-                "</div>"
-            );
+            $('#modal').fadeIn(400);
+            $('#modal').removeClass('d-none');
+            $('#container').css({
+                            "filter": "blur(5px)",
+                            "transition": "filter 0.3s ease"
+                        });
+            $('#navbar').css({
+                            "filter": "blur(5px)",
+                            "transition": "filter 0.3s ease"
+                        });
+
         });
 
-        $(document).on("click","#removeList",function(){
-            $(this).parent().parent().parent().remove();
+        //cerrar modal
+        $(document).on('click',"#close", function(){
+            $('#modal').fadeOut(400);
+            $('#modal').addClass('d-none');
+            $('#container ').removeAttr("style");
+            $('#navbar ').removeAttr("style");
         });
-    });    
+
+        $('#validate_password').click(function(){
+            let url = $(this).attr("data-url");
+            let pass = $('#contraseña').val();
+            console.log(pass);
+
+            axios.post(url, { password: pass }, { headers: { 'Content-Type': 'application/json' } })
+            .then(function (response) {
+                console.log("Respuesta:", response);
+                if (response.data.status === "success") {
+                    $("#form_update").submit();
+                    alert(response.data.message);
+                } else {
+                    alert(response.data.message || "Contraseña incorrecta");
+                }
+            })
+            .catch(function (error) {
+                console.error("Error en la solicitud:", error);
+            });
+
+             
+        });
+
+
         
+
+        
+        
+        
+
+        
+    });    

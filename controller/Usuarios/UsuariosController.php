@@ -1,5 +1,4 @@
 <?php
-
 include_once '../model/Usuarios/UsuariosModel.php';
 
 class UsuariosController{
@@ -7,9 +6,9 @@ class UsuariosController{
     public function getUsuarios(){
         $obj = new UsuariosModel();
         $sql = "SELECT * FROM usuarios u
-                JOIN roles r ON r.rol_id = u.usuario_rol
-                JOIN estados e ON e.estado_id = u.usuario_estado
-                JOIN tipo_documento tp ON tp.tipo_docu_id = u.usuario_tipo_docu_id";
+                JOIN roles r ON r.rol_id = u.usu_rol
+                JOIN estados e ON e.est_id = u.usu_estado
+                JOIN tipo_documento tp ON tp.tipo_docu_id = u.usu_tipo_docu";
         $result = $obj->consult($sql);
 
         $usuarios = pg_fetch_all($result);
@@ -20,62 +19,214 @@ class UsuariosController{
 
     public function getUpdate(){
         $obj = new UsuariosModel();
-        $sql = "SELECT * FROM tipo_documento";
-            
-        $result=$obj->consult($sql);
 
+        $usu_id= $_GET['usu_id'];
+
+        $sql = "SELECT * FROM usuarios u
+                JOIN roles r ON r.rol_id = u.usu_rol
+                JOIN estados e ON e.est_id = u.usu_estado 
+                JOIN tipo_documento tp ON tp.tipo_docu_id = u.usu_tipo_docu WHERE u.usu_id=$usu_id";
+        $result=$obj->consult($sql);
+        $usuarios = pg_fetch_all($result);
+
+        $sql = "SELECT * FROM tipo_documento";
+        $result=$obj->consult($sql);
         $tipos_documentos = pg_fetch_all($result);
+
+        $sql = "SELECT * FROM estados";  
+        $result=$obj->consult($sql);
+        $estados = pg_fetch_all($result);
+
+        $sql = "SELECT * FROM roles";  
+        $result=$obj->consult($sql);
+        $roles = pg_fetch_all($result);
 
         include_once '../view/Usuarios/update.php';
 
     }
 
-    public function postUpdate(){
+    function validatePassword(){
+        
+        header('Content-Type: application/json');
 
-        $obj = new UsuariosModel();
+        try {
+            // Captura el cuerpo de la solicitud y decodifica el JSON
+            $input = json_decode(file_get_contents('php://input'), true);
 
-        $usuarioNombre = $_POST['usuarioNombre'];
-        $usuarioApellido = $_POST['usuarioApellido'];
-        $usuarioEmail = $_POST['usuarioEmail'];
-        $usuarioClave = $_POST['usuarioClave'];
-        $rolId = $_POST['rolId'];
-        $usuarioId = $_POST['usuarioId'];
+            // Verifica que se recibió la contraseña
+            if (isset($input['password'])) {
+                $password = $input['password'];
 
-        $sql = "UPDATE usuarios SET usuarioNombre = '$usuarioNombre', usuarioApellido = '$usuarioApellido', usuarioEmail = '$usuarioEmail', usuarioClave = '$usuarioClave', rolId = $rolId WHERE usuarioId = $usuarioId";
-        $ejecutar = $obj->insert($sql);
-        echo $sql;
-
-        if($ejecutar){
-            redirect(getUrl("Usuarios","Usuarios","getUsuarios"));
-        }else{
-            echo "Se ha producido un error al insertar";
+                // Simula la verificación de la contraseña
+                $hashedPassword = $_SESSION['usu_contrasena']; // Contraseña hasheada en la sesión
+                if (password_verify($password, $hashedPassword)) {
+                    echo json_encode(["status" => "success", "message" => "Contraseña correcta"]);
+                } else {
+                    echo json_encode(["status" => "error", "message" => "Contraseña incorrecta"]);
+                }
+            } else {
+                echo json_encode(["status" => "error", "message" => "No se recibió la contraseña"]);
+            }
+        } catch (Exception $e) {
+            echo json_encode(["status" => "error", "message" => "Error en el servidor: " . $e->getMessage()]);
         }
 
 
     }
 
+    function postUpdate() {
+        unset($_SESSION['errores']);
+        
+        
+        $obj=new UsuariosModel();
+    
+        $id = $_POST['id'];
+        $tipo_documento = $_POST['tipo_documento'] ?? '';
+        $numero_documento = $_POST['numero_documento'] ?? '';
+        $primer_nombre = $_POST['primer_nombre'] ?? '';
+        $segundo_nombre = $_POST['segundo_nombre'] ?? '';
+        $primer_apellido = $_POST['primer_apellido'] ?? '';
+        $segundo_apellido = $_POST['segundo_apellido'] ?? '';
+        $sexo = $_POST['sexo'] ?? '';
+        $correo= $_POST['correo'] ?? '';
+        $telefono= $_POST['telefono'] ?? '';
+
+        //esto lo puede modificar solo el administrador
+        $rol_id = $_POST['rol_id'] ?? '';
+        $est_id = $_POST['est_id'] ?? '';
+
+        
+
+        $campo1 = $_POST['campo1'] ?? '';
+        $campo2 = $_POST['campo2'] ?? '';
+        $campo3 = $_POST['campo3'] ?? '';
+        $campo4 = $_POST['campo4'] ?? '';
+        $campo5 = $_POST['campo5'] ?? '';
+
+        $direccion = $campo1." ".$campo2." ".$campo3."# ".$campo4." - ".$campo5;
+        
+        
+        $validacion = true;
+        $_SESSION['errores']=[];
+    
+        // Validación de cada campo
+        if (empty($id)) {
+            $_SESSION['errores']['id'] = "No se envio un usuario a actualizar.";
+            $validacion = false;
+        }
+
+        if (empty($tipo_documento)) {
+            $_SESSION['errores']['tipo_documento'] = "El campo 'tipo de documento' es requerido.";
+            $validacion = false;
+        }
+    
+        if (empty($numero_documento)) {
+            $_SESSION['errores']['numero_documento'] = "El campo 'numero_documento' es requerido.";
+            $validacion = false;
+        }else if (validarCampoNumeros($numero_documento) == false) {
+            $_SESSION['errores']['numero_documento'] = "El campo 'numero_documento' solo debe contener numeros.";
+            $validacion = false;
+        }
+    
+        if (empty($primer_nombre)) {
+            $_SESSION['errores']['primer_nombre'] = "El campo 'primer_nombre' es requerido.";
+            $validacion = false;
+        }else if (validarCampoLetras($primer_nombre) == false) {
+            $_SESSION['errores']['primer_nombre'] = "El campo 'primer_nombre' debe contener solo letras.";
+            $validacion = false;
+        }
+    
+        if (empty($primer_apellido)) {
+            $_SESSION['errores']['primer_apellido'] = "El campo 'primer_apellido' es requerido";
+            $validacion = false;
+        }else if (validarCampoLetras($primer_apellido) == false) {
+            $_SESSION['errores']['primer_apellido'] = "El campo 'primer_apellido' debe contener solo letras";
+            $validacion = false;
+        }
+
+        if (empty($sexo)) {
+            $_SESSION['errores']['sexo'] = "El campo 'sexo' es requerido";
+            $validacion = false;
+        }else if (validarCampoLetras($sexo) == false) {
+            $_SESSION['errores']['sexo'] = "El campo 'sexo' debe contener solo letras";
+            $validacion = false;
+        }
+    
+        if (empty($correo)) {
+            $_SESSION['errores']['correo'] = "El campo 'correo' es requerido.";
+            $validacion = false;
+        }else if (validarCorreo($correo) == false) {
+            $_SESSION['errores']['correo'] = "El campo 'correo' no tiene un formato válido.";
+            $validacion = false;
+        }
+    
+        if (empty($telefono)) {
+            $_SESSION['errores']['telefono'] = "El campo 'telefono' es requerido.";
+            $validacion = false;
+        }     
+
+        // Validación de caracteres en los campos opcionales
+    
+        if ($segundo_nombre && !validarCampoLetras($segundo_nombre )) {
+            $_SESSION['errores']['segundo_nombre'] = "El campo 'segundo_nombre' debe contener solo letras.";
+            $validacion = false;
+        }
+    
+        if (!empty($segundo_apellido) && !validarCampoLetras($segundo_apellido)){
+            $_SESSION['errores']['segundo_apellido'] = "El campo 'segundo_apellido' debe contener solo letras.";
+            $validacion = false;
+        }
+    
+        
+    
+        // Si todo es válido, insertar en la base de datos
+        if ($validacion) {
+            // Limpiar errores previos
+            unset($_SESSION['errores']);
+    
+            // SQL para insertar usuario
+            $sql = "UPDATE usuarios SET usu_nombre1 = '$primer_nombre', usu_nombre2 = '$segundo_nombre', usu_apellido1 = '$primer_apellido', usu_apellido2 = '$segundo_apellido', usu_genero = '$sexo', usu_telefono = '$telefono', usu_correo = '$correo', usu_tipo_docu = $tipo_documento, usu_numero_docu = '$numero_documento', usu_direccion = '$direccion', usu_rol = $rol_id, usu_estado = $est_id WHERE usu_id = $id";
+            
+            // Ejecutar SQL
+            $ejecutar = $obj->insert($sql);
+    
+            if ($ejecutar) {
+                unset($_SESSION['errores']); 
+                redirect(getUrl("Usuarios","Usuarios","getUpdate",array("usu_id"=>$_SESSION['usu_id'])));
+                
+            } else {
+                
+            }
+        } else {
+            include_once '../view/Usuarios/update.php';
+            
+        }
+         
+    }
+
+
     public function postUpdateStatus(){
         $obj = new UsuariosModel();
 
-        $usuarioId=$_POST['user'];
-        $estadoId=$_POST['id'];
+        $usu_id=$_POST['user'];
+        $est_id=$_POST['id'];
 
-        if($estadoId == 1){
+        if($est_id == 1){
             $statusToModify = 2;
-        }elseif($estadoId == 2){
+        }elseif($est_id == 2){
             $statusToModify = 1;
         }
-        echo $usuarioId;
+        
 
-        $sql="UPDATE usuarios SET usuario_estado=$statusToModify WHERE usuario_id=$usuarioId";
+        $sql="UPDATE usuarios SET usuario_estado=$statusToModify WHERE usu_id=$usu_id";
 
         $ejecutar=$obj->update($sql);
 
         if($ejecutar){
 
             $sql = "SELECT * FROM usuarios u
-                JOIN roles r ON r.rol_id = u.usuario_rol
-                JOIN estados e ON e.estado_id = u.usuario_estado";
+                JOIN roles r ON r.rol_id = u.usu_rol
+                JOIN estados e ON e.est_id = u.usu_estado";
             
             $result=$obj->consult($sql);
 
@@ -92,11 +243,18 @@ class UsuariosController{
     public function getCreate(){
 
         $obj = new UsuariosModel();
+        
         $sql = "SELECT * FROM tipo_documento";
-            
         $result=$obj->consult($sql);
-
         $tipos_documentos = pg_fetch_all($result);
+
+        $sql = "SELECT * FROM estados";  
+        $result=$obj->consult($sql);
+        $estados = pg_fetch_all($result);
+
+        $sql = "SELECT * FROM roles";  
+        $result=$obj->consult($sql);
+        $roles = pg_fetch_all($result);
 
         include_once "../view/usuarios/create.php";
     }
@@ -109,7 +267,7 @@ class UsuariosController{
         
         $obj=new UsuariosModel();
     
-        $id=$obj->autoIncrement("usuarios","usuario_id");
+        $id=$obj->autoIncrement("usuarios","usu_id");
         $tipo_documento = $_POST['tipo_documento'] ?? '';
         $numero_documento = $_POST['numero_documento'] ?? '';
         $primer_nombre = $_POST['primer_nombre'] ?? '';
@@ -121,6 +279,18 @@ class UsuariosController{
         $telefono= $_POST['telefono'] ?? '';
         $contraseña= $_POST['contraseña'] ?? '';
         $confContraseña = $_POST['confContraseña'] ?? '';
+
+        //esto lo puede modificar solo el administrador
+        $rol_id = $_POST['rol_id'] ?? '';
+        $est_id = $_POST['est_id'] ?? '';
+
+        if(empty($rol_id)){
+            $rol_id = 3;
+        }
+
+        if(empty($est_id)){
+            $est_id = 1;
+        }
 
         $campo1 = $_POST['campo1'] ?? '';
         $campo2 = $_POST['campo2'] ?? '';
@@ -229,8 +399,8 @@ class UsuariosController{
             $hash = password_hash($contraseña, PASSWORD_DEFAULT);
     
             // SQL para insertar usuario
-            $sql = "INSERT INTO usuarios (usuario_id, usuario_tipo_docu_id, usuario_numero_docu, usuario_nombre1, usuario_nombre2, usuario_apellido1, usuario_apellido2, usuario_genero, usuario_telefono, usuario_correo, usuario_direccion, usuario_contrasena, usuario_rol, usuario_estado)
-                    VALUES ($id, $tipo_documento, '$numero_documento', '$primer_nombre', '$segundo_nombre', '$primer_apellido', '$segundo_apellido', '$sexo', '$telefono', '$correo', '$direccion', '$hash', 1, 1)";
+            $sql = "INSERT INTO usuarios (usu_id, usu_nombre1, usu_nombre2, usu_apellido1, usu_apellido2, usu_genero, usu_telefono, usu_correo, usu_tipo_docu, usu_numero_docu, usu_direccion, usu_contrasena, usu_rol, usu_estado)
+                    VALUES ($id, '$primer_nombre', '$segundo_nombre', '$primer_apellido', '$segundo_apellido', '$sexo', '$telefono', '$correo', $tipo_documento, '$numero_documento', '$direccion', '$hash', $rol_id, $est_id)";
     
             // Ejecutar SQL
             $ejecutar = $obj->insert($sql);
@@ -238,13 +408,13 @@ class UsuariosController{
             if ($ejecutar) {
                 unset($_SESSION['errores']); 
                 echo "Se registro el usuario";
-                redirect('login.php');
+                
             } else {
                 echo "Error al insertar el usuario";
             }
         } else {
             echo "no se inserto";
-            include_once '../view/usuarios/create.php';
+            
         }
          
     }
@@ -256,8 +426,9 @@ class UsuariosController{
         $contraseña = $_POST['password'];
 
         $sql = "SELECT * FROM usuarios u
-                JOIN roles r ON r.rol_id = u.usuario_rol
-                JOIN estados e ON e.estado_id = u.usuario_estado WHERE u.usuario_correo='$email' AND u.usuario_estado=1";
+                JOIN roles r ON r.rol_id = u.usu_rol
+                JOIN estados e ON e.est_id = u.usu_estado 
+                JOIN tipo_documento tp ON tp.tipo_docu_id = u.usu_tipo_docu WHERE u.usu_correo='$email' AND u.usu_estado = 1";
 
         $result = $obj->consult($sql);
 
@@ -268,35 +439,38 @@ class UsuariosController{
 
         if (count($usuario)>0){
             foreach($usuario as $usu){
-                if(password_verify($contraseña, $usu['usuario_contrasena'])){
-                    $_SESSION['usuario_id'] = $usu['usuario_id'];
-                    $_SESSION['usuario_tipo_docu_id'] = $usu['usuario_tipo_docu_id'];
-                    $_SESSION['usuario_numero_docu'] = $usu['usuario_numero_docu'];
-                    $_SESSION['usuario_nombre1'] = $usu['usuario_nombre1'];
-                    $_SESSION['usuario_nombre2'] = $usu['usuario_nombre2'];
-                    $_SESSION['usuario_apellido1'] = $usu['usuario_apellido1'];
-                    $_SESSION['usuario_apellido2'] = $usu['usuario_apellido2'];
-                    $_SESSION['usuario_genero'] = $usu['usuario_genero'];
-                    $_SESSION['usuario_telefono'] = $usu['usuario_telefono'];
-                    $_SESSION['usuario_correo'] = $usu['usuario_correo'];
-                    $_SESSION['usuario_direccion'] = $usu['usuario_direccion'];
-                    $_SESSION['usuario_contrasena'] = $usu['usuario_contrasena'];
-                    $_SESSION['usuario_rol'] = $usu['usuario_rol'];
+                if(password_verify($contraseña, $usu['usu_contrasena'])){
+                    $_SESSION['usu_id'] = $usu['usu_id'];
+                    $_SESSION['usu_nombre1'] = $usu['usu_nombre1'];
+                    $_SESSION['usu_nombre2'] = $usu['usu_nombre2'];
+                    $_SESSION['usu_apellido1'] = $usu['usu_apellido1'];
+                    $_SESSION['usu_apellido2'] = $usu['usu_apellido2'];
+                    $_SESSION['usu_genero'] = $usu['usu_genero'];
+                    $_SESSION['usu_telefono'] = $usu['usu_telefono'];
+                    $_SESSION['usu_correo'] = $usu['usu_correo'];
+                    $_SESSION['usu_tipo_docu'] = $usu['usu_tipo_docu'];
+                    $_SESSION['tipo_docu_codigo'] = $usu['tipo_docu_codigo'];
+                    $_SESSION['usu_numero_docu'] = $usu['usu_numero_docu'];
+                    $_SESSION['usu_direccion'] = $usu['usu_direccion'];
+                    $_SESSION['usu_contrasena'] = $usu['usu_contrasena'];
+                    $_SESSION['usu_rol'] = $usu['usu_rol'];
                     $_SESSION['rol_nombre'] = $usu['rol_nombre'];
-                    $_SESSION['usuario_estado'] = $usu['usuario_estado'];
+                    $_SESSION['usu_estado'] = $usu['usu_estado'];
+                    $_SESSION['est_nombre'] = $usu['est_nombre'];
+                    $_SESSION['est_control'] = $usu['est_control'];
                     $_SESSION['auth'] = "ok";
                     redirect("index.php");
                 } else {
-                    $_SESSION['errores'] = "Usuario y/o contrasenia incorrecto";
+                    $_SESSION['errores'] = "Contraseña incorrecta.";
                     redirect("login.php");
-                    exit();
+                    
                 }
             }    
 
         } else {
-            $_SESSION['errores'] = "Usuario y/o contrasenia incorrecto";
+            $_SESSION['errores'] = "Usuario y/o contraseña incorrecto.";
             redirect("login.php");
-            exit();
+            
             
         }
     }
