@@ -140,9 +140,9 @@
 
                     <?php
                         if (isset($_SESSION['auth'])) {
-                            if($_SESSION['rol_nombre'] == "Administrador"){
+                            if($_SESSION['rol_nombre'] == "Administrador" && $_SESSION['usu_id'] != $usu['usu_id']){
                                 
-                    ?>  
+                    ?>      
 
                                 <div class="col-md-3 p-2">
                                     <label for="rol" class="form-label text-white">Rol*</label>
@@ -150,7 +150,7 @@
                                         name="rol_id">
                                     <?php 
                                         foreach($roles as $rol){
-                                            if($usu['usu_rol'] == $tipo_documento['rol_id']){
+                                            if($usu['usu_rol'] == $rol['rol_id']){
                                                 $selected="selected";
                                             }else{
                                                 $selected="";
@@ -167,7 +167,7 @@
                                         name="est_id">
                                     <?php 
                                         foreach($estados as $estado){
-                                            if($usu['usu_estado'] == $tipo_documento['est_id']){
+                                            if($usu['usu_estado'] == $estado    ['est_id']){
                                                 $selected="selected";
                                             }else{
                                                 $selected="";

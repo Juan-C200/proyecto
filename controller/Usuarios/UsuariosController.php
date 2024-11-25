@@ -47,30 +47,14 @@ class UsuariosController{
 
     function validatePassword(){
         
-        header('Content-Type: application/json');
-
-        try {
-            // Captura el cuerpo de la solicitud y decodifica el JSON
-            $input = json_decode(file_get_contents('php://input'), true);
-
-            // Verifica que se recibió la contraseña
-            if (isset($input['password'])) {
-                $password = $input['password'];
-
-                // Simula la verificación de la contraseña
-                $hashedPassword = $_SESSION['usu_contrasena']; // Contraseña hasheada en la sesión
-                if (password_verify($password, $hashedPassword)) {
-                    echo json_encode(["status" => "success", "message" => "Contraseña correcta"]);
-                } else {
-                    echo json_encode(["status" => "error", "message" => "Contraseña incorrecta"]);
-                }
-            } else {
-                echo json_encode(["status" => "error", "message" => "No se recibió la contraseña"]);
-            }
-        } catch (Exception $e) {
-            echo json_encode(["status" => "error", "message" => "Error en el servidor: " . $e->getMessage()]);
+        $contraseña = $_POST['password'];
+        // echo var_dump($password);
+        // echo var_dump($_SESSION['usu_contrasena']);
+        if(password_verify($contraseña, $_SESSION['usu_contrasena'])){
+            echo "correcta";
+        }else{
+            echo "no"; 
         }
-
 
     }
 
@@ -95,6 +79,16 @@ class UsuariosController{
         $rol_id = $_POST['rol_id'] ?? '';
         $est_id = $_POST['est_id'] ?? '';
 
+        
+        if($_SESSION['rol_nombre'] == "Administrador"){
+            if(empty($rol_id)){
+                $rol_id = $_SESSION['usu_rol'];
+                $est_id = $_SESSION['usu_estado'];
+            }
+        }else{
+            $rol_id = $_SESSION['usu_rol'];
+            $est_id = $_SESSION['usu_estado'];
+        }
         
 
         $campo1 = $_POST['campo1'] ?? '';
@@ -192,7 +186,7 @@ class UsuariosController{
     
             if ($ejecutar) {
                 unset($_SESSION['errores']); 
-                redirect(getUrl("Usuarios","Usuarios","getUpdate",array("usu_id"=>$_SESSION['usu_id'])));
+                redirect(getUrl("Usuarios","Usuarios","getUpdate",array("usu_id"=>$id   )));
                 
             } else {
                 
@@ -218,7 +212,7 @@ class UsuariosController{
         }
         
 
-        $sql="UPDATE usuarios SET usuario_estado=$statusToModify WHERE usu_id=$usu_id";
+        $sql="UPDATE usuarios SET usu_estado=$statusToModify WHERE usu_id=$usu_id";
 
         $ejecutar=$obj->update($sql);
 
@@ -226,13 +220,14 @@ class UsuariosController{
 
             $sql = "SELECT * FROM usuarios u
                 JOIN roles r ON r.rol_id = u.usu_rol
-                JOIN estados e ON e.est_id = u.usu_estado";
+                JOIN estados e ON e.est_id = u.usu_estado
+                JOIN tipo_documento tp ON tp.tipo_docu_id = u.usu_tipo_docu";
             
             $result=$obj->consult($sql);
 
             $usuarios = pg_fetch_all($result);
 
-            include_once "../view/usuarios/buscar.php";
+            include_once "../view/usuarios/consult.php";
         }else{
             echo "No se pudo actualizar el estado";
         }
@@ -449,6 +444,7 @@ class UsuariosController{
                     $_SESSION['usu_telefono'] = $usu['usu_telefono'];
                     $_SESSION['usu_correo'] = $usu['usu_correo'];
                     $_SESSION['usu_tipo_docu'] = $usu['usu_tipo_docu'];
+                    $_SESSION['tipo_docu_nombre'] = $usu['tipo_docu_nombre'];
                     $_SESSION['tipo_docu_codigo'] = $usu['tipo_docu_codigo'];
                     $_SESSION['usu_numero_docu'] = $usu['usu_numero_docu'];
                     $_SESSION['usu_direccion'] = $usu['usu_direccion'];

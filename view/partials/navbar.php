@@ -21,10 +21,12 @@
             <li><a class="dropdown-item" href="<?php echo getUrl("Tareas", "Tareas", "getTareas");?>">Consultar</a></li>
           </ul>
         </li>
+        <?php if($_SESSION['rol_nombre'] != "Ciudadano"){?> 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Usuarios
           </a>
+          
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="<?php echo getUrl("Usuarios", "Usuarios", "getCreate");?>">Registrar</a></li>
             <li><a class="dropdown-item" href="<?php echo getUrl("Usuarios", "Usuarios", "getUsuarios");?>">Consultar</a></li>
@@ -39,6 +41,7 @@
             <li><a class="dropdown-item" href="<?php echo getUrl("Acceso", "Acceso", "getLogin");?>">Iniciar sesion</a></li>
           </ul>
         </li>
+        <?php }?>
         <?php if(isset($_SESSION['auth'])){?>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

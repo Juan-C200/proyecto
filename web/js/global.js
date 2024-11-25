@@ -31,6 +31,7 @@
                 data:{id, user},
                 type: 'POST',
                 success: function(data){
+                    console.log(data);
                     $('tbody').html(data);
                     
                 }
@@ -70,18 +71,23 @@
             let pass = $('#contraseña').val();
             console.log(pass);
 
-            axios.post(url, { password: pass }, { headers: { 'Content-Type': 'application/json' } })
-            .then(function (response) {
-                console.log("Respuesta:", response);
-                if (response.data.status === "success") {
-                    $("#form_update").submit();
-                    alert(response.data.message);
-                } else {
-                    alert(response.data.message || "Contraseña incorrecta");
+            
+            $.ajax({
+                url:url,
+                data:{'password' : pass},
+                type: 'POST',
+                success: function(data){
+                    console.log(data);
+                    if(data.includes("correcta")){
+                        $("#form_update").submit();
+                        alert("Se actualizo el usuario correctamente.");
+                    }else{
+                        
+                        $('#error_contraseña').removeClass('d-none');
+                    }
+                    
                 }
-            })
-            .catch(function (error) {
-                console.error("Error en la solicitud:", error);
+
             });
 
              
