@@ -336,6 +336,9 @@
                 <div class="modal-footer">
                     <input id="validate_password" class="btn btn-success" value="Enviar"  
                     data-url="<?php echo getUrl("Usuarios", "Usuarios", "validatePassword",false,"ajax"); ?>">
+                    <?php
+                        unset($_SESSION['errores']);
+                    ?>
                     
                 </div>
             </div>

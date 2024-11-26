@@ -268,15 +268,11 @@ class UsuariosController{
         $result=$obj->consult($sql);
         $roles = pg_fetch_all($result);
 
-        include_once "../view/usuarios/create.php";
+        include_once "../view/Usuarios/create.php";
     }
 
     function postCreate() {
-    
-       
-        unset($_SESSION['errores']);
-        
-        
+
         $obj=new UsuariosModel();
     
         $id=$obj->autoIncrement("usuarios","usu_id");
@@ -314,7 +310,7 @@ class UsuariosController{
         
         
         $validacion = true;
-        $_SESSION['errores']=[];
+        
         
     
         // Validación de cada campo
@@ -404,8 +400,6 @@ class UsuariosController{
     
         // Si todo es válido, insertar en la base de datos
         if ($validacion) {
-            // Limpiar errores previos
-            unset($_SESSION['errores']);
             
             // Cifrar la contraseña
             $hash = password_hash($contraseña, PASSWORD_DEFAULT);
@@ -418,14 +412,25 @@ class UsuariosController{
             $ejecutar = $obj->insert($sql);
     
             if ($ejecutar) {
-                unset($_SESSION['errores']); 
-                echo "Se registro el usuario";
+                if(!isset($_SESSION['auth'])){
+                    redirect(getUrl("Usuarios","Usuarios","getCreate"));
+                }else{
+                    redirect(getUrl("Usuarios","Usuarios","getCreate"));
+                }
                 
             } else {
-                echo "Error al insertar el usuario";
+                if(!isset($_SESSION['auth'])){
+                    redirect(getUrl("Usuarios","Usuarios","getCreate"));
+                }else{
+                    redirect(getUrl("Usuarios","Usuarios","getCreate"));
+                }
             }
         } else {
-            echo "no se inserto";
+            if(!isset($_SESSION['auth'])){
+                redirect(getUrl("Usuarios","Usuarios","getCreate",false,"ajax"));
+            }else{
+                redirect(getUrl("Usuarios","Usuarios","getCreate"));
+            }
             
         }
          
@@ -472,6 +477,7 @@ class UsuariosController{
                     $_SESSION['est_nombre'] = $usu['est_nombre'];
                     $_SESSION['est_control'] = $usu['est_control'];
                     $_SESSION['auth'] = "ok";
+                    unset($_SESSION['errores']);
                     redirect("index.php");
                 } else {
                     $_SESSION['errores'] = "Contraseña incorrecta.";

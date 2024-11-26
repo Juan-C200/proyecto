@@ -1,8 +1,17 @@
+<?php
+    if(!isset($_SESSION['auth'])){
+        include_once "../view/partials/head.php";
+    }
+
+?>
+
+
+
 <body class="bg-dark pb-5">
 
     <div class="container pt-5">
 
-        <form action="<?php echo getUrl("Usuarios", "Usuarios", "postCreate"); ?> " method="POST" id="registroForm">
+        <form action="<?php echo getUrl("Usuarios", "Usuarios", "postCreate",false,"ajax"); ?> " method="POST" id="registroForm">
             <div class="row justify-content-center">
                 <h3 class="text-center text-white mb-1 mt-1">Registrar Usuario</h3>
 
@@ -270,6 +279,7 @@
                                 if (isset($_SESSION['errores']['confContraseña'])) {
                                     echo "<p class='text-danger'>" . $_SESSION['errores']['confContraseña'] . "</p>";
                                 }
+                                unset($_SESSION['errores']);
                                 ?>
                             </div>
 

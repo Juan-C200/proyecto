@@ -6,7 +6,7 @@
     if(!isset($_SESSION['auth'])){
         redirect("login.php");
     }
-    unset($_SESSION['errores']);
+    
     
     echo "<body>";
         echo"<div class = 'container' id='contenedor'>";
