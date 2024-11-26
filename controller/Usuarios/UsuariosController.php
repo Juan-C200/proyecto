@@ -8,7 +8,7 @@ class UsuariosController{
         $sql = "SELECT * FROM usuarios u
                 JOIN roles r ON r.rol_id = u.usu_rol
                 JOIN estados e ON e.est_id = u.usu_estado
-                JOIN tipo_documento tp ON tp.tipo_docu_id = u.usu_tipo_docu";
+                JOIN tipo_documento tp ON tp.tipo_docu_id = u.usu_tipo_docu ORDER BY usu_id";
         $result = $obj->consult($sql);
 
         $usuarios = pg_fetch_all($result);
@@ -221,17 +221,34 @@ class UsuariosController{
             $sql = "SELECT * FROM usuarios u
                 JOIN roles r ON r.rol_id = u.usu_rol
                 JOIN estados e ON e.est_id = u.usu_estado
-                JOIN tipo_documento tp ON tp.tipo_docu_id = u.usu_tipo_docu";
+                JOIN tipo_documento tp ON tp.tipo_docu_id = u.usu_tipo_docu ORDER BY usu_id";
             
             $result=$obj->consult($sql);
 
             $usuarios = pg_fetch_all($result);
 
-            include_once "../view/usuarios/consult.php";
+            include_once "../view/Usuarios/consult.php";
+            
         }else{
             echo "No se pudo actualizar el estado";
         }
 
+    }
+
+    public function buscar(){
+        $obj = new UsuariosModel();
+        $buscar = $_POST['buscar'];
+        $sql = "SELECT * FROM usuarios u
+                JOIN roles r ON r.rol_id = u.usu_rol
+                JOIN estados e ON e.est_id = u.usu_estado
+                JOIN tipo_documento tp ON tp.tipo_docu_id = u.usu_tipo_docu 
+                WHERE u.usu_nombre1 LIKE '%$buscar%' OR u.usu_nombre2 LIKE '%$buscar%'
+                OR u.usu_apellido1 LIKE '%$buscar%' OR u.usu_apellido2 LIKE '%$buscar%' ORDER BY usu_id";
+
+        $result=$obj->consult($sql);
+
+        $usuarios = pg_fetch_all($result);
+        include_once "../view/Usuarios/consult.php";
     }
 
 
@@ -481,6 +498,10 @@ class UsuariosController{
         include_once '../view/Usuarios/panelAdmin.php';
         
     }
+
+
+    
+
 }
 ?>
 

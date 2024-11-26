@@ -31,7 +31,7 @@
                         echo "<td>".$usu['tipo_docu_codigo']." - ".$usu['tipo_docu_nombre']."</td>";
                         echo "<td>".$usu['usu_numero_docu']."</td>";
                         echo "<td>".$usu['usu_nombre1']." ".$usu['usu_nombre2']."</td>";
-                        echo "<td>".$usu['usu_apellido2']." ".$usu['usu_apellido2']."</td>";
+                        echo "<td>".$usu['usu_apellido1']." ".$usu['usu_apellido2']."</td>";
                         echo "<td>".$usu['usu_genero']."</td>";
                         echo "<td>".$usu['usu_correo']."</td>";
                         echo "<td>".$usu['usu_telefono']."</td>";

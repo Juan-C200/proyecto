@@ -8,8 +8,8 @@
     }
     unset($_SESSION['errores']);
     
-    echo "<body >";
-        echo"<div class = 'container'>";
+    echo "<body>";
+        echo"<div class = 'container' id='contenedor'>";
     include_once "../view/partials/navbar.php";
 
 

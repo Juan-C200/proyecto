@@ -1,3 +1,18 @@
+    function capturarSubcadena(texto, palabraInicio, palabraFin) {
+        // Crear la expresión regular para capturar desde palabraInicio hasta palabraFin
+        const patron = new RegExp(`${palabraInicio}(.*?)${palabraFin}`, 's');
+        
+        // Buscar el patrón en el texto
+        const coincidencias = texto.match(patron);
+        
+        // Si se encuentra una coincidencia, devolver la subcadena
+        if (coincidencias) {
+            return coincidencias[1];  // La subcadena capturada está en el índice 1
+        } else {
+            return null;
+        }
+    }
+    
     $(document).ready(function(){
         
         $(document).on('keyup',"#buscar", function(){
@@ -11,7 +26,10 @@
                     type : 'POST',
                     data : {'buscar': buscar},
                     success : function(data){
-                        $('tbody').html(data);
+                        html = capturarSubcadena(data,"<tbody>","</tbody>");//outer trae la etiqueta completa y le complementa la data para poder imprimirla
+                        $('tbody').html(html);
+                        
+                            console.log(html);
                         
                     }
                 });
@@ -23,7 +41,7 @@
             let id = $(this).attr("data-id");
             let url = $(this).attr("data-url");
             let user = $(this).attr("data-user");
-
+            let contenedor = $(this).attr("data-user");
             
 
             $.ajax({
@@ -31,9 +49,11 @@
                 data:{id, user},
                 type: 'POST',
                 success: function(data){
-                    console.log(data);
-                    $('tbody').html(data);
                     
+                    html = $('#navbar')[0].outerHTML + data;//outer trae la etiqueta completa y le complementa la data para poder imprimirla
+                    $('#contenedor').html(html);
+                   
+                    console.log($('#contenedor').html());
                 }
 
             });
@@ -42,8 +62,6 @@
 
         //abrir modal
         $(document).on('click',"#boton_editar", function(){
-
-            event.preventDefault();
 
             $('#modal').fadeIn(400);
             $('#modal').removeClass('d-none');
@@ -78,7 +96,8 @@
                 type: 'POST',
                 success: function(data){
                     console.log(data);
-                    if(data.includes("correcta")){
+                    if(data == "correcta"){
+
                         $("#form_update").submit();
                         alert("La contraseña es correcta.");
                     }else{
@@ -101,4 +120,6 @@
         
 
         
-    });    
+    });   
+    
+    
