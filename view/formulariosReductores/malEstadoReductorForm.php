@@ -11,7 +11,7 @@
             
             <div class="row mt-2 mb-2 p-4">
                 <div class="border rounded p-4 text-center"><h4>Reductor en mal estado</h4></div>
-                
+                <p>a</p>
             </div>
             
             <p class="text">Para ver el tipo de señal oprima una de las opciones</p>
