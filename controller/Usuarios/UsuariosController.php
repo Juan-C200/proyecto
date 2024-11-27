@@ -1,4 +1,5 @@
 <?php
+
 include_once '../model/Usuarios/UsuariosModel.php';
 
 class UsuariosController{
@@ -413,14 +414,14 @@ class UsuariosController{
     
             if ($ejecutar) {
                 if(!isset($_SESSION['auth'])){
-                    redirect(getUrl("Usuarios","Usuarios","getCreate"));
+                    redirect(getUrl("Usuarios","Usuarios","getCreate",false,"ajax"));
                 }else{
                     redirect(getUrl("Usuarios","Usuarios","getCreate"));
                 }
                 
             } else {
                 if(!isset($_SESSION['auth'])){
-                    redirect(getUrl("Usuarios","Usuarios","getCreate"));
+                    redirect(getUrl("Usuarios","Usuarios","getCreate",false,"ajax"));
                 }else{
                     redirect(getUrl("Usuarios","Usuarios","getCreate"));
                 }
