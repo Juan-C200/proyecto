@@ -26,7 +26,7 @@
                 <div class="cajaSeñales1 p-1 col-md-12">
                     <h5>
                         reductor panel imagenes1 categoria van con d-none<br>
-                        aqui van las imagenes que pondre  para ocultar y visualizarlas
+                        aqui van las imagenes que pondre  para ocultar y visualizarlas a
                     </h5>                    
                     
                 </div>

@@ -26,7 +26,7 @@
             <p class="text">Para ver el tipo de señal oprima una de las 2 opciones</p>
             
             <div class="row mt-2">
-                <button type="button" class="btn-danger col-md-3 border-1 rounded-1">Señales Verticales</button>
+                <button type="button" class="btn-danger col-md-3 border-1 rounded-1">Señales Verticaless</button>
                 <button type="button" class="col-md-3 ms-2 border-1 rounded-1">Señales Horizontales</button>
             </div>
             

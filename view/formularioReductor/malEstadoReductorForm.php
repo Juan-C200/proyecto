@@ -25,7 +25,7 @@
             <div class="p-2">
                 <div class="cajaSeñales1 p-1 col-md-12">
                     <h5>
-                        Reductores panel para imagenes
+                        Reductores panel para imagenes con d-none a
                     </h5>                    
                     
                 </div>
