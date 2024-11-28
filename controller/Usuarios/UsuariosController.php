@@ -447,7 +447,7 @@ class UsuariosController{
                 JOIN roles r ON r.rol_id = u.usu_rol
                 JOIN estados e ON e.est_id = u.usu_estado 
                 JOIN tipo_documento tp ON tp.tipo_docu_id = u.usu_tipo_docu WHERE u.usu_correo='$email' AND u.usu_estado = 1";
-
+        
         $result = $obj->consult($sql);
 
         $usuario = pg_fetch_all($result);

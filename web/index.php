@@ -17,10 +17,10 @@
     if(isset($_GET['modulo'])){
         resolve();
     }else{
-
-        echo "<a href=".getUrl('Tareas', 'Tareas', 'test').">";
-        echo "<button> Ir a Tarea </button>";
-        echo "</a>";
+        
+        // echo "<a href=".getUrl('Tareas', 'Tareas', 'test').">";
+        // echo "<button> Ir a Tarea </button>";
+        // echo "</a>";
     }
     echo "</div>";
     include_once "../view/partials/footer.php";

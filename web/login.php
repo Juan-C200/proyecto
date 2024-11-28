@@ -1,6 +1,5 @@
 <?php
     include_once '../lib/helpers.php';
-
 ?>
 
 
@@ -43,15 +42,15 @@
                                 
                             </div>
                             <?php
-                                // if(isset($_SESSION['errores'])){
-                                //     echo "<p>".$_SESSION['errores']."</p>";
-                                // }
+                                if(isset($_SESSION['errores'])){
+                                    echo "<p>".$_SESSION['errores']."</p>";
+                                }
                                     
                             ?>
 
                             <div class="text-center">
                                 <input type="submit" value="Acceder" class="btn btn-acceder-submit mt-3"><br><br>
-                                <a href="<?php echo getUrl("Usuarios", "Usuarios", "getCreate",false, "ajax");?>" target="_self" class="text-white">¿Ya tienes cuenta?      <b>Registrarse</a>
+                                <a href="<?php echo getUrl("Usuarios", "Usuarios", "getCreate", false, "ajax");?>" target="_self" class="text-white">¿Ya tienes cuenta?      <b>Registrarse</a>
                             </div>
                         </form>
                     </div>

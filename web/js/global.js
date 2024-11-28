@@ -112,13 +112,59 @@
              
         });
 
+        
+    
+    
+           
+                // Manejador de eventos para los botones
+                $('.boton_cambiar_panel').on('click', function() {
+                    // Obtener el valor del atributo 'data-panel' del botón presionado
+                    var panel = $(this).data('panel');
+        
+                    // Oculto ambos paneles
+                    $('.cajaSeñales1, .cajaSeñales2').addClass('d-none');
+                    
+        
+                    // Miestro el panel el cual el boton referenciado fue oprimido
+                    $('#' + panel).removeClass('d-none');
+                    
+                });
+
+                $('.boton_cambiar_panel1').on('click', function() {
+                    // Obtener el valor del atributo 'data-panel' del botón presionado
+                    var paneles = $(this).data('panel');
+                    
+        
+                    // Oculto ambos paneles
+                    $('.cajaSeñales3, .cajaSeñales4').addClass('d-none');
+                  
+        
+                    // Miestro el panel el cual el boton referenciado fue oprimido
+                    $('#' + panel).removeClass('d-none');
+                    
+                });
 
         
+        
+        
+            //});
 
-        
-        
-        
-
+            $('.image-button').on('click', function() {
+                // Eliminar el color verde de todos los botones
+                $('.image-button').removeClass('btn-success').addClass('btn-light'); // 'btn-light' es el color blanco en Bootstrap
+                
+                // Añadir la clase verde al botón seleccionado
+                $(this).removeClass('btn-light').addClass('btn-success');
+    
+                // Obtener el valor del botón seleccionado
+                var valorSeleccionado = $(this).val();
+                
+                // Colocar el valor en el campo oculto
+                $('#tipo_señal_seleccionada').val(valorSeleccionado);
+    
+                // Opcional: Mostrar el valor seleccionado (para depuración)
+                alert('Valor seleccionado: ' + valorSeleccionado);
+            });
         
     });   
     

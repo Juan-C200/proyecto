@@ -5,7 +5,7 @@ class Conexion {
     private $port = '5432';
     private $dbname = 'geovisor';
     private $user = 'postgres';
-    private $password = '12345';
+    private $password = '0sc4rA12345';
     private $conn;
 
     public function __construct() {
