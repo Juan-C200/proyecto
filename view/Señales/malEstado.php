@@ -61,10 +61,14 @@
                         ?>
                         
                     </div>
-                    <input type="hidden" name="tipo_señal" id="tipo_señal_seleccionada">
+                    <input type="hidden" name="tipo_señal" id="tipo_señal_seleccionada" required>
                     
                 </div>
-                
+                <?php
+                    if (isset($_SESSION['errores']['Tipo de señal'])) {
+                        echo "<p class=' text-danger'>" . $_SESSION['errores']['Tipo de señal'] . "</p>";
+                    }
+                ?>
             </div>
             
                 
@@ -79,18 +83,34 @@
                     <option value="">Seleccione...</option>
                     <?php 
                         foreach($tipos_daños as $tipo_daño){
+                            if(isset($_SESSION['values']['Tipo de daño']) &&
+                                     $_SESSION['values']['Tipo de daño'] == $tipo_daño['tipo_dano_id']){
+                                $selected = "selected";
+                            }else{
+                                $selected = "";
+                            }
                             echo "<option value='".$tipo_daño['tipo_dano_id']."'>".$tipo_daño['tipo_dano_nombre']."</option>";
                         }    
                     ?>
                 </select>
+                <?php
+                    if (isset($_SESSION['errores']['Tipo de daño'])) {
+                        echo "<p class=' text-danger'>" . $_SESSION['errores']['Tipo de daño'] . "</p>";
+                    }
+                ?>
             </div> 
 
             <div class="col-md-3 p-1">
-                <label for="" class="form-label col-md-1 mt-2"><b>Descripcion</b>
+                <label for="" class="form-label col-md-1 mt-2"><b>Descripcion</b></label>
                     <div class="col-md-12">
-                        <textarea name="descripcion" rows="10" class="mt-3" cols="50">escribe una breve descripcion</textarea>
+                        <textarea name="descripcion" rows="10" class="mt-3" cols="50" value="<?php echo isset($_SESSION['values']['Descripción']) ? htmlspecialchars($_SESSION['values']['Descripción']) : '';?>" required>Escribe una breve descripcion</textarea>
                     </div>
-                </label>
+                <?php
+                    if (isset($_SESSION['errores']['Descripción'])) {
+                        echo "<p class=' text-danger'>" . $_SESSION['errores']['Descripción'] . "</p>";
+                    }
+                ?>
+                
             </div> 
                 
             <div class="row mt-4 p-1">
@@ -198,7 +218,11 @@
             <div class="col-md-12 mt-3">
                 <h7 for="foto" class="form-label"><b>Adjuntar imagen de la señal en mal estado</b></h7><br>
                 <input type="file" class="mt-3" id="foto" name="foto" accept=".jpg,.jpeg,.png" required>
-
+                <?php
+                    if (isset($_SESSION['errores']['Adjuntar imagen de la señal en mal estado'])) {
+                        echo "<p class=' text-danger'>" . $_SESSION['errores']['Adjuntar imagen de la señal en mal estado'] . "</p>";
+                    }
+                ?>
             </div>
             <div class="col-md-12 mt-3">
                 <input type="submit" value="Enviar" class="btn btn-primary mt-3">

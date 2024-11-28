@@ -68,12 +68,31 @@ class SeñalMalEstadoController{
 
         $ruta = "assets/img/señalesDañadas/$señal_img";
 
+        validarCampo($tipo_daño, 'Tipo de daño', 'numeros');
+        validarCampo($tipo_señal, 'Tipo de señal', 'letras');
+        validarCampo($descripcion, 'Descripción', 'letras');
+        validarCampo($campo1, 'Tipo de vía', 'letras');
+        validarCampo($campo2, 'Nombre o numero de vía', 'no');
+        validarCampo($campo4, 'Numero de placa #1', 'no');
+        validarCampo($campo5, 'Numero de placa #2', 'no');
+        validarCampo($señal_img, 'Adjuntar imagen de la señal en mal estado', 'no');
+
+        // Validaciónes opcionales
+        if (!empty($campo3)) {
+            validarCampo($campo3, 'Prefijo o cuadrante', 'letras');
+        } 
+
+        // Si hay errores no deja avanzar
+        if (!empty($_SESSION['errores'])) {
+            $validacion = false;
+        }
+
         move_uploaded_file($_FILES['foto']['tmp_name'],$ruta);//metodo que recibe 2 parametros la ubicacion del archivo y a donde lo enviaremos
 
         $validacion=true;
         if ($validacion) {
             
-            unset($_SESSION['errores']);
+            
             $sql = "INSERT INTO solicitud_senalizaciones_mal_estado (soli_senalizacion_mal_est_id ,soli_senalizacion_mal_est_tipo,        
                 soli_senalizacion_mal_est_descripcion,soli_senalizacion_mal_est_tipo_dano,soli_senalizacion_mal_est_remitente_id,
                 soli_senalizacion_mal_est_direccion,soli_senalizacion_mal_est_imagen,soli_senalizacion_mal_est_estado) 
@@ -84,24 +103,21 @@ class SeñalMalEstadoController{
             if ($ejecutar) {
 
                 unset($_SESSION['errores']);
+                unset($_SESSION['values']);
                 
                 echo "se registro el reporte";
                 redirect(getUrl("Señales", "SeñalMalEstado", "getCreate"));
                 
                 
             } else {
-                echo "no se registro el reporte".$sql;
+                redirect(getUrl("Señales", "SeñalMalEstado", "getCreate"));
                 
             }
         } else {
             
-            echo "faltan campos";
-            
-            
-            
-            
-        }
+            redirect(getUrl("Señales", "SeñalMalEstado", "getCreate"));
 
+        }
 
     }
 
