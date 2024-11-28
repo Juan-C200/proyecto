@@ -1,88 +1,84 @@
 <?php
-    
-     if(!isset($_SESSION['auth'])){
-         include_once "../../view/partials/head.php";
-     }
-
-   $imagenesV = [
-    ["ruta" => "../../web/assets/img/pare.png", "nombre" => "alto"],
-    ["ruta" => "../../web/assets/img/limite-velocidad.png", "nombre" => "velocidad maxima"],
-    ["ruta" => "../../web/assets/img/ceda-el-paso.png", "nombre" => "ceda el paso"],
-    ["ruta" => "../../web/assets/img/girar.png", "nombre" => "prohibido girar"],
-    ["ruta" => "../../web/assets/img/prohibido-estacionar.png", "nombre" => "prohibido estacionar"],
-    ["ruta" => "../../web/assets/img/pare.png", "nombre" => "prohibido el paso"],
-    ["ruta" => "../../web/assets/img/ceda-el-paso.png", "nombre" => "hospital"],
-    ["ruta" => "../../web/assets/img/limite-velocidad.png", "nombre" => "zona escolar"],
-    ["ruta" => "../../web/assets/img/girar.png", "nombre" => "paradero autobus"],
-    ["ruta" => "../../web/assets/img/prohibido-estacionar.png", "nombre" => "direccion unica"],
-    ["ruta" => "../../web/assets/img/pare.png", "nombre" => "callle sin salida"],
-    ["ruta" => "../../web/assets/img/ceda-el-paso.png", "nombre" => "curva peligrosa"],
-    ["ruta" => "../../web/assets/img/limite-velocidad.png", "nombre" => "reduccion de carril"],
-    ["ruta" => "../../web/assets/img/girar.png", "nombre" => "pendiente pronunciada"],
-    ["ruta" => "../../web/assets/img/prohibido-estacionar.png", "nombre" => "cruce de peatones"]
-    
+  $imagenesV = [
+   ["ruta" => "../../web/assets/img/pare.png", "nombre" => "alto"],
+   ["ruta" => "../../web/assets/img/limite-velocidad.png", "nombre" => "velocidad maxima"],
+   ["ruta" => "../../web/assets/img/ceda-el-paso.png", "nombre" => "ceda el paso"],
+   ["ruta" => "../../web/assets/img/girar.png", "nombre" => "prohibido girar"],
+   ["ruta" => "../../web/assets/img/prohibido-estacionar.png", "nombre" => "prohibido estacionar"],
+   ["ruta" => "../../web/assets/img/pare.png", "nombre" => "prohibido el paso"],
+   ["ruta" => "../../web/assets/img/ceda-el-paso.png", "nombre" => "hospital"],
+   ["ruta" => "../../web/assets/img/limite-velocidad.png", "nombre" => "zona escolar"],
+   ["ruta" => "../../web/assets/img/girar.png", "nombre" => "paradero autobus"],
+   ["ruta" => "../../web/assets/img/prohibido-estacionar.png", "nombre" => "direccion unica"],
+   ["ruta" => "../../web/assets/img/pare.png", "nombre" => "calle sin salida"],
+   ["ruta" => "../../web/assets/img/ceda-el-paso.png", "nombre" => "curva peligrosa"],
+   ["ruta" => "../../web/assets/img/limite-velocidad.png", "nombre" => "reduccion de carril"],
+   ["ruta" => "../../web/assets/img/girar.png", "nombre" => "pendiente pronunciada"],
+   ["ruta" => "../../web/assets/img/prohibido-estacionar.png", "nombre" => "cruce de peatones"]
+   
 ];
 
-  $imagenesH=[
-    ["ruta" => "../../web/assets/img/limite-velocidad.png", "nombre" => "lineas continuas"],
-    ["ruta" => "../../web/assets/img/girar.png", "nombre" => "lineas discontinuas"],
-    ["ruta" => "../../web/assets/img/prohibido-estacionar.png", "nombre" => "lineas paso peaton"]
-  ];
-?>
+ $imagenesH=[
+   ["ruta" => "../../web/assets/img/limite-velocidad.png", "nombre" => "lineas continuas"],
+   ["ruta" => "../../web/assets/img/girar.png", "nombre" => "lineas discontinuas"],
+   ["ruta" => "../../web/assets/img/prohibido-estacionar.png", "nombre" => "lineas paso peaton"]
+ ];
+ ?>
 
 
+<body clas="bg-dark">
+    
 
-<body class="pb-5">
-
-
-<form action="<?php echo getUrl("SeñalizacionVial", "SeñalMalEstado", "postCreate");?>" method="POST" class="form-control p-4" enctype="multipart/form-data">
+<form action="<?php echo getUrl("SeñalizacionVial", "SeñalNueva", "postCreate");?>" method="POST" class="form-control p-4" enctype="multipart/form-data">
 
     <div class="container">
         <div class="row justify-content-center">
             <h1 class="text mb-1 mt-2">Reportar señal</h3>
             
             <div class="row mt-2 mb-2 p-4">
-                <div class="col-md-3 border rounded p-4 text-center">Señal en mal estado</div>
+                <div class="col-md-3 border rounded p-4 text-center ms-1">Nueva señal</div>
             </div>
             
-            <p class="text mt-1">Debe completar los datos del formulario para reportar una señal en mal estado</p>
+            <p class="text-danger mt-1">Debe completar los datos del formulario para reportar una señal vial</p>
             
             <p class="text">Para ver el tipo de señal oprima una de las 2 opciones</p>
             
             <div class="row mt-2">
-                <button type="button" class="btn btn-primary col-md-3 border-1 rounded-1 boton_cambiar_panel" data-panel="panel_vertical">Señales Verticales</button>
-                <button type="button" class="col-md-3 ms-2 border-1 rounded-1 boton_cambiar_panel" data-panel="panel_horizontal">Señales Horizontales</button>
+                <button type="button" class="btn btn-primary col-md-3 border-1 rounded-1 boton_cambiar_panel1" data-panel="panel_vertical">Señales Verticales</button>
+                <button type="button" class="col-md-3 ms-2 border-1 rounded-1 boton_cambiar_panel1" data-panel="panel_horizontal">Señales Horizontales</button>
             </div>
             
             <div class="box p-3 border rounded-3">
-                <div class="cajaSeñales1 p-1 col-md-12" id="panel_vertical">
-                    <h5>Señales Verticales</h5>                    
+                <div class="cajaSeñales3 p-1 col-md-12" id="panel_vertical">
+                    <h5>Señales</h5>                    
                     <div class="row gap-2">
                         <?php
                             // Iteramos sobre el array y generamos un botón por cada imagen
                             foreach ($imagenesV as $imagen) {
                                 // Verificar si la ruta de la imagen existe
                                 if (file_exists($imagen['ruta'])) {
-                                    echo '<button type="button" class="image-button col-md-2" name="tipo_Señal"  value="' . $imagen['nombre'] . '">';
+                                    echo '<button class="image-button col-md-2">';
                                     echo '<img src="' . $imagen['ruta'] . '" alt="' . $imagen['nombre'] . '" class="col-md-3">';
                                     echo '<p>' . $imagen['nombre'] . '</p>';
                                     echo '</button>';
                                 } else {
                                     // Mostrar un mensaje si la imagen no se encuentra
-                                    echo '<button type="button"  class="image-button col-md-3">';
-                                    echo '<img src="default-image.jpg" alt="no-img">'; // Imagen predeterminada
+                                    echo '<button class="image-button col-md-3">';
+                                    echo '<img src="default-image.jpg" alt="Imagen no encontrada"">'; // Imagen predeterminada
                                     echo '<p>' . $imagen['nombre'] . '</p>';
                                     echo '</button>';
                                 }
                             }
                         ?>
-                        
                     </div>
+                    
+                  
 
+                    
                 </div>
-                <div class="cajaSeñales2 p-1 col-md-12 d-none" id="panel_horizontal">
+                <div class="cajaSeñales4 p-1 col-md-12 d-none" id="panel_horizontal">
                     <h5>
-                      Señales Horizontales
+                      Señales
                     </h5>
                     <div class="row gap-2">
                         <?php
@@ -105,30 +101,23 @@
                         ?>
                         
                     </div>
-                    <input type="hidden" name="tipo_señal_seleccionada" id="tipo_señal_seleccionada">
+                    
+                    
+                    
+
                 </div>
-                
             </div>
-            <input type="text" name="tipo_señal_seleccionada" id="tipo_señal_seleccionada" readonly>
-                
+            
         </div>
 
-        <div class="mt-1">
+        <div class="mt-2">
 
-                <div class="col-md-3 p-1">
+                <div class="col-md-3 p-1 mt-2">
                 <small class="text-warning">Complete los datos del formulario</small>
-                    <label for="tipoDaño" class="form-label"><b>Tipo de daño</b></label>
-                        <select type="text" class="form-control rounded-3" id="tipoDaño" name="tipoDaño">
-                            <option value="">Seleccione...</option>
-                            <?php 
-                                foreach($tipoDeDaño as $tipo_daño){
-                                    echo "<option value='".$tipo_daño['tipo_danio_id']."'>".$tipo_daño['tipo_dano_nombre']."</option>";
-                                }    
-                            ?>
-                        </select>
+                    
                 </div> 
                 
-                <div class="row mt-4 p-1">
+                <div class="row mt-1 p-1">
                     <h7 for="direccion" class="form-label"><b>Dirección o ubicacion</b></h7>
                             <label for="" class="form-label col-md-2">Tipo de vía*
                                 <div class="col-md-10">
@@ -189,7 +178,7 @@
                             </div>
                             
                             <div class="col-md-12">
-                                    <input type="text" name="campo6" class="form-control rounded-3" readonly>
+                                    <input type="text" name="campo6" class="form-control rounded-3">
                             </div>
                             <?php
                                 if (isset($_SESSION['errores']['direccion'])) {
@@ -198,15 +187,15 @@
                             ?>
 
                             <div class="col-md-12 mt-3">
-                                <label for="fotoSeñal" class="col-md-12 text-primary mb-1">adjuntar imagen</label>
-                                    <input type="file" id="foto" name="foto" accept=".jpg,.jpeg,.png" required>
-                                </div>
-                                <input type="submit" value="enviar" class="btn btn-primary mt-3">
+                            <label for="fotoReductor" class="col-md-12 text-primary mb-1">adjuntar imagen</label>
+                                <input type="file" id="foto" name="foto" accept=".jpg,.jpeg,.png" required>
                             </div>
+                            <input type="submit" value="enviar" class="btn btn-primary mt-3">
 
-    </div>                   
-                       
                         
-</form>
-</body>
-          
+                        </div>
+                        
+                        
+                    </div>    
+                </form>
+    </body>

@@ -14,8 +14,9 @@
             Señal vial
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<?php echo getUrl("SeñalizacionVial", "SeñalMalEstado", "getCreate");?>">Reportar señal mal estado</a></li>
-            <li><a class="dropdown-item" href="<?php echo getUrl("SeñalizacionVial", "SeñalNueva", "getCreate");?>">Solicitar nueva señal</a></li>
+            <li><a class="dropdown-item" href="<?php echo getUrl("Señales", "SeñalMalEstado", "getCreate");?>">Reportar señal mal estado</a></li>
+            <li><a class="dropdown-item" href="<?php echo getUrl("Señales", "SeñalNueva", "getCreate");?>">Solicitar nueva señal</a></li>
+            <li><a class="dropdown-item" href="<?php echo getUrl("Señales", "SeñalMalEstado", "getSeñales");?>">Consultar solicitudes</a></li>
           </ul>
         </li>
         <li class="nav-item">

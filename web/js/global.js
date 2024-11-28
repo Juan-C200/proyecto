@@ -112,22 +112,26 @@
     
            
                 // Manejador de eventos para los botones
-                $('.boton_cambiar_panel').on('click', function() {
+                $('.boton_cambiar_tipo_señal').on('click', function() {
+                    $('#' + 'boton_panel_señal_vertical').removeClass('btn-primary').addClass('btn-ligth');
+                    $('#' + 'boton_panel_señal_horizontal').removeClass('btn-primary').addClass('btn-ligth');
+
                     // Obtener el valor del atributo 'data-panel' del botón presionado
                     var panel = $(this).data('panel');
         
                     // Oculto ambos paneles
-                    $('.cajaSeñales1, .cajaSeñales2').addClass('d-none');
+                    $('#panel_señal_vertical, #panel_señal_horizontal').addClass('d-none');
                     
         
-                    // Miestro el panel el cual el boton referenciado fue oprimido
+                    // Muestro el panel el cual el boton referenciado fue oprimido
                     $('#' + panel).removeClass('d-none');
+                    $('#' + 'boton_' + panel).removeClass('btn-success').addClass('btn-primary');
                     
                 });
 
                 $('.boton_cambiar_panel1').on('click', function() {
                     // Obtener el valor del atributo 'data-panel' del botón presionado
-                    var paneles = $(this).data('panel');
+                    var panel = $(this).data('panel');
                     
         
                     // Oculto ambos paneles
@@ -143,10 +147,13 @@
         
         
             //});
-
+            $('.image-button').removeClass('btn-success').addClass('btn-light'); // 'btn-light' es el color blanco en Bootstrap
             $('.image-button').on('click', function() {
-                // Eliminar el color verde de todos los botones
-                $('.image-button').removeClass('btn-success').addClass('btn-light'); // 'btn-light' es el color blanco en Bootstrap
+
+                $('.image-button').removeClass('btn-success').addClass('btn-light');
+
+                
+                $('.image-button').addClass('btn-success'); 
                 
                 // Añadir la clase verde al botón seleccionado
                 $(this).removeClass('btn-light').addClass('btn-success');
@@ -158,7 +165,7 @@
                 $('#tipo_señal_seleccionada').val(valorSeleccionado);
     
                 // Opcional: Mostrar el valor seleccionado (para depuración)
-                alert('Valor seleccionado: ' + valorSeleccionado);
+                
             });
         
     });   

@@ -68,31 +68,7 @@
         }
     }
 
-    function validarCampoLetras($input){
-        $patron = "/^[a-zA-ZÑñ\s]+$/";
-        return preg_match($patron,$input) === 1;
-    }
-    function validarCampoNumeros($input){
-        $patron="/^[0-9]+$/";
-        return preg_match($patron,$input) === 1;
-    }
-
-    function validarCorreo($input) {
-        $patron = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
-        return preg_match($patron, $input) === 1;
-    }
-    
-    function validarContrasena($input){
-        $patron="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$/";
-        return preg_match($patron,$input) === 1;
-    }
-
-
-
-    
     function validarCampo($campo, $nombre_campo, $tipo){
-
-        
 
         if (empty($campo)) {
             $_SESSION['errores'][$nombre_campo] = "El campo '$nombre_campo' es requerido.";
