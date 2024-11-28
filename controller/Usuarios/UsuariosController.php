@@ -49,8 +49,7 @@ class UsuariosController{
     function validatePassword(){
         
         $contraseña = $_POST['password'];
-        // echo var_dump($password);
-        // echo var_dump($_SESSION['usu_contrasena']);
+        
         if(password_verify($contraseña, $_SESSION['usu_contrasena'])){
             echo "correcta";
         }else{
@@ -74,7 +73,14 @@ class UsuariosController{
         $segundo_apellido = $_POST['segundo_apellido'] ?? '';
         $sexo = $_POST['sexo'] ?? '';
         $correo= $_POST['correo'] ?? '';
-        $telefono= $_POST['telefono'] ?? '';
+        $celular= $_POST['celular'] ?? '';
+        $campo1 = $_POST['campo1'] ?? '';
+        $campo2 = $_POST['campo2'] ?? '';
+        $campo3 = $_POST['campo3'] ?? '';
+        $campo4 = $_POST['campo4'] ?? '';
+        $campo5 = $_POST['campo5'] ?? '';
+
+        $direccion = $campo1." ".$campo2." ".$campo3."# ".$campo4." - ".$campo5;
 
         //esto lo puede modificar solo el administrador
         $rol_id = $_POST['rol_id'] ?? '';
@@ -90,110 +96,55 @@ class UsuariosController{
             $rol_id = $_SESSION['usu_rol'];
             $est_id = $_SESSION['usu_estado'];
         }
-        
 
-        $campo1 = $_POST['campo1'] ?? '';
-        $campo2 = $_POST['campo2'] ?? '';
-        $campo3 = $_POST['campo3'] ?? '';
-        $campo4 = $_POST['campo4'] ?? '';
-        $campo5 = $_POST['campo5'] ?? '';
-
-        $direccion = $campo1." ".$campo2." ".$campo3."# ".$campo4." - ".$campo5;
-        
-        
         $validacion = true;
-        $_SESSION['errores']=[];
-    
-        // Validación de cada campo
-        if (empty($id)) {
-            $_SESSION['errores']['id'] = "No se envio un usuario a actualizar.";
-            $validacion = false;
-        }
-
-        if (empty($tipo_documento)) {
-            $_SESSION['errores']['tipo_documento'] = "El campo 'tipo de documento' es requerido.";
-            $validacion = false;
-        }
-    
-        if (empty($numero_documento)) {
-            $_SESSION['errores']['numero_documento'] = "El campo 'Numero de documento' es requerido.";
-            $validacion = false;
-        }else if (validarCampoNumeros($numero_documento) == false) {
-            $_SESSION['errores']['numero_documento'] = "El campo 'Numero de documento' solo debe contener numeros.";
-            $validacion = false;
-        }
-    
-        if (empty($primer_nombre)) {
-            $_SESSION['errores']['primer_nombre'] = "El campo 'primer_nombre' es requerido.";
-            $validacion = false;
-        }else if (validarCampoLetras($primer_nombre) == false) {
-            $_SESSION['errores']['primer_nombre'] = "El campo 'primer_nombre' debe contener solo letras.";
-            $validacion = false;
-        }
-    
-        if (empty($primer_apellido)) {
-            $_SESSION['errores']['primer_apellido'] = "El campo 'primer_apellido' es requerido";
-            $validacion = false;
-        }else if (validarCampoLetras($primer_apellido) == false) {
-            $_SESSION['errores']['primer_apellido'] = "El campo 'primer_apellido' debe contener solo letras";
-            $validacion = false;
-        }
-
-        if (empty($sexo)) {
-            $_SESSION['errores']['sexo'] = "El campo 'sexo' es requerido";
-            $validacion = false;
-        }else if (validarCampoLetras($sexo) == false) {
-            $_SESSION['errores']['sexo'] = "El campo 'sexo' debe contener solo letras";
-            $validacion = false;
-        }
-    
-        if (empty($correo)) {
-            $_SESSION['errores']['correo'] = "El campo 'correo' es requerido.";
-            $validacion = false;
-        }else if (validarCorreo($correo) == false) {
-            $_SESSION['errores']['correo'] = "El campo 'correo' no tiene un formato válido.";
-            $validacion = false;
-        }
-    
-        if (empty($telefono)) {
-            $_SESSION['errores']['telefono'] = "El campo 'telefono' es requerido.";
-            $validacion = false;
-        }     
-
-        // Validación de caracteres en los campos opcionales
-    
-        if ($segundo_nombre && !validarCampoLetras($segundo_nombre )) {
-            $_SESSION['errores']['segundo_nombre'] = "El campo 'segundo_nombre' debe contener solo letras.";
-            $validacion = false;
-        }
-    
-        if (!empty($segundo_apellido) && !validarCampoLetras($segundo_apellido)){
-            $_SESSION['errores']['segundo_apellido'] = "El campo 'segundo_apellido' debe contener solo letras.";
-            $validacion = false;
-        }
-    
         
-    
+        // Validación de cada campo
+        validarCampo($tipo_documento, 'Tipo de documento', 'numeros');
+        validarCampo($numero_documento, 'Numero de documento', 'numeros');
+        validarCampo($primer_nombre, 'Primer nombre', 'letras');
+        validarCampo($primer_apellido, 'Primer apellido', 'letras');
+        validarCampo($sexo, 'Genero', 'letras');
+        validarCampo($correo, 'Correo', 'correo');
+        validarCampo($celular, 'Celular', 'numeros');
+        validarCampo($campo1, 'Tipo de vía', 'letras');
+        validarCampo($campo2, 'Nombre o numero de vía', 'no');
+        validarCampo($campo4, 'Numero de placa #1', 'no');
+        validarCampo($campo5, 'Numero de placa #2', 'no');
+
+        // Validaciónes opcionales
+        if (!empty($segundo_nombre)) {
+            validarCampo($segundo_nombre, 'Segundo nombre', 'letras');
+        }
+        if (!empty($segundo_apellido)) {
+            validarCampo($segundo_apellido, 'Segundo apellido', 'letras');
+        }
+        if (!empty($campo3)) {
+            validarCampo($campo3, 'Prefijo o cuadrante', 'letras');
+        } 
+
+        // Si hay errores no deja avanzar
+        if (!empty($_SESSION['errores'])) {
+            $validacion = false;
+        }
+
         // Si todo es válido, insertar en la base de datos
         if ($validacion) {
-            // Limpiar errores previos
-            unset($_SESSION['errores']);
-    
-            // SQL para insertar usuario
-            $sql = "UPDATE usuarios SET usu_nombre1 = '$primer_nombre', usu_nombre2 = '$segundo_nombre', usu_apellido1 = '$primer_apellido', usu_apellido2 = '$segundo_apellido', usu_genero = '$sexo', usu_telefono = '$telefono', usu_correo = '$correo', usu_tipo_docu = $tipo_documento, usu_numero_docu = '$numero_documento', usu_direccion = '$direccion', usu_rol = $rol_id, usu_estado = $est_id WHERE usu_id = $id";
             
-            // Ejecutar SQL
-            $ejecutar = $obj->insert($sql);
+            
+            $sql = "UPDATE usuarios SET usu_nombre1 = '$primer_nombre', usu_nombre2 = '$segundo_nombre', usu_apellido1 = '$primer_apellido', usu_apellido2 = '$segundo_apellido', usu_genero = '$sexo', usu_telefono = '$celular', usu_correo = '$correo', usu_tipo_docu = $tipo_documento, usu_numero_docu = '$numero_documento', usu_direccion = '$direccion', usu_rol = $rol_id, usu_estado = $est_id WHERE usu_id = $id";
+            $ejecutar = $obj->update($sql);
     
             if ($ejecutar) {
-                unset($_SESSION['errores']); 
+                unset($_SESSION['errores']);
+                unset($_SESSION['values']);
                 redirect(getUrl("Usuarios","Usuarios","getUpdate",array("usu_id"=>$id)));
                 
             } else {
-                
+                redirect(getUrl("Usuarios","Usuarios","getUpdate",array("usu_id"=>$id)));
             }
         } else {
-            redirect(getUrl("Usuarios","Usuarios","getUpdate",array("usu_id"=>$id),"ajax"));
+            redirect(getUrl("Usuarios","Usuarios","getUpdate",array("usu_id"=>$id)));
             
         }
          
@@ -285,9 +236,16 @@ class UsuariosController{
         $segundo_apellido = $_POST['segundo_apellido'] ?? '';
         $sexo = $_POST['sexo'] ?? '';
         $correo= $_POST['correo'] ?? '';
-        $telefono= $_POST['telefono'] ?? '';
+        $celular= $_POST['celular'] ?? '';
         $contraseña= $_POST['contraseña'] ?? '';
         $confContraseña = $_POST['confContraseña'] ?? '';
+        $campo1 = $_POST['campo1'] ?? '';
+        $campo2 = $_POST['campo2'] ?? '';
+        $campo3 = $_POST['campo3'] ?? '';
+        $campo4 = $_POST['campo4'] ?? '';
+        $campo5 = $_POST['campo5'] ?? '';
+
+        $direccion = $campo1." ".$campo2." ".$campo3."# ".$campo4." - ".$campo5;
 
         //esto lo puede modificar solo el administrador
         $rol_id = $_POST['rol_id'] ?? '';
@@ -301,118 +259,59 @@ class UsuariosController{
             $est_id = 1;
         }
 
-        $campo1 = $_POST['campo1'] ?? '';
-        $campo2 = $_POST['campo2'] ?? '';
-        $campo3 = $_POST['campo3'] ?? '';
-        $campo4 = $_POST['campo4'] ?? '';
-        $campo5 = $_POST['campo5'] ?? '';
-
-        $direccion = $campo1." ".$campo2." ".$campo3."# ".$campo4." - ".$campo5;
-        
-        
         $validacion = true;
-        
-        
-    
+
         // Validación de cada campo
-        if (empty($tipo_documento)) {
-            $_SESSION['errores']['tipo_documento'] = "El campo 'tipo de documento' es requerido.";
-            $validacion = false;
-        }
-    
-        if (empty($numero_documento)) {
-            $_SESSION['errores']['numero_documento'] = "El campo 'numero_documento' es requerido.";
-            $validacion = false;
-        }else if (validarCampoNumeros($numero_documento) == false) {
-            $_SESSION['errores']['numero_documento'] = "El campo 'numero_documento' solo debe contener numeros.";
-            $validacion = false;
-        }
-    
-        if (empty($primer_nombre)) {
-            $_SESSION['errores']['primer_nombre'] = "El campo 'primer_nombre' es requerido.";
-            $validacion = false;
-        }else if (validarCampoLetras($primer_nombre) == false) {
-            $_SESSION['errores']['primer_nombre'] = "El campo 'primer_nombre' debe contener solo letras.";
-            $validacion = false;
-        }
-    
-        if (empty($primer_apellido)) {
-            $_SESSION['errores']['primer_apellido'] = "El campo 'primer_apellido' es requerido";
-            $validacion = false;
-        }else if (validarCampoLetras($primer_apellido) == false) {
-            $_SESSION['errores']['primer_apellido'] = "El campo 'primer_apellido' debe contener solo letras";
-            $validacion = false;
-        }
+        validarCampo($tipo_documento, 'Tipo de documento', 'numeros');
+        validarCampo($numero_documento, 'Numero de documento', 'numeros');
+        validarCampo($primer_nombre, 'Primer nombre', 'letras');
+        validarCampo($primer_apellido, 'Primer apellido', 'letras');
+        validarCampo($sexo, 'Genero', 'letras');
+        validarCampo($correo, 'Correo', 'correo');
+        validarCampo($celular, 'Celular', 'numeros');
+        validarCampo($campo1, 'Tipo de vía', 'letras');
+        validarCampo($campo2, 'Nombre o numero de vía', 'no');
+        validarCampo($campo4, 'Numero de placa #1', 'no');
+        validarCampo($campo5, 'Numero de placa #2', 'no');
+        validarCampo($contraseña, 'Contraseña', 'contraseña');
 
-        if (empty($sexo)) {
-            $_SESSION['errores']['sexo'] = "El campo 'sexo' es requerido";
-            $validacion = false;
-        }else if (validarCampoLetras($sexo) == false) {
-            $_SESSION['errores']['sexo'] = "El campo 'sexo' debe contener solo letras";
-            $validacion = false;
+        if (!empty($confContraseña) && $contraseña !== $confContraseña) {
+            $_SESSION['errores']['Confirmar contraseña'] = "La confirmación de la contraseña no coincide.";
         }
-    
-        if (empty($correo)) {
-            $_SESSION['errores']['correo'] = "El campo 'correo' es requerido.";
-            $validacion = false;
-        }else if (validarCorreo($correo) == false) {
-            $_SESSION['errores']['correo'] = "El campo 'correo' no tiene un formato válido.";
-            $validacion = false;
-        }
-    
-        if (empty($telefono)) {
-            $_SESSION['errores']['telefono'] = "El campo 'telefono' es requerido.";
-            $validacion = false;
-        }
-    
-        if (empty($contraseña)) {
-            $_SESSION['errores']['contraseña'] = "El campo 'contraseña' es requerido.";
-            $validacion = false;
-        }else if (validarContrasena($contraseña) == false) {
-            $_SESSION['errores']['contraseña'] = "La contraseña debe contener al menos un número, una mayúscula, un carácter especial y tener entre 8 y 12 caracteres.";
-            $validacion = false;
-        }
-    
-        if (empty($confContraseña)) {
-            $_SESSION['errores']['confContraseña'] = "El campo de confirmación de contraseña es requerido.";
-            $validacion = false;
-        }
-
-        if ($contraseña !== $confContraseña) {
-            $_SESSION['errores']['confClave'] = "La confirmación de la clave no coincide";
-            $validacion = false;
-        }
-
-        // Validación de caracteres en los campos opcionales
-    
-        if ($segundo_nombre != null && validarCampoLetras($segundo_nombre ) == false) {
-            $_SESSION['errores']['segundo_nombre'] = "El campo 'segundo_nombre' debe contener solo letras.";
-            $validacion = false;
-        }
-    
-        if (!empty($segundo_apellidoempty)){
-            if (validarCampoLetras($segundo_nombre ) == false) {
-                $_SESSION['errores']['segundo_apellido'] = "El campo 'segundo_apellido' debe contener solo letras.";
-                $validacion = false;
-            }
-        }
-    
         
-    
+        // Validaciónes opcionales
+        if (!empty($segundo_nombre)) {
+            validarCampo($segundo_nombre, 'Segundo nombre', 'letras');
+        }
+        if (!empty($segundo_apellido)) {
+            validarCampo($segundo_apellido, 'Segundo apellido', 'letras');
+        }
+        if (!empty($campo3)) {
+            validarCampo($campo3, 'Prefijo o cuadrante', 'letras');
+        } 
+
+
+        // Si hay errores no deja avanzar
+        if (!empty($_SESSION['errores'])) {
+            $validacion = false;
+        }
+ 
         // Si todo es válido, insertar en la base de datos
         if ($validacion) {
-            
+
             // Cifrar la contraseña
             $hash = password_hash($contraseña, PASSWORD_DEFAULT);
     
-            // SQL para insertar usuario
             $sql = "INSERT INTO usuarios (usu_id, usu_nombre1, usu_nombre2, usu_apellido1, usu_apellido2, usu_genero, usu_telefono, usu_correo, usu_tipo_docu, usu_numero_docu, usu_direccion, usu_contrasena, usu_rol, usu_estado)
-                    VALUES ($id, '$primer_nombre', '$segundo_nombre', '$primer_apellido', '$segundo_apellido', '$sexo', '$telefono', '$correo', $tipo_documento, '$numero_documento', '$direccion', '$hash', $rol_id, $est_id)";
+                    VALUES ($id, '$primer_nombre', '$segundo_nombre', '$primer_apellido', '$segundo_apellido', '$sexo', '$celular', '$correo', $tipo_documento, '$numero_documento', '$direccion', '$hash', $rol_id, $est_id)";
     
-            // Ejecutar SQL
             $ejecutar = $obj->insert($sql);
     
             if ($ejecutar) {
+
+                unset($_SESSION['errores']);
+                unset($_SESSION['values']);
+
                 if(!isset($_SESSION['auth'])){
                     redirect(getUrl("Usuarios","Usuarios","getCreate",false,"ajax"));
                 }else{

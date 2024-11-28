@@ -87,4 +87,56 @@
         return preg_match($patron,$input) === 1;
     }
 
+
+
+    
+    function validarCampo($campo, $nombre_campo, $tipo){
+
+        
+
+        if (empty($campo)) {
+            $_SESSION['errores'][$nombre_campo] = "El campo '$nombre_campo' es requerido.";
+            
+        }else{
+            switch ($tipo) {
+                case 'letras':
+                    if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/', $campo)) {
+                        $_SESSION['errores'][$nombre_campo] = "El campo '$nombre_campo' debe contener solo letras.";
+                        
+                    }
+                    $_SESSION['values'][$nombre_campo] = $campo;
+                    break;
+                case 'numeros':
+                    if (!preg_match("/^[0-9]+$/",$campo)) {
+                        $_SESSION['errores'][$nombre_campo] = "El campo '$nombre_campo' solo debe contener números.";
+                        
+                    }
+                    $_SESSION['values'][$nombre_campo] = $campo;
+                    break;
+                case 'correo':
+                    if (!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/",$campo)) {
+                        $_SESSION['errores'][$nombre_campo] = "El campo '$nombre_campo' no tiene un formato válido.";
+                        
+                    }
+                    $_SESSION['values'][$nombre_campo] = $campo;
+                    break;
+                case 'contraseña':
+                    if (!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$/",$campo)) {
+                        $_SESSION['errores'][$nombre_campo] = "El campo '$nombre_campo' debe tener entre 8, incluyendo al menos una letra mayúscula, una minúscula, un número y un carácter especial.";
+                        
+                    }
+                    $_SESSION['values'][$nombre_campo] = $campo;
+                    break;
+                default:
+                    $_SESSION['values'][$nombre_campo] = $campo;
+                    break;
+                
+            }
+        }
+
+        
+
+       
+    }
+
 ?>

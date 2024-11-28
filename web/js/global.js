@@ -19,21 +19,18 @@
 
             let buscar = $(this).val();
             let url = $(this).attr("data-url");
-
-            setTimeout(()=>{
-                $.ajax({
-                    url : url,
-                    type : 'POST',
-                    data : {'buscar': buscar},
-                    success : function(data){
-                        html = capturarSubcadena(data,"<tbody>","</tbody>");//outer trae la etiqueta completa y le complementa la data para poder imprimirla
-                        $('tbody').html(html);
-                        
-                            console.log(html);
-                        
-                    }
-                });
-            },1000);
+        
+            $.ajax({
+                url : url,
+                type : 'POST',
+                data : {'buscar': buscar},
+                success : function(data){
+                    html = capturarSubcadena(data,"<tbody>","</tbody>");
+                    $('tbody').html(html);
+                    
+                }
+            });
+            
         });
 
         
@@ -50,10 +47,8 @@
                 type: 'POST',
                 success: function(data){
                     
-                    html = $('#navbar')[0].outerHTML + data;//outer trae la etiqueta completa y le complementa la data para poder imprimirla
+                    html = $('#navbar')[0].outerHTML + data;//outer trae la etiqueta completa y le complemento la data para poder imprimirla
                     $('#contenedor').html(html);
-                   
-                    console.log($('#contenedor').html());
                 }
 
             });
@@ -96,7 +91,7 @@
                 type: 'POST',
                 success: function(data){
                     console.log(data);
-                    if(data == "correcta"){
+                    if(data.includes("correcta")){
 
                         $("#form_update").submit();
                         alert("La contraseña es correcta.");
