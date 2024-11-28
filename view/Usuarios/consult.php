@@ -46,11 +46,18 @@
                             $clase = "btn btn-success";
                             $texto = "Habilitar";
                         }
+
+                        
+                        if($usu['usu_id'] == $_SESSION['usu_id']){
+                            $disabled="disabled";
+                        }else{
+                            $disabled="";
+                        }
                         echo "<td>";
                             if(!empty($clase))echo "<button type='button' class='$clase' id='cambiar_estado' 
                             data-url='".getUrl("Usuarios", "Usuarios", "postUpdateStatus", false, "ajax")."' 
                             data-id = '".$usu['usu_estado']."' 
-                            data-user='".$usu['usu_id']."'>$texto</button>";
+                            data-user='".$usu['usu_id']."' ".$disabled.">$texto</button>";
                             
                         echo "</td>";
                         

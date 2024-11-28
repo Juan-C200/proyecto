@@ -17,19 +17,25 @@
                     <h4>Datos de identificación</h4>
 
                     <div class="col-md-3 p-2">
-                        <label for="tipoDocumento" class="form-label text-white">Tipo Documento*</label>
+                        <label for="tipoDocumento" class="form-label text-white">Tipo documento*</label>
                         <select type="text" class="form-control boxDatos rounded-5" id="tipoDocumento"
                             name="tipo_documento">
                             <option value="">Seleccione...</option>
                             <?php 
                                 
                                 foreach($tipos_documentos as $tipo_documento){
-                                    if($usu['usu_tipo_docu'] == $tipo_documento['tipo_docu_id']){
+                                    if(isset($_SESSION['values']['Tipo de documento']) &&
+                                     $_SESSION['values']['Tipo de documento'] == $tipo_documento['tipo_docu_id']){
+
+                                        $selected = "selected";
+                                    }else if($usu['usu_tipo_docu'] == $tipo_documento['tipo_docu_id']){
+                                        
                                         $selected="selected";
                                     }else{
+
                                         $selected="";
                                     }
-                                    
+
                                     echo "<option value='".$tipo_documento['tipo_docu_id']."' ".$selected.">".$tipo_documento['tipo_docu_nombre']."</option>";
                                 }    
                             ?>
@@ -37,74 +43,113 @@
                         </select>
 
                         <?php
-                        if (isset($_SESSION['errores']['tipo_documento'])) {
-                            echo "<p class=' text-danger'>" . $_SESSION['errores']['tipo_documento'] . "</p>";
-                        }
+                            if (isset($_SESSION['errores']['Tipo de documento'])) {
+                                echo "<p class=' text-danger'>" . $_SESSION['errores']['Tipo de documento'] . "</p>";
+                            }
                         ?>
                     </div>
 
                     <div class="col-md-3 p-2">
-                        <label for="numeroDocumento" class="form-label text-white">Numero Documento*</label>
+                        <label for="numeroDocumento" class="form-label text-white">Numero documento*</label>
                         <input type="text" class="form-control boxDatos rounded-5" id="numeroDocumento"
-                            name="numero_documento"
-                            value="<?php echo $usu['usu_numero_docu']; ?>">
+                        name="numero_documento"
+                        value="<?php  
+                            if (isset($_SESSION['values']['Numero de documento'])) {
+                                echo htmlspecialchars($_SESSION['values']['Numero de documento']);
+                            } else if (isset($usu['usu_numero_docu'])) {
+                                echo $usu['usu_numero_docu'];
+                            } else {
+                                echo '';
+                            }
+                        ?>" required>
 
                         <?php
-                        if (isset($_SESSION['errores']['numero_documento'])) {
-                            echo "<p class='text-danger'>" . $_SESSION['errores']['numero_documento'] . "</p>";
-                        }
+                            if (isset($_SESSION['errores']['Numero de documento'])) {
+                                echo "<p class=' text-danger'>" . $_SESSION['errores']['Numero de documento'] . "</p>";
+                            }
                         ?>
 
                     </div>
 
                     <div class="col-md-3 p-2">
-                        <label for="primer_nombre" class="form-label text-white">Primer Nombre*</label>
+                        <label for="primer_nombre" class="form-label text-white">Primer nombre*</label>
                         <input type="text" class="form-control boxDatos rounded-5" id="primer_nombre"
                             name="primer_nombre"
-                            value="<?php echo $usu['usu_nombre1']; ?>">
-
+                            value="<?php  
+                            if (isset($_SESSION['values']['Primer nombre'])) {
+                                echo htmlspecialchars($_SESSION['values']['Primer nombre']);
+                            } else if (isset($usu['usu_nombre1'])) {
+                                echo $usu['usu_nombre1'];
+                            } else {
+                                echo '';
+                            }
+                        ?>" required>
                         <?php
-                        if (isset($_SESSION['errores']['primer_nombre'])) {
-                            echo "<p class='text-danger'>" . $_SESSION['errores']['primer_nombre'] . "</p>";
-                        }
+                            if (isset($_SESSION['errores']['Primer nombre'])) {
+                                echo "<p class=' text-danger'>" . $_SESSION['errores']['Primer nombre'] . "</p>";
+                            }
                         ?>
                     </div>
 
                     <div class="col-md-3 p-2">
-                        <label for="segundo_nombre" class="form-label text-white">Segundo Nombre</label>
+                        <label for="segundo_nombre" class="form-label text-white">Segundo nombre</label>
                         <input type="text" class="form-control boxDatos rounded-5" id="segundo_nombre"
                             name="segundo_nombre"
-                            value="<?php echo $usu['usu_nombre2']; ?>">
+                            value="<?php  
+                            if (isset($_SESSION['values']['Segundo nombre'])) {
+                                echo htmlspecialchars($_SESSION['values']['Segundo nombre']);
+                            } else if (isset($usu['usu_nombre2'])) {
+                                echo $usu['usu_nombre2'];
+                            } else {
+                                echo '';
+                            }
+                        ?>" required>
                         <?php
-                        if (isset($_SESSION['errores']['segundo_nombre'])) {
-                            echo "<p class='text-danger'>" . $_SESSION['errores']['segundo_nombre'] . "</p>";
-                        }
+                            if (isset($_SESSION['errores']['Segundo nombre'])) {
+                                echo "<p class=' text-danger'>" . $_SESSION['errores']['Segundo nombre'] . "</p>";
+                            }
                         ?>
 
                     </div>
 
                     <div class="col-md-3 p-2">
-                        <label for="primer_apellido" class="form-label text-white">Primer Apellido*</label>
+                        <label for="primer_apellido" class="form-label text-white">Primer apellido*</label>
                         <input type="text" class="form-control boxDatos rounded-5" id="primer_apellido"
                             name="primer_apellido"
-                            value="<?php echo $usu['usu_apellido1']; ?>">
+                            value="<?php  
+                            if (isset($_SESSION['values']['Primer apellido'])) {
+                                echo htmlspecialchars($_SESSION['values']['Primer apellido']);
+                            } else if (isset($usu['usu_apellido1'])) {
+                                echo $usu['usu_apellido1'];
+                            } else {
+                                echo '';
+                            }
+                        ?>" required>
                         <?php
-                        if (isset($_SESSION['errores']['primer_apellido'])) {
-                            echo "<p class='text-danger'>" . $_SESSION['errores']['primer_apellido'] . "</p>";
-                        }
+                            if (isset($_SESSION['errores']['Primer apellido'])) {
+                                echo "<p class=' text-danger'>" . $_SESSION['errores']['Primer apellido'] . "</p>";
+                            }
                         ?>
 
                     </div>
 
                     <div class="col-md-3 p-2">
-                        <label for="segundo_apellido" class="form-label text-white col-md-8">Segundo Apellido</label>
+                        <label for="segundo_apellido" class="form-label text-white col-md-8">Segundo apellido</label>
                         <input type="text" class="form-control boxDatos rounded-5" id="segundo_apellido"
                             name="segundo_apellido"
-                            value="<?php echo $usu['usu_apellido2'];?>">
+                            value="<?php  
+                            if (isset($_SESSION['values']['Segundo apellido'])) {
+                                echo htmlspecialchars($_SESSION['values']['Segundo apellido']);
+                            } else if (isset($usu['usu_apellido2'])) {
+                                echo $usu['usu_apellido2'];
+                            } else {
+                                echo '';
+                            }
+                        ?>" required>
                         <?php
-                        if (isset($_SESSION['errores']['segundo_apellido'])) {
-                            echo "<p class='error text-danger'>" . $_SESSION['errores']['segundo_apellido'] . "</p>";
-                        }
+                            if (isset($_SESSION['errores']['Segundo apellido'])) {
+                                echo "<p class=' text-danger'>" . $_SESSION['errores']['Segundo apellido'] . "</p>";
+                            }
                         ?>
 
                     </div>
@@ -117,23 +162,30 @@
 
                         <?php 
                             $generos =array("Masculino","Femenino");
-                            $id = 0;
+
                             foreach($generos as $genero){
-                                if($usu['usu_genero'] == $genero){
+                                
+                                if(isset($_SESSION['values']['Genero']) &&
+                                     $_SESSION['values']['Genero'] == $genero){
+
+                                    $selected = "selected";
+                                }else if($usu['usu_genero'] == $genero){
+                                    
                                     $selected="selected";
                                 }else{
+
                                     $selected="";
-                                }
-                                $id++;
+                                }   
+                                
                                 echo "<option value='".$genero."' ".$selected.">".$genero."</option>";
                             }    
                         
                         ?>
                         </select>
                         <?php
-                        if (isset($_SESSION['errores']['sexo'])) {
-                            echo "<p class='text-danger'>" . $_SESSION['errores']['sexo'] . "</p>";
-                        }
+                            if (isset($_SESSION['errores']['Genero'])) {
+                                echo "<p class=' text-danger'>" . $_SESSION['errores']['Genero'] . "</p>";
+                            }
                         ?>
 
                     </div>
@@ -150,35 +202,27 @@
                                         name="rol_id">
                                     <?php 
                                         foreach($roles as $rol){
-                                            if($usu['usu_rol'] == $rol['rol_id']){
+                                            
+                                            if(isset($_SESSION['values']['Rol']) &&
+                                                $_SESSION['values']['Rol'] == $rol['rol_id']){
+
+                                                $selected = "selected";
+                                            }else if($usu['usu_rol'] == $rol['rol_id']){
+                                                
                                                 $selected="selected";
                                             }else{
+
                                                 $selected="";
-                                            }
+                                            }   
                                             echo "<option value='".$rol['rol_id']."' ".$selected.">".$rol['rol_nombre']."</option>";
                                         }    
                                     ?>
                                     </select>
                                 </div>
-
-                                <div class="col-md-3 p-2">
-                                    <label for="estado" class="form-label text-white">Estado*</label>
-                                    <select type="text" class="form-control boxDatos rounded-5"
-                                        name="est_id">
-                                    <?php 
-                                        foreach($estados as $estado){
-                                            if($usu['usu_estado'] == $estado    ['est_id']){
-                                                $selected="selected";
-                                            }else{
-                                                $selected="";
-                                            }
-                                            echo "<option value='".$estado['est_id']."' ".$selected.">".$estado['est_nombre']."</option>";
-                                        }    
-                                    ?>
-                                    </select>
-                                </div>
-
                     <?php     
+                                if (isset($_SESSION['errores']['Rol'])) {
+                                    echo "<p class=' text-danger'>" . $_SESSION['errores']['Rol'] . "</p>";
+                                }
                             }
                         }
                     ?>
@@ -192,24 +236,40 @@
                     <div class="col-md-6">
                         <label for="correo" class="form-label text-white col-md-6">Correo*</label>
                         <input type="email" class="form-control boxDatos rounded-5" id="correo" name="correo"
-                            value="<?php echo $usu['usu_correo'];?>">
+                            value="<?php  
+                            if (isset($_SESSION['values']['Correo'])) {
+                                echo htmlspecialchars($_SESSION['values']['Correo']);
+                            } else if (isset($usu['usu_correo'])) {
+                                echo $usu['usu_correo'];
+                            } else {
+                                echo '';
+                            }
+                        ?>" required>
 
                         <?php
-                        if (isset($_SESSION['errores']['correo'])) {
-                            echo "<p class='text-danger'>" . $_SESSION['errores']['correo'] . "</p>";
-                        }
+                            if (isset($_SESSION['errores']['Correo'])) {
+                                echo "<p class='text-danger'>" . $_SESSION['errores']['Correo'] . "</p>";
+                            }
                         ?>
                     </div>
 
                     <div class="col-md-6">
-                        <label for="telefono" class="form-label text-white col-md-8">Telefono o Celular*</label>
-                        <input type="text" class="form-control boxDatos rounded-5" id="telefono"
-                            name="telefono"
-                            value="<?php echo $usu['usu_telefono'];?>">
+                        <label for="celular" class="form-label text-white col-md-8">Celular*</label>
+                        <input type="text" class="form-control boxDatos rounded-5" id="celular"
+                            name="celular"
+                            value="<?php  
+                            if (isset($_SESSION['values']['Celular'])) {
+                                echo htmlspecialchars($_SESSION['values']['Celular']);
+                            } else if (isset($usu['usu_telefono'])) {
+                                echo $usu['usu_telefono'];
+                            } else {
+                                echo '';
+                            }
+                        ?>" required>
                         <?php
-                        if (isset($_SESSION['errores']['telefono'])) {
-                            echo "<p class='text-danger'>" . $_SESSION['errores']['telefono'] . "</p>";
-                        }
+                            if (isset($_SESSION['errores']['Celular'])) {
+                                echo "<p class='text-danger'>" . $_SESSION['errores']['Celular'] . "</p>";
+                            }
                         ?>
 
                     </div>
@@ -224,7 +284,7 @@
                                     <option value="">Seleccione...</option>
 
                                     <?php 
-                                        $tipos_via = array("Calle","Carrera","Avenida","Transversal","Circular","Diagonal");
+                                        $tipos_vias = array("Calle","Carrera","Avenida","Transversal","Circular","Diagonal");
 
                                         $direccion =explode(" ",$usu['usu_direccion']);
 
@@ -238,23 +298,48 @@
                                         $num_placa2 = $direccion[$posicion];
                                         
                                         
-                                        for($i = 0; $i < count($tipos_via); $i++){
-                                            if($direccion[0] == $tipos_via[$i]){
+                                        foreach($tipos_vias as $tipo_via){
+
+                                            if(isset($_SESSION['values']['Tipo de vía']) &&
+                                                $_SESSION['values']['Tipo de vía'] == $tipo_via){
+
+                                                $selected = "selected";
+                                            }else if($direccion[0] == $tipo_via){
+                                                
                                                 $selected="selected";
                                             }else{
+
                                                 $selected="";
-                                            }
+                                            }  
                                             
-                                            echo "<option value='".$tipos_via[$i]."' ".$selected.">".$tipos_via[$i]."</option>";
+                                            echo "<option value='".$tipo_via."' ".$selected.">".$tipo_via."</option>";
                                         }    
                                     
                                     ?>
                                 </select>
+                                <?php
+                                    if (isset($_SESSION['errores']['Tipo de vía'])) {
+                                        echo "<p class=' text-danger'>" . $_SESSION['errores']['Tipo de vía'] . "</p>";
+                                    }
+                                ?>
                             </div>
                             
                             <div class="col-md-4 p-2">
                                 <label for="" class="form-label text-white">Nombre o número de vía*</label>
-                                <input type="text" value="<?php echo $direccion[1];?>" name="campo2" class="form-control boxDatos rounded-5">
+                                <input type="text" value="<?php  
+                                    if (isset($_SESSION['values']['Nombre o numero de vía'])) {
+                                        echo htmlspecialchars($_SESSION['values']['Nombre o numero de vía']);
+                                    } else if (!empty($direccion[1])) {
+                                        echo htmlspecialchars($direccion[1]);
+                                    } else {
+                                        echo '';
+                                    }
+                                ?>" name="campo2" class="form-control boxDatos rounded-5" required>
+                                <?php
+                                    if (isset($_SESSION['errores']['Nombre o numero de vía'])) {
+                                        echo "<p class=' text-danger'>" . $_SESSION['errores']['Nombre o numero de vía'] . "</p>";
+                                    }
+                                ?>
                             </div>
 
                             <div class="col-md-4 p-2">
@@ -263,22 +348,32 @@
                                     <option value="">Seleccione...</option>
 
                                     <?php 
-                                        echo var_dump($direccion);
                                         $prefijos = array("Norte","Sur","Este","Oeste");
 
-                                        for($i = 0; $i < count($prefijos); $i++){
-                                            if($direccion[2] == $prefijos[$i]){
+                                        foreach($prefijos as $prefijo){
+                                            if(isset($_SESSION['values']['Prefijo o cuadrante']) &&
+                                             $_SESSION['values']['Prefijo o cuadrante'] == $prefijo){
+
+                                                $selected = "selected";
+                                            }else if($direccion[2] == $prefijo){
+                                                
                                                 $selected="selected";
                                             }else{
+
                                                 $selected="";
-                                            }
+                                            }  
                                             
-                                            echo "<option value='".$prefijos[$i]."' ".$selected.">".$prefijos[$i]."</option>";
+                                            echo "<option value='".$prefijo." ' ".$selected.">".$prefijo."</option>";
                                         }    
                                     
                                     ?>
 
                                 </select>
+                                <?php
+                                    if (isset($_SESSION['errores']['Prefijo o cuadrante'])) {
+                                        echo "<p class=' text-danger'>" . $_SESSION['errores']['Prefijo o cuadrante'] . "</p>";
+                                    }
+                                ?>
                             </div>
 
                             <label for="" class="form-label text-white">Número de placa*</label>
@@ -288,7 +383,20 @@
                             </div>
 
                             <div class="col-md-3">
-                                <input type="text" value="<?php echo $num_placa1;?>" name="campo4" class="form-control boxDatos rounded-5">
+                                <input type="text" value="<?php  
+                                    if (isset($_SESSION['values']['Numero de placa #1'])) {
+                                        echo htmlspecialchars($_SESSION['values']['Numero de placa #1']);
+                                    } else if (!empty($num_placa1)) {
+                                        echo htmlspecialchars($num_placa1);
+                                    } else {
+                                        echo '';
+                                    }
+                                ?>" name="campo4" class="form-control boxDatos rounded-5">
+                                <?php
+                                    if (isset($_SESSION['errores']['Numero de placa #1'])) {
+                                        echo "<p class=' text-danger'>" . $_SESSION['errores']['Numero de placa #1'] . "</p>";
+                                    }
+                                ?>
                             </div>
 
                             <div class="col-md-1">
@@ -296,7 +404,20 @@
                             </div>
 
                             <div class="col-md-3">
-                                <input type="text" value="<?php echo $num_placa2;?>" name="campo5" class="form-control boxDatos rounded-5">
+                                <input type="text" value="<?php  
+                                    if (isset($_SESSION['values']['Numero de placa #2'])) {
+                                        echo htmlspecialchars($_SESSION['values']['Numero de placa #2']);
+                                    } else if (!empty($num_placa2)) {
+                                        echo htmlspecialchars($num_placa2);
+                                    } else {
+                                        echo '';
+                                    }
+                                ?>" name="campo5" class="form-control boxDatos rounded-5">
+                                <?php
+                                    if (isset($_SESSION['errores']['Numero de placa #2'])) {
+                                        echo "<p class=' text-danger'>" . $_SESSION['errores']['Numero de placa #2'] . "</p>";
+                                    }
+                                ?>
                             </div>
                             
                         </div>
@@ -338,6 +459,8 @@
                     data-url="<?php echo getUrl("Usuarios", "Usuarios", "validatePassword",false,"ajax"); ?>">
                     <?php
                         unset($_SESSION['errores']);
+                        unset($_SESSION['values']);
+
                     ?>
                     
                 </div>
