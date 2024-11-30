@@ -9,6 +9,16 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Inicio</a>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Señal vial
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="<?php echo getUrl("Señales", "SeñalMalEstado", "getCreate");?>">Reportar señal mal estado</a></li>
+            <li><a class="dropdown-item" href="<?php echo getUrl("Señales", "SeñalNueva", "getCreate");?>">Solicitar nueva señal</a></li>
+            <li><a class="dropdown-item" href="<?php echo getUrl("Señales", "SeñalMalEstado", "getSeñales");?>">Consultar solicitudes</a></li>
+          </ul>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
         </li>
@@ -21,6 +31,7 @@
             <li><a class="dropdown-item" href="<?php echo getUrl("Tareas", "Tareas", "getTareas");?>">Consultar</a></li>
           </ul>
         </li>
+        
         <?php if($_SESSION['rol_nombre'] != "Ciudadano"){?> 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
