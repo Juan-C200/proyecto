@@ -1,5 +1,4 @@
-<?php 
-                                
+<?php                              
     foreach($usuarios as $usu){
 ?>
 <body class="bg-dark pb-5" >

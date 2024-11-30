@@ -54,6 +54,24 @@
             });
         });
 
+        $(document).on('click',"#filtrar", function(){
+            let url = $(this).attr("data-url");
+            let filtro = $(this).attr("data-filtro");
+            let orden = $(this).attr("data-orden");
+            
+            $.ajax({
+                url:url,
+                data:{filtro, orden},
+                type: 'POST',
+                success: function(data){
+                    console.log(data);
+                    html = $('#navbar')[0].outerHTML + data;//outer trae la etiqueta completa y le complemento la data para poder imprimirla
+                    $('#contenedor').html(html);
+                }
+
+            });
+        });
+
 
         //abrir modal
         $(document).on('click',"#boton_editar", function(){

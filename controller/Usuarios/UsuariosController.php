@@ -6,16 +6,25 @@ class UsuariosController{
 
     public function getUsuarios(){
         $obj = new UsuariosModel();
+        
+        $filtro=$_POST['filtro'] ?? "usu_id";
+        $orden=$_POST['orden'] ?? "ASC";
+
+        
+
+
         $sql = "SELECT * FROM usuarios u
                 JOIN roles r ON r.rol_id = u.usu_rol
                 JOIN estados e ON e.est_id = u.usu_estado
-                JOIN tipo_documento tp ON tp.tipo_docu_id = u.usu_tipo_docu ORDER BY usu_id";
+                JOIN tipo_documento tp ON tp.tipo_docu_id = u.usu_tipo_docu ORDER BY ".$filtro." ".$orden;
         $result = $obj->consult($sql);
 
         $usuarios = pg_fetch_all($result);
+        echo $orden;
 
 
         include_once '../view/usuarios/consult.php';
+        
     }
 
     public function getUpdate(){
