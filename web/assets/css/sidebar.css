@@ -47,9 +47,10 @@ html, body {
     min-width: 70px;
     z-index: 1000;
     transition: all .25s ease-in-out;
-    background-color: #0e2238;
+    background: linear-gradient(90deg, #00aaff, #0044cc);
     display: flex;
     flex-direction: column;
+    border: none;
 }
 
 #sidebar.expand {
@@ -66,18 +67,18 @@ html, body {
 
 .toggle-btn i {
     font-size: 1.5rem;
-    color: #FFF;
+    color: #f8f9fa;
 }
 
 .sidebar-logo {
-    margin: auto 0;
+    width: 50%; /* 50% del ancho del sidebar */
+    max-width: 130px; /* Tamaño máximo para no exceder */
+    height: auto; /* Mantiene proporciones */
+    display: block;
+    margin: 10px auto 0px;
 }
 
-.sidebar-logo a {
-    color: #FFF;
-    font-size: 1.15rem;
-    font-weight: 600;
-}
+
 
 #sidebar:not(.expand) .sidebar-logo,
 #sidebar:not(.expand) a.sidebar-link span {
@@ -90,8 +91,8 @@ html, body {
 }
 
 a.sidebar-link {
-    padding: .625rem 1.625rem;
-    color: #FFF;
+    padding: .725rem 1.625rem;
+    color: #f8f9fa;
     display: block;
     font-size: 0.9rem;
     white-space: nowrap;
@@ -104,19 +105,20 @@ a.sidebar-link {
 }
 
 a.sidebar-link:hover {
-    background-color: rgba(255, 255, 255, .075);
-    border-left: 3px solid #3b7ddd;
+    background-color: #f5f5f585;
+    border-left: 3px solid #eaebec;
 }
 
 .sidebar-item {
     position: relative;
+    padding-top: 5px; /* Espacio entre logo y elementos */
 }
 
 #sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
     position: absolute;
     top: 0;
     left: 70px;
-    background-color: #0e2238;
+    background: linear-gradient(90deg, #00aaff, #0044cc);
     padding: 0;
     min-width: 15rem;
     display: none;
@@ -139,7 +141,7 @@ a.sidebar-link:hover {
     right: 1.5rem;
     top: 1.4rem;
     transform: rotate(-135deg);
-    transition: all .2s ease-out;
+    transition: all .3s ease-out;
 }
 
 #sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {

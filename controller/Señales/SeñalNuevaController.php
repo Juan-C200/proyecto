@@ -13,7 +13,7 @@ class SeñalNuevaController{
         $result=$obj->consult($sql);
         $usuario = pg_fetch_all($result);
 
-        include_once '../view/formulariosSeñal/nuevaSeñalForm.php';
+        include_once '../view/Señales/nuevaSeñal.php';
     }
 
     function postCreate() {

@@ -1,7 +1,7 @@
-<div class="mt 3">
+<div class="mt-4">
     <h3 class ="display-4">Consultar señales en mal estado</h3>
 </div>
-<div class="mt 3">
+<div class="mt-3">
     <div class="col-md-2 mt-3" >
         <input type="text" name="buscar" id="buscar" class="form-control" placeholder="Buscar por nombre o por correo"
         data-url='<?php echo getUrl("Usuarios", "Usuarios","buscar",false,"ajax");?>'>
