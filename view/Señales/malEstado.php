@@ -224,6 +224,9 @@
             </div>
             
         </div> 
+
+        
+                
         <div class="row mt-4 p-1">
             <div class="col-md-12 mt-3">
                 <h7 for="foto" class="form-label"><b>Adjuntar imagen de la señal en mal estado</b></h7><br>
@@ -237,10 +240,28 @@
             <div class="col-md-12 mt-3">
                 <input type="submit" value="Enviar" class="btn btn-primary mt-3">
             </div>
+            </form>
         </div>   
     </div>                   
                        
                         
-</form>
+
+    <div class="formularios d-none" id="formulario_reductor">
+        <form action="<?php echo getUrl("Señales", "SeñalMalEstado", "postCreate");?>" method="POST" class="form-control p-4" enctype="multipart/form-data">
+
+            <div class="row justify-content-center">
+                    <h1>aca va el formulario de reductores</h1>
+            </div> 
+        </form>  
+    </div>  
+    
+    <div class="formularios d-none" id="formulario_mallaVial">
+        <form action="<?php echo getUrl("Señales", "SeñalMalEstado", "postCreate");?>" method="POST" class="form-control p-4" enctype="multipart/form-data">
+
+            <div class="row justify-content-center">
+                    <h1>aca va el formulario de malla vial</h1>
+            </div> 
+        </form>  
+    </div>   
 </body>
             
