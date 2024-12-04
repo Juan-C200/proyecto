@@ -45,6 +45,8 @@
                                 if(isset($_SESSION['errores'])){
                                     echo "<p>".$_SESSION['errores']."</p>";
                                 }
+
+                                unset($_SESSION['errores']);
                                     
                             ?>
 

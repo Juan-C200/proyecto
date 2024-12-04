@@ -20,7 +20,10 @@ class UsuariosController{
         $result = $obj->consult($sql);
 
         $usuarios = pg_fetch_all($result);
-        echo $orden;
+
+        
+
+        
 
 
         include_once '../view/usuarios/consult.php';

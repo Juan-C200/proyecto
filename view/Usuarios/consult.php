@@ -1,4 +1,4 @@
-<div class="mt 3">
+<div class="mt 3" id="consult">
     <h3 class ="display-4">Consultar Usuario</h3>
 </div>
 <div class="mt 3">
@@ -6,21 +6,20 @@
         <input type="text" name="buscar" id="buscar" class="form-control" placeholder="Buscar por nombre o por correo"
         data-url='<?php echo getUrl("Usuarios", "Usuarios","buscar",false,"ajax");?>'>
     </div>
-    <table class="table mt-3">
+    <table class='table mt-3' id='tabla'>
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Numero de documento</th>
                 <th>
-                    <button type='button' class='$clase' id='filtrar' 
-                        data-url='<?php echo getUrl("Usuarios", "Usuarios", "getUsuarios", false, "ajax")?>' 
+                    <button type='button' class='btn btn-sm btn-light' id='filtrar' 
+                        data-url='<?php echo getUrl("Usuarios", "Usuarios", "getUsuarios")?>' 
                         data-filtro='usu_nombre1' 
-                        data-orden='<?php $orden ?>'>Nombre</button>
+                        data-orden='ASC'>Nombre
+                    </button>
                 </th>
                 <th>
-                    <a href="<?php echo getUrl("Usuarios","Usuarios","getUsuarios",array("filtro"=>"usu_apellido2")) ?>">
-                        <button class='btn '>Apellido</button>
-                    </a>
+                    
                 </th>
                 <th>Email</th>
                 <th>Estado</th>

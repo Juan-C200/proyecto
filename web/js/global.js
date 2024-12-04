@@ -47,8 +47,7 @@
                 type: 'POST',
                 success: function(data){
                     
-                    html = $('#navbar')[0].outerHTML + data;//outer trae la etiqueta completa y le complemento la data para poder imprimirla
-                    $('#contenedor').html(html);
+                    $('#contenedor').html(data);
                 }
 
             });
@@ -63,17 +62,21 @@
                 url:url,
                 data:{filtro, orden},
                 type: 'POST',
+                
                 success: function(data){
+                    
+                    table = capturarSubcadena(data,"<table class='table mt-3' id='tabla'>","</table>");//outer trae la etiqueta completa y le complemento la data para poder imprimirla
+
+                    $('table').html(table);
+                    
                     console.log(data);
-                    html = $('#navbar')[0].outerHTML + data;//outer trae la etiqueta completa y le complemento la data para poder imprimirla
-                    $('#contenedor').html(html);
                 }
 
             });
         });
 
 
-        //abrir modal
+        //abrir modal confirmar contraseña
         $(document).on('click',"#boton_editar", function(){
 
             $('#modal').fadeIn(400);
@@ -89,7 +92,7 @@
 
         });
 
-        //cerrar modal
+        //cerrar modal confirmar contraseña
         $(document).on('click',"#close", function(){
             $('#modal').fadeOut(400);
             $('#modal').addClass('d-none');
@@ -121,9 +124,62 @@
                 }
 
             });
-
-             
         });
+
+
+
+
+        //abrir modal confirmar contraseña
+        $(document).on('click',"#boton_editar", function(){
+
+            $('#modal').fadeIn(400);
+            $('#modal').removeClass('d-none');
+            $('#container').css({
+                            "filter": "blur(5px)",
+                            "transition": "filter 0.3s ease"
+                        });
+            $('#navbar').css({
+                            "filter": "blur(5px)",
+                            "transition": "filter 0.3s ease"
+                        });
+
+        });
+
+        //cerrar modal confirmar contraseña
+        $(document).on('click',"#close", function(){
+            $('#modal').fadeOut(400);
+            $('#modal').addClass('d-none');
+            $('#container ').removeAttr("style");
+            $('#navbar ').removeAttr("style");
+        });
+
+        $('#validate_password').click(function(){
+            let url = $(this).attr("data-url");
+            let pass = $('#contraseña').val();
+            console.log(pass);
+
+            
+            $.ajax({
+                url:url,
+                data:{'password' : pass},
+                type: 'POST',
+                success: function(data){
+                    console.log(data);
+                    if(data.includes("correcta")){
+
+                        $("#form_update").submit();
+                        alert("La contraseña es correcta.");
+                    }else{
+                        
+                        $('#error_contraseña').removeClass('d-none');
+                    }
+                    
+                }
+
+            });
+        });
+
+
 
         
     
@@ -187,6 +243,36 @@
                 
                 
             });
+
+            $('.categoria').on('click', function() {
+
+                formulario = "formulario_" + $(this).data('categoria');
+
+                if($(this).hasClass('btn-primary')){
+                    $('#' + formulario).fadeOut(400);
+                    $('#' + formulario).addClass('d-none');
+                    
+                    $(this).removeClass('btn-primary');
+                    $(this).addClass('btn-light');
+                }else{
+                    $('.categoria').removeClass('btn-primary');
+                    $('.categoria').removeClass('btn-light');
+
+                    $('.formularios').fadeOut(400);
+                    $('.formularios').addClass('d-none');
+                    $('#' + formulario).fadeIn(400);
+                    $('#' + formulario).removeClass('d-none');
+                    $(this).addClass('btn-primary');
+
+                }
+
+                
+
+                
+                
+            });
+
+            
         
     });   
     
