@@ -2,7 +2,7 @@
     <h3 class ="display-4">Consultar Usuario</h3>
 </div>
 <div class="mt 3">
-    <div class="col-md-2 mt-3" >
+    <div class="col-md-3 mt-3" >
         <input type="text" name="buscar" id="buscar" class="form-control" placeholder="Buscar por nombre o por correo"
         data-url='<?php echo getUrl("Usuarios", "Usuarios","buscar",false,"ajax");?>'>
     </div>
@@ -10,17 +10,11 @@
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Tipo de documento</th>
                 <th>Numero de documento</th>
-                <th>
-                    <button type='button' class='btn btn-sm btn-light' id='filtrar' 
-                        data-url='<?php echo getUrl("Usuarios", "Usuarios", "getUsuarios")?>' 
-                        data-filtro='usu_nombre1' 
-                        data-orden='ASC'>Nombre
-                    </button>
-                </th>
-                <th>
-                    
-                </th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Sexo</th>
                 <th>Email</th>
                 <th>Estado</th>
                 <th>Editar</th>
@@ -31,9 +25,11 @@
                 foreach($usuarios as $usu){
                     echo "<tr>";
                         echo "<td>".$usu['usu_id']."</td>";
-                        echo "<td>".$usu['tipo_docu_codigo']." ".$usu['usu_numero_docu']."</td>";
+                        echo "<td>".$usu['tipo_docu_codigo']." - ".$usu['tipo_docu_nombre']."</td>";
+                        echo "<td>".$usu['usu_numero_docu']."</td>";
                         echo "<td>".$usu['usu_nombre1']." ".$usu['usu_nombre2']."</td>";
                         echo "<td>".$usu['usu_apellido1']." ".$usu['usu_apellido2']."</td>";
+                        echo "<td>".$usu['usu_genero']."</td>";
                         echo "<td>".$usu['usu_correo']."</td>";
                         
                         $clase="";

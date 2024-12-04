@@ -1,70 +1,41 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Adso571</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Inicio</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Señal vial
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<?php echo getUrl("Señales", "SeñalMalEstado", "getCreate");?>">Reportar señal mal estado</a></li>
-            <li><a class="dropdown-item" href="<?php echo getUrl("Señales", "SeñalNueva", "getCreate");?>">Solicitar nueva señal</a></li>
-            <li><a class="dropdown-item" href="<?php echo getUrl("Señales", "SeñalMalEstado", "getSeñales");?>">Consultar solicitudes</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Tareas
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<?php echo getUrl("Tareas", "Tareas", "getCreate");?>">Registrar</a></li>
-            <li><a class="dropdown-item" href="<?php echo getUrl("Tareas", "Tareas", "getTareas");?>">Consultar</a></li>
-          </ul>
-        </li>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg  px-3" id="nav">
+  <a class="navbar-brand" href="#">SIGARV</a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+    <!-- Mensaje de bienvenida -->
+    <span class="navbar-text">
+      Bienvenid@ <?php echo $_SESSION['usu_nombre1'].' '.$_SESSION['usu_nombre2'].' '.$_SESSION['usu_apellido1'].' '.$_SESSION['usu_apellido2']; ?>
+    </span>
+    <!--rol -->
+    <span class="navbar-text">
+      <?php if($_SESSION['usu_rol']==1){
+          if($_SESSION['usu_genero']=="Masculino"){
+              echo "Administrador";
+          }else{
+            echo "Administradora";
+          }
+      }else if($_SESSION['usu_rol']==2){
+          if($_SESSION['usu_genero']=="Masculino"){
+              echo "Funcionario";
+          }else{
+            echo "Funcionaria";
+          }
+      }else{
         
-        <?php if($_SESSION['rol_nombre'] != "Ciudadano"){?> 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Usuarios
-          </a>
-          
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<?php echo getUrl("Usuarios", "Usuarios", "getCreate");?>">Registrar</a></li>
-            <li><a class="dropdown-item" href="<?php echo getUrl("Usuarios", "Usuarios", "getUsuarios");?>">Consultar</a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Acceso
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<?php echo getUrl("Acceso", "Acceso", "getRegistrar");?>">Registrar</a></li>
-            <li><a class="dropdown-item" href="<?php echo getUrl("Acceso", "Acceso", "getLogin");?>">Iniciar sesion</a></li>
-          </ul>
-        </li>
-        <?php }?>
-        <?php if(isset($_SESSION['auth'])){?>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <?= $_SESSION['usu_nombre1']?>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="<?php echo getUrl("Usuarios", "Usuarios", "getPanelAdmin");?>">Panel Administrativo</a></li>             
-                    <li><a class="dropdown-item" href="<?php echo getUrl("Usuarios", "Usuarios", "logout");?>">Cerrar sesion</a></li>            
-                  </ul>
-                </li>
-        <?php }?>
-      </ul>
-    </div>
+          echo "Ciudadano";
+        
+      }
+            
+      ?>
+    </span>
+    <!-- búsqueda -->
+    <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>
   </div>
 </nav>

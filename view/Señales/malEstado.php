@@ -83,9 +83,63 @@
                     
                         
                 </div>
+                        </div>
+                        <div class="cajaSeñales2 p-1 col-md-12 d-none" id="panel_señal_horizontal">
+                            <h5>
+                            Señales Horizontales
+                            </h5>
+                            <div class="row gap-2">
+                                <?php
+                                    // Iteramos sobre el array y generamos un botón por cada imagen
+                                    foreach ($señales_horizontales as $señal    ) {
+                                        // Verificar si la ruta de la imagen existe
+                                        echo '<button type="button" class="btn btn-success image-button col-md-2" name="tipo_señal"  value="'.$señal['tipo_senalizacion_id'].'">';
+                                            echo '<img src="' . $señal['tipo_senalizacion_ruta_img'] . '" alt="' . $señal['tipo_senalizacion_nombre'] . '" class="col-md-3">';
+                                            echo '<p>' . $señal['tipo_senalizacion_nombre'] . '</p>';
+                                            echo '</button>';
+                                    }
+                                ?>
+                                
+                            </div>
+                            <input type="hidden" name="tipo_señal" id="tipo_señal_seleccionada" required>
+                            
+                        </div>
+                        <?php
+                            if (isset($_SESSION['errores']['Tipo de señal'])) {
+                                echo "<p class=' text-danger'>" . $_SESSION['errores']['Tipo de señal'] . "</p>";
+                            }
+                        ?>
+                    </div>
+                    
+                        
+                </div>
 
                 <div class="mt-1">
+                <div class="mt-1">
 
+                    <div class="col-md-3 p-1">
+                        <small class="text-warning">Complete los datos del formulario</small>
+                        <label for="tipo_daño" class="form-label"><b>Tipo de daño</b></label>
+                        <select type="text" class="form-control rounded-3" id="tipo_daño" name="tipo_daño">
+                            <option value="">Seleccione...</option>
+                            <?php 
+                                foreach($tipos_daños as $tipo_daño){
+                                    if(isset($_SESSION['values']['Tipo de daño']) &&
+                                            $_SESSION['values']['Tipo de daño'] == $tipo_daño['tipo_dano_id']){
+                                        $selected = "selected";
+                                    }else{
+                                        $selected = "";
+                                    }
+                                    echo "<option value='".$tipo_daño['tipo_dano_id']."'>".$tipo_daño['tipo_dano_nombre']."</option>";
+                                }    
+                            ?>
+                        </select>
+                        <?php
+                            if (isset($_SESSION['errores']['Tipo de daño'])) {
+                                echo "<p class=' text-danger'>" . $_SESSION['errores']['Tipo de daño'] . "</p>";
+                            }
+                        ?>
+                    </div> 
                     <div class="col-md-3 p-1">
                         <small class="text-warning">Complete los datos del formulario</small>
                         <label for="tipo_daño" class="form-label"><b>Tipo de daño</b></label>
@@ -170,6 +224,12 @@
                                 <option value="">Seleccione...</option>
                                 <?php 
                                     $prefijos = array("Norte","Sur","Este","Oeste");
+                        <div class="col-md-4 p-2">
+                            <label for="" class="form-label">Prefijo o cuadrante</label>
+                            <select name="campo3" class="form-control" id="">
+                                <option value="">Seleccione...</option>
+                                <?php 
+                                    $prefijos = array("Norte","Sur","Este","Oeste");
 
 
                                     foreach($prefijos as $prefijo){
@@ -191,9 +251,32 @@
                                 }
                             ?>
                         </div>
+                                    foreach($prefijos as $prefijo){
+                                        if(isset($_SESSION['values']['Prefijo o cuadrante']) &&
+                                            $_SESSION['values']['Prefijo o cuadrante'] == $prefijo){
+                                            $selected="selected";
+                                        }else{
+                                            $selected="";
+                                        }
+                                        
+                                        echo "<option value='".$prefijo." ' ".$selected.">".$prefijo."</option>";
+                                    }    
+                                
+                                ?>
+                            </select>
+                            <?php
+                                if (isset($_SESSION['errores']['Prefijo o cuadrante'])) {
+                                    echo "<p class=' text-danger'>" . $_SESSION['errores']['Prefijo o cuadrante'] . "</p>";
+                                }
+                            ?>
+                        </div>
 
                         <label for="" class="form-label">Número de placa*</label>
+                        <label for="" class="form-label">Número de placa*</label>
 
+                        <div class="col-md-1">
+                            <h5 for="" class="form-label m-1">#</h5>
+                        </div>
                         <div class="col-md-1">
                             <h5 for="" class="form-label m-1">#</h5>
                         </div>
@@ -207,7 +290,19 @@
                                 }
                             ?>
                         </div>
+                        <div class="col-md-3">
+                            <input type="text" name="campo4" class="form-control"
+                            value="<?php echo isset($_SESSION['values']['Numero de placa #1']) ? htmlspecialchars($_SESSION['values']['Numero de placa #1']) : ''; ?>" required>
+                            <?php
+                                if (isset($_SESSION['errores']['Numero de placa #1'])) {
+                                    echo "<p class=' text-danger'>" . $_SESSION['errores']['Numero de placa #1'] . "</p>";
+                                }
+                            ?>
+                        </div>
 
+                        <div class="col-md-1">
+                            <h5 for="" class="form-label m-1">-</h5>
+                        </div>
                         <div class="col-md-1">
                             <h5 for="" class="form-label m-1">-</h5>
                         </div>
@@ -259,4 +354,4 @@
                         
 
 </body>
-          
+            

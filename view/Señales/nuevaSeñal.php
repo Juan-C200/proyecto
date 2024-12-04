@@ -26,12 +26,12 @@
  ?>
 
 
-<body clas="bg-dark">
+<body >
     
 
-<form action="<?php echo getUrl("SeñalizacionVial", "SeñalNueva", "postCreate");?>" method="POST" class="form-control p-4" enctype="multipart/form-data">
+<form action="<?php echo getUrl("SeñalizacionVial", "SeñalNueva", "postCreate");?>" method="POST" class="form-control p-4 mt-4" enctype="multipart/form-data">
 
-    <div class="container">
+    <div class="container mt-4">
         <div class="row justify-content-center">
             <h1 class="text mb-1 mt-2">Reportar señal</h3>
             

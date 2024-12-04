@@ -3,10 +3,12 @@
         <button class="toggle-btn" type="button">
             <i class="lni lni-menu-cheesburger"></i>
         </button>
-        <div class="sidebar-logo">
-            <a href="#">SIGARV</a>
-        </div>
+        
+       
     </div>
+    <!-- <div class="sidebar-logo">
+        <img src="assets/img/logo-removebg.png" alt="">
+    </div> -->
     <ul class="sidebar-nav">
         <li class="sidebar-item">
             <a href="<?php echo getUrl("Usuarios", "Usuarios", "getPanelAdmin");?>" class="sidebar-link">
@@ -111,12 +113,7 @@
                 </li>
             </ul>
         </li>
-        <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
-                <i class="lni lni-popup"></i>
-                <span>Notification</span>
-            </a>
-        </li>
+        
         <li class="sidebar-item">
             <a href="#" class="sidebar-link">
                 <i class="lni lni-gear-1"></i>
