@@ -2,7 +2,7 @@
 
     include_once '../model/MasterModel.php';
 
-    class SeñalVialModel extends MasterModel{
+    class SolicitudesModel extends MasterModel{
         
     }
 ?>

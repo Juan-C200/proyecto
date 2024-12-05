@@ -10,24 +10,17 @@
         
         <div class="row mt-2 mb-2 p-4">
             <h1 class="text mb-1 mt-2">Solicitar</h1>
-            <button class="categoria col-md-3 border rounded p-4 m-2 text-center btn btn-light" data-categoria="señal">Señal</button>
-            <button class="categoria col-md-3 border rounded p-4 m-2 text-center btn btn-light" data-categoria="reductor">Reductor de velocidad</button>
+            <button class="categoria col-md-3 border rounded p-4 m-2 text-center btn btn-light" data-categoria="señal">Señal nueva</button>
+            <button class="categoria col-md-3 border rounded p-4 m-2 text-center btn btn-light" data-categoria="reductor">Reductor de velocidad nuevo</button>
             <button class="categoria col-md-3 border rounded p-4 m-2 text-center btn btn-light" data-categoria="mallaVial">Malla vial</button>
         </div>
         <div class="formularios d-none" id="formulario_señal">
-            <form action="<?php echo getUrl("Señales", "SeñalMalEstado", "postCreate");?>" method="POST" class="form-control p-4" enctype="multipart/form-data">
+            <form action="<?php echo getUrl("Solicitudes", "Solicitudes", "postCreate");?>" method="POST" class="form-control p-4" enctype="multipart/form-data">
 
                 <div class="row justify-content-center">
                     
+                    <small class="text-warning">Complete los datos del formulario</small>
                     
-                    <div class="row mt-2 mb-2 p-4">
-                    <button class="categoria col-md-3 border rounded p-4 m-2 text-center btn btn-light" data-categoria="mallaVial">Señal en mal estado</button>
-                    <button class="categoria col-md-3 border rounded p-4 m-2 text-center btn btn-light" data-categoria="mallaVial">Señal nueva</button>
-                    </div>
-                    
-                    <p class="text mt-1">Debe completar los datos del formulario para reportar una señal en mal estado</p>
-                    
-                    <p class="text">Para ver el tipo de señal oprima una de las 2 opciones</p>
                     
                     <div class="row mt-2">
                         <button type="button" class="btn btn-primary col-md-3 border-1 rounded-1 boton_cambiar_tipo_señal" data-panel="panel_señal_vertical" id="boton_panel_señal_vertical">Señales Verticales</button>
@@ -43,7 +36,7 @@
                                     foreach ($señales_verticales as $señal) {
                                         // Verificar si la ruta de la imagen existe
                                     
-                                            echo '<button type="button" class="btn btn-success image-button col-md-2" name="tipo_señal"  value="'.$señal['tipo_senalizacion_id'].'">';
+                                            echo '<button type="button" class="btn btn-light image-button col-md-2" name="tipo_señal"  value="'.$señal['tipo_senalizacion_id'].'">';
                                             echo '<img src="' . $señal['tipo_senalizacion_ruta_img'] . '" alt="' . $señal['tipo_senalizacion_nombre'] . '" class="col-md-3">';
                                             echo '<p>' . $señal['tipo_senalizacion_nombre'] . '</p>';
                                             echo '</button>';
@@ -61,9 +54,9 @@
                             <div class="row gap-2">
                                 <?php
                                     // Iteramos sobre el array y generamos un botón por cada imagen
-                                    foreach ($señales_horizontales as $señal    ) {
+                                    foreach ($señales_horizontales as $señal) {
                                         // Verificar si la ruta de la imagen existe
-                                        echo '<button type="button" class="btn btn-success image-button col-md-2" name="tipo_señal"  value="'.$señal['tipo_senalizacion_id'].'">';
+                                        echo '<button type="button" class="btn btn-success image-button col-md-3" name="tipo_señal"  value="'.$señal['tipo_senalizacion_id'].'">';
                                             echo '<img src="' . $señal['tipo_senalizacion_ruta_img'] . '" alt="' . $señal['tipo_senalizacion_nombre'] . '" class="col-md-3">';
                                             echo '<p>' . $señal['tipo_senalizacion_nombre'] . '</p>';
                                             echo '</button>';
@@ -87,7 +80,7 @@
                 <div class="mt-1">
 
                     <div class="col-md-3 p-1">
-                        <small class="text-warning">Complete los datos del formulario</small>
+                        
                         <label for="tipo_daño" class="form-label"><b>Tipo de daño</b></label>
                         <select type="text" class="form-control rounded-3" id="tipo_daño" name="tipo_daño">
                             <option value="">Seleccione...</option>

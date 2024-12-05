@@ -7,7 +7,7 @@ class SeñalNuevaController{
 
     public function getCreate(){
 
-        $obj=new SeñalVialModel();
+        $obj=new SolicitudesModel();
         
         $sql = "SELECT usu_id, usu_nombre1, usu_apellido1 FROM usuarios";  
         $result=$obj->consult($sql);
@@ -17,7 +17,7 @@ class SeñalNuevaController{
     }
 
     function postCreate() {
-        $obj=new SeñalVialModel();
+        $obj=new SolicitudesModel();
         $validacion=true;
         $id = $obj->autoIncrement("solicitud_senalizaciones_nuevas", "soli_senalizacion_nueva_id");
 

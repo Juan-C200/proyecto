@@ -1,13 +1,13 @@
 <?php
 
-include_once '../model/SeñalVial/SeñalVialModel.php';
+include_once '../model/Solicitudes/SolicitudesModel.php';
 
 
-class SeñalMalEstadoController{
+class SolicitudesController{
 
 
     public function getSeñales(){
-        $obj = new SeñalVialModel();
+        $obj = new SolicitudesModel();
         $sql = "SELECT ssme.*, ts.*, u.*, td.*, e.* FROM solicitud_senalizaciones_mal_estado ssme 
                 JOIN tipos_senalizacion ts ON ts.tipo_senalizacion_id =  ssme.soli_senalizacion_mal_est_tipo
                 JOIN usuarios u ON u.usu_id = ssme.soli_senalizacion_mal_est_remitente_id
@@ -24,7 +24,7 @@ class SeñalMalEstadoController{
 
     public function getCreate(){
 
-        $obj=new SeñalVialModel();
+        $obj=new SolicitudesModel();
         
         $sql = "SELECT * FROM tipo_dano";
         $result=$obj->consult($sql);
@@ -42,11 +42,11 @@ class SeñalMalEstadoController{
         $result=$obj->consult($sql);
         $usuario = pg_fetch_all($result);
 
-        include_once '../view/Señales/malEstado.php';
+        include_once '../view/Solicitudes/solicitar.php';
     }
 
     function postCreate() {
-        $obj=new SeñalVialModel();
+        $obj=new SolicitudesModel();
         
         $id = $obj->autoIncrement("solicitud_senalizaciones_mal_estado", "soli_senalizacion_mal_est_id");
 

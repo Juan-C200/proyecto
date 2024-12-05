@@ -48,17 +48,11 @@
             <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#señales"
                 aria-expanded="false" aria-controls="auth">
                 <i class="lni lni-sign-post-left"></i>
-                <span>Señalizaciones</span>
+                <span>Solicitar</span>
             </a>
             <ul id="señales" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                 <li class="sidebar-item">
-                    <a href="<?php echo getUrl("Señales", "SeñalNueva", "getCreate");?>" class="sidebar-link">Solicitar nueva</a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="<?php echo getUrl("Señales", "SeñalMalEstado", "getCreate");?>" class="sidebar-link">Reportar daños</a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="<?php echo getUrl("Señales", "SeñalMalEstado", "getSeñales");?>" class="sidebar-link">Consultar solicitudes</a>
+                    <a href="<?php echo getUrl("Solicitudes", "Solicitudes", "getCreate");?>" class="sidebar-link">Solicitar</a>
                 </li>
             </ul>
         </li>
