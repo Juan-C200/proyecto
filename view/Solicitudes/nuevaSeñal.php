@@ -187,7 +187,7 @@
                             ?>
 
                             <div class="col-md-12 mt-3">
-                            <label for="fotoReductor" class="col-md-12 text-primary mb-1">adjuntar imagen</label>
+                                <label for="fotoReductor" class="col-md-12 text-primary mb-1">adjuntar imagen</label>
                                 <input type="file" id="foto" name="foto" accept=".jpg,.jpeg,.png" required>
                             </div>
                             <input type="submit" value="enviar" class="btn btn-primary mt-3">

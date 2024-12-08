@@ -47,7 +47,7 @@
             </a>
             <ul id="soli" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                 <li class="sidebar-item">
-                    <a href="<?php echo getUrl("Solicitudes", "Solicitudes", "getCreate");?>" class="sidebar-link">Solicitar</a>
+                    <a href="<?php echo getUrl("Solicitudes", "SeñalNueva", "getCreate");?>" class="sidebar-link">Solicitar</a>
                 </li>
                 <li class="sidebar-item">
                     <a href="" class="sidebar-link">Consultar</a>
