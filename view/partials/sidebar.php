@@ -52,7 +52,7 @@
             </a>
             <ul id="señales" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                 <li class="sidebar-item">
-                    <a href="<?php echo getUrl("Solicitudes", "Solicitudes", "getCreate");?>" class="sidebar-link">Solicitar</a>
+                    <a href="<?php echo getUrl("Solicitudes", "SeñalNueva", "getCreate");?>" class="sidebar-link">Solicitar</a>
                 </li>
             </ul>
         </li>

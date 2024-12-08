@@ -69,7 +69,7 @@
 
                     $('table').html(table);
                     
-                    console.log(data);
+                    
                 }
 
             });
@@ -103,7 +103,7 @@
         $('#validate_password').click(function(){
             let url = $(this).attr("data-url");
             let pass = $('#contraseña').val();
-            console.log(pass);
+            
 
             
             $.ajax({
@@ -111,7 +111,7 @@
                 data:{'password' : pass},
                 type: 'POST',
                 success: function(data){
-                    console.log(data);
+                    
                     if(data.includes("correcta")){
 
                         $("#form_update").submit();
@@ -237,16 +237,17 @@
         
                     // Obtener el valor del botón seleccionado
                     var valorSeleccionado = $(this).val();
-                    
+                    console.log(valorSeleccionado);
                     // Colocar el valor en el campo oculto
                     $('#tipo_señal_seleccionada').val(valorSeleccionado);
                 
                 
             });
 
-            $('.categoria').on('click', function() {
+            $('.categoria').click(function(){//para abrir el formulario
 
-                formulario = "formulario_" + $(this).data('categoria');
+                let formulario = "formulario_" + $(this).data('categoria');
+                
 
                 if($(this).hasClass('btn-primary')){
                     $('#' + formulario).fadeOut(400);
@@ -266,10 +267,102 @@
 
                 }
 
-                
+            });
 
+            $('form').on('submit', function (e) {
+                e.preventDefault();
+                var url = $(this).attr('action');
+                var datosFormulario = new FormData(this);
+                var formulario = $(this).data('formulario');
+
+                $.ajax({
+                    url: url,
+                    type: 'POST', 
+                    data: datosFormulario, 
+                    processData: false, 
+                    contentType: false, 
+                    success: function (respuesta) {
+                     
+                      if(respuesta.includes("Se registro exitosamente")){
+                        //abrir modal de solicitud exitosa
+                        $('#modal_solicitud_exitosa').fadeIn(400);
+                        $('#modal_solicitud_exitosa').removeClass('d-none');
+                        $('#container').css({
+                                        "filter": "blur(5px)",
+                                        "transition": "filter 0.3s ease"
+                                    });
+                        $('#nav').css({
+                                    "filter": "blur(5px)",
+                                    "transition": "filter 0.3s ease"
+                                });
+                        $('#sidebar').css({
+                                        "filter": "blur(5px)",
+                                        "transition": "filter 0.3s ease"
+                                    });
+                        $('#formulario')[0].reset();
+                      }else{
+                       
+                        //abrir modal de error
+                        $('#modal_error').fadeIn(400);
+                        $('#modal_error').removeClass('d-none');
+                        $('#container').css({
+                                        "filter": "blur(5px)",
+                                        "transition": "filter 0.3s ease"
+                                    });
+                        $('#nav').css({
+                                        "filter": "blur(5px)",
+                                        "transition": "filter 0.3s ease"
+                                    });
+                        $('#sidebar').css({
+                            "filter": "blur(5px)",
+                            "transition": "filter 0.3s ease"
+                        });
+
+                        sessionStorage.setItem('formulario', formulario);//si hay un error capturamos el formulario para asi poder mostrarlo al momento de que se recargue la pagina
+
+                        
+                      }
+                    }
+                });
+            });
+
+            //cerrar modal de error
+            $(document).on('click',".close_error", function(){
+                $('#modal_error').fadeOut(400);
+                $('#modal_error').addClass('d-none');
+                $('#container').removeAttr("style");
+                $('#nav').removeAttr("style");
+                $('#sidebar ').removeAttr("style");
+
+                sessionStorage.setItem('errores', 'true');
+                window.location.href = 'index.php?modulo=Solicitudes&controlador=SeñalNueva&funcion=getCreate';
                 
+                        
+            });
+
+
+
+            if (sessionStorage.getItem('errores') === 'true') {
+
+                let boton = $('[data-formulario="'+ sessionStorage.getItem('formulario') +'"]');//traemos el boton del cual el formulario fue enviado
                 
+                boton.click();
+                
+                sessionStorage.removeItem('formulario');
+                sessionStorage.removeItem('errores');
+            }
+
+
+
+            //cerrar modal de solicitud exitosa
+            $(document).on('click',".close", function(){
+                $('#modal_solicitud_exitosa').fadeOut(400);
+                $('#modal_solicitud_exitosa').addClass('d-none');
+                $('#container').removeAttr("style");
+                $('#nav').removeAttr("style");
+                $('#sidebar ').removeAttr("style");
+                
+                        
             });
 
             
