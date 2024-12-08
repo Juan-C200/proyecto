@@ -5,22 +5,22 @@
 
 ?>
 
-<body class="bg-dark pb-5">
+
 
     <div class="container pt-5">
 
         <form action="<?php echo getUrl("Usuarios", "Usuarios", "postCreate",false,"ajax"); ?> " method="POST" id="registroForm">
             <div class="row justify-content-center">
-                <h3 class="text-center text-white mb-1 mt-1">Registrar Usuario</h3>
+                <h3 class="text-center  mb-1 mt-1">Registrar Usuario</h3>
 
-                <p class="text-white"><b>Los campos especificados con (*) son campos obligatorios.</p>
+                <p ><b>Los campos especificados con (*) son campos obligatorios.</p>
 
                 <div class="boxDatos row border rounded-3 p-4">
                     <h4>Datos de identificación</h4>
 
                     <div class="col-md-3 p-2">
                         <label for="tipoDocumento" class="form-label text-white">Tipo de Documento*</label>
-                        <select type="text" class="form-control boxDatos rounded-3" id="tipoDocumento"
+                        <select type="text" class="form-control inputDatos " id="tipoDocumento"
                             name="tipo_documento">
                             <option value="">Seleccione...</option>
                             <?php 
@@ -46,7 +46,7 @@
 
                     <div class="col-md-3 p-2">
                         <label for="numeroDocumento" class="form-label text-white">Numero de documento*</label>
-                        <input type="text" class="form-control boxDatos rounded-3" id="numeroDocumento"
+                        <input type="text" class="form-control inputDatos" id="numeroDocumento"
                             name="numero_documento"
                             value="<?php echo isset($_SESSION['values']['Numero de documento']) ? htmlspecialchars($_SESSION['values']['Numero de documento']) : '';?>" required>
 
@@ -60,7 +60,7 @@
 
                     <div class="col-md-3 p-2">
                         <label for="primer_nombre" class="form-label text-white">Primer nombre*</label>
-                        <input type="text" class="form-control boxDatos rounded-3" id="primer_nombre"
+                        <input type="text" class="form-control inputDatos" id="primer_nombre"
                             name="primer_nombre"
                             value="<?php echo isset($_SESSION['values']['Primer nombre']) ? htmlspecialchars($_SESSION['values']['Primer nombre']) : ''; ?>" required>
 
@@ -73,7 +73,7 @@
 
                     <div class="col-md-3 p-2">
                         <label for="segundo_nombre" class="form-label text-white">Segundo nombre</label>
-                        <input type="text" class="form-control boxDatos rounded-3" id="segundo_nombre"
+                        <input type="text" class="form-control inputDatos" id="segundo_nombre"
                             name="segundo_nombre"
                             value="<?php echo isset($_SESSION['values']['Segundo nombre']) ? htmlspecialchars($_SESSION['values']['Segundo nombre']) : ''; ?>" required>
                         
@@ -87,7 +87,7 @@
 
                     <div class="col-md-3 p-2">
                         <label for="primer_apellido" class="form-label text-white">Primer apellido*</label>
-                        <input type="text" class="form-control boxDatos rounded-3" id="primer_apellido"
+                        <input type="text" class="form-control inputDatos " id="primer_apellido"
                             name="primer_apellido"
                             value="<?php echo isset($_SESSION['values']['Primer apellido']) ? htmlspecialchars($_SESSION['values']['Primer apellido']) : ''; ?>" required>
                         
@@ -100,7 +100,7 @@
 
                     <div class="col-md-3 p-2">
                         <label for="segundo_apellido" class="form-label text-white col-md-8">Segundo apellido</label>
-                        <input type="text" class="form-control boxDatos rounded-3" id="segundo_apellido"
+                        <input type="text" class="form-control inputDatos " id="segundo_apellido"
                             name="segundo_apellido"
                             value="<?php echo isset($_SESSION['values']['Segundo apellido']) ? htmlspecialchars($_SESSION['values']['Segundo apellido']) : ''; ?>" required>
                         
@@ -113,7 +113,7 @@
 
                     <div class="col-md-3 p-2">
                         <label for="segundo_apellido" class="form-label text-white">Genero*</label>
-                        <select type="text" class="form-control boxDatos rounded-3" id="genero"
+                        <select type="text" class="form-control inputDatos " id="genero"
                             name="sexo">
 
                         <option value="">Seleccione...</option>
@@ -147,7 +147,7 @@
                     ?>  
                                 <div class="col-md-3 p-2">
                                     <label for="rol" class="form-label text-white">Rol*</label>
-                                    <select type="text" class="form-control boxDatos rounded-3"
+                                    <select type="text" class="form-control inputDatos "
                                         name="rol_id">
                                     <?php 
                                         foreach($roles as $rol){
@@ -177,8 +177,8 @@
                         <h4>Datos de contacto</h4>
 
                         <div class="col-md-6">
-                            <label for="correo" class="form-label text-white col-md-6">Correo*</label>
-                            <input type="email" class="form-control boxDatos rounded-3" id="correo" name="correo"
+                            <label for="correo" class="form-label text-white">Correo*</label>
+                            <input type="email" class="form-control inputDatos " id="correo" name="correo"
                                 value="<?php echo isset($_SESSION['values']['Correo']) ? htmlspecialchars($_SESSION['values']['Correo']) : ''; ?>" required>
 
                             <?php
@@ -186,11 +186,12 @@
                                     echo "<p class=' text-danger'>" . $_SESSION['errores']['Correo'] . "</p>";
                                 }
                             ?>
+                            
                         </div>
 
                         <div class="col-md-6">
                             <label for="celular" class="form-label text-white col-md-8">Celular*</label>
-                            <input type="text" class="form-control boxDatos rounded-3" id="celular"
+                            <input type="text" class="form-control inputDatos " id="celular"
                                 name="celular"
                                 value="<?php echo isset($_SESSION['values']['Celular']) ? htmlspecialchars($_SESSION['values']['Celular']) : ''; ?>" required>
                             
@@ -207,7 +208,7 @@
 
                                 <div class="col-md-4 p-2">
                                     <label for="" class="form-label text-white">Tipo de vía*</label>
-                                    <select name="campo1" class="form-control boxDatos rounded-3" id="">
+                                    <select name="campo1" class="form-control inputDatos " id="">
                                         <option value="">Seleccione...</option>
                                         <?php 
                                             $tipos_vias = array("Calle","Carrera","Avenida","Transversal","Circular","Diagonal");
@@ -235,7 +236,7 @@
                                 
                                 <div class="col-md-4 p-2">
                                     <label for="" class="form-label text-white">Nombre o número de vía*</label>
-                                    <input type="text" name="campo2" class="form-control boxDatos rounded-3"
+                                    <input type="text" name="campo2" class="form-control inputDatos "
                                     value="<?php echo isset($_SESSION['values']['Nombre o numero de vía']) ? htmlspecialchars($_SESSION['values']['Nombre o numero de vía']) : ''; ?>" required>
                                     <?php
                                         if (isset($_SESSION['errores']['Nombre o numero de vía'])) {
@@ -246,7 +247,7 @@
 
                                 <div class="col-md-4 p-2">
                                     <label for="" class="form-label text-white">Prefijo o cuadrante</label>
-                                    <select name="campo3" class="form-control boxDatos rounded-3" id="">
+                                    <select name="campo3" class="form-control inputDatos " id="">
                                         <option value="">Seleccione...</option>
                                         <?php 
                                             $prefijos = array("Norte","Sur","Este","Oeste");
@@ -279,7 +280,7 @@
                                 </div>
 
                                 <div class="col-md-3">
-                                    <input type="text" name="campo4" class="form-control boxDatos rounded-3"
+                                    <input type="text" name="campo4" class="form-control inputDatos "
                                     value="<?php echo isset($_SESSION['values']['Numero de placa #1']) ? htmlspecialchars($_SESSION['values']['Numero de placa #1']) : ''; ?>" required>
                                     <?php
                                         if (isset($_SESSION['errores']['Numero de placa #1'])) {
@@ -293,7 +294,7 @@
                                 </div>
 
                                 <div class="col-md-3">
-                                    <input type="text" name="campo5" class="form-control boxDatos rounded-3"
+                                    <input type="text" name="campo5" class="form-control inputDatos "
                                     value="<?php echo isset($_SESSION['values']['Numero de placa #2']) ? htmlspecialchars($_SESSION['values']['Numero de placa #2']) : ''; ?>" required>
                                     <?php
                                         if (isset($_SESSION['errores']['Numero de placa #2'])) {
@@ -314,12 +315,12 @@
 
                             <label for="clave" class="form-label text-white">Contraseña*</label>
                             <div class="input-group">
-                                <input type="password" class="form-control boxDatos rounded-3 " id="clave"
+                                <input type="password" class="form-control inputDatos" id="clave"
                                     name="contraseña" placeholder="Contraseña"
                                     value="<?php echo isset($_SESSION['values']['Contraseña']) ? htmlspecialchars($_SESSION['values']['Contraseña']) : ''; ?>" required><br>
-                                <span class="input-group-text bg-transparent border-0" id="toggle-password2"
+                                <span class="input-group-text bg-transparent border-0" id="toggle-password"
                                     style="cursor: pointer;">
-                                    <i class="fas fa-eye text-white" id="eye-icon2"></i>
+                                    <i class="fas fa-eye text-white" id="eye-icon"></i>
                                 </span><br>
                                 
                             </div>
@@ -335,7 +336,7 @@
                             <label for="clave2" class="form-label text-white ">Confirmar Contraseña*</label>
 
                             <div class="input-group">
-                                <input type="password" class="form-control boxDatos rounded-3" id="conf_clave"
+                                <input type="password" class="form-control inputDatos" id="conf_clave"
                                     name="confContraseña" placeholder="Confirmar contraseña"
                                     value="<?php echo isset($_SESSION['values']['Confirmar contraseña']) ? htmlspecialchars($_SESSION['values']['Confirmar contraseña']) : ''; ?>" required>
                                 <span class="input-group-text bg-transparent border-0" id="toggle-password2"
@@ -360,15 +361,22 @@
 
             </div>
             <div class="d-flex justify-content-center mt-3">
-                <input type="submit" class="btn btn-success" value="Registrar"></input>
+                <input type="submit" class="btn btn-primary" value="Registrar"></input>
             </div>
 
         </form>
     </div>
 
+    <?php
+    if(!isset($_SESSION['auth'])){
+        include_once "../view/partials/footer.php";
+    }
+
+    ?>
     <script>
         // Función para alternar la visibilidad de la contraseña
         $('#toggle-password').click(function() {
+            
             // Alternar entre tipo password y text
             var passwordField = $('#clave');
             var icon = $('#eye-icon');
@@ -395,7 +403,8 @@
             }
         });
     </script>
+    
 
-</body>
+
 
 </html>

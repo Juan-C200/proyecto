@@ -3,7 +3,7 @@
 }
 
 h4{
-  color: aliceblue;
+  color: rgb(255, 255, 255);
 }
 
 label{
@@ -12,13 +12,37 @@ label{
 p{
   font-weight: normal;
 }
-  
+
 .boxDatos{
   
-    background-color: rgba(169, 169, 169, 0.4);
+  background: linear-gradient(50deg, #0044cc, #00aaff); /* Fondo degradado */
 }  
+.inputDatos{
+  border-radius: 5px;
+  border: 1px solid #ccc; 
+ 
+  font-size: 14px; /* Tamaño de texto más claro */
+  
+}
+.inputDatos:focus{
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Efecto de sombra */
+}
 .container-scroll{
   max-height: 650px;
+}
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 10px;
+  font-size: 20px;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
+}
+.btn-primary:hover {
+  background-color: #0056b3; /* Más oscuro al pasar el ratón */
 }
 
 

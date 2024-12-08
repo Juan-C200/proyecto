@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="assets/css/login.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <title>geovisor</title>
+    <title>SIGARV</title>
 </head>
-<body class="d-flex align-items-center justify-content-center min-vh-100 bg-dark text-white">
+<body class="d-flex align-items-center justify-content-center min-vh-100  text-white">
 
     <div class="container">
         <div class="row justify-content-center">
@@ -24,7 +24,7 @@
                     <div class="box1 form-control p-5 mt-1 border rounded-3">
                         
                         
-                        <h2 class="text-center text-white mb-4">Inicio Sesion</h2>    
+                        <h2 class="text-center text-white mb-4">Inicio de Sesion</h2>    
                         <form action="<?php echo getUrl("Usuarios", "Usuarios", "login", false, "ajax"); ?>" method="post">
 
                             <div class="input-group mb-4">
