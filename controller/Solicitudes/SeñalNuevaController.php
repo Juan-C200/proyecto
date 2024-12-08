@@ -90,6 +90,10 @@ class SeñalNuevaController{
                 unset($_SESSION['errores']);
                 unset($_SESSION['values']);
                 
+                echo "Se registro exitosamente";
+                
+                
+                
             } else {
                 echo "no se registro el reporte";
                 redirect(getUrl("Solicitudes", "SeñalNueva", "getCreate"));
