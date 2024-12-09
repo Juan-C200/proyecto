@@ -1,7 +1,7 @@
 <aside id="sidebar">
     <div class="d-flex">
         <button class="toggle-btn" type="button">
-            <i class="lni lni-menu-cheesburger"></i>
+            <i class="fi fi-br-menu-burger"></i>
         </button>
         
        
@@ -32,80 +32,57 @@
             </ul>
         </li>
         <li class="sidebar-item">
-            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                data-bs-target="#accidentes" aria-expanded="false" aria-controls="auth">
+            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#reporte_accidente"
+            aria-expanded="false" aria-controls="auth">
+                
                 <i class="lni lni-car-4"></i>
-                <span>Accidentes</span>
-            </a>
-            <ul id="accidentes" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                <span>Reportar un accidente</span>
 
+            </a>
+            <ul id="reporte_accidente" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">Reportar accidentes</a>
+                    <a href="<?php echo getUrl("accidentes", "Accidentes", "getCreate");?>" class="sidebar-link">reportar accidente</a>
+                </li>
+            </ul>
+            
+
+        </li>
+        <li class="sidebar-item">
+            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#reportes"
+                aria-expanded="false" aria-controls="auth">
+                <i class="lni lni-user-multiple-4"></i>
+                <span>Reportes</span>
+            </a>
+            <ul id="reportes" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                <li class="sidebar-item">
+                    <a href="<?php echo getUrl("Reportes", "PanelReportes", "getCreate");?>" class="sidebar-link">reportar</a>
                 </li>
             </ul>
         </li>
         <li class="sidebar-item">
-            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#señales"
+            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#soli"
                 aria-expanded="false" aria-controls="auth">
-                <i class="lni lni-sign-post-left"></i>
-                <span>Solicitar</span>
+                <i class="lni lni-file-multiple"></i>
+                <span>Solicitudes</span>
             </a>
-            <ul id="señales" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+            <ul id="soli" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                 <li class="sidebar-item">
                     <a href="<?php echo getUrl("Solicitudes", "SeñalNueva", "getCreate");?>" class="sidebar-link">Solicitar</a>
                 </li>
-            </ul>
-        </li>
-        <li class="sidebar-item">
-            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                data-bs-target="#reductores" aria-expanded="false" aria-controls="auth">
-                <i class="lni lni-bridge-3"></i>
-                <span>Reductores</span>
-            </a>
-            <ul id="reductores" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">Solicitar nuevo</a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">Reportar daños</a>
+                    <a href="" class="sidebar-link">Consultar</a>
                 </li>
             </ul>
         </li>
+      
+       
+        
         <li class="sidebar-item">
-            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#vias"
-                aria-expanded="false" aria-controls="auth">
-                <i class="lni lni-road-1"></i>
-                <span>Vias</span>
-            </a>
-            <ul id="vias" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">Reportar daños</a>
-                </li>
-            </ul>
-        </li>
-        <li class="sidebar-item">
-            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#multi"
-                aria-expanded="false" aria-controls="multi">
+            <a href="#" class="sidebar-link">
                 <i class="lni lni-bar-chart-4"></i>
-                <span>Reportes</span>
+                <span>Generar reportes</span>
             </a>
-            <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#multi-two"
-                        aria-expanded="false" aria-controls="multi-two">
-                        Generar reportes
-                    </a>
-                    <ul id="multi-two" class="sidebar-dropdown list-unstyled collapse">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Reportes de accidentes</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Reportes de solicitudes</a>
-                        </li>
-
-                    </ul>
-                </li>
-            </ul>
+          
         </li>
         
         <li class="sidebar-item">

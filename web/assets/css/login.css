@@ -16,7 +16,7 @@ padding: 10px;
 .box1{
   max-width: 400px; 
   width: 100%;
-  background-color: rgba(169, 169, 169, 0.5);
+  background: linear-gradient(50deg, #0044cc, #00aaff); /* Fondo degradado */
 }
 
 .primer-input {
@@ -25,6 +25,16 @@ padding: 10px;
     border-bottom: 2px solid white; 
     color: white;
   }
+.primer-input:focus{
+  background-color: transparent;
+  color: white;
+  border-color: rgb(255, 255, 255);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  outline: none;
+ 
+}
 
   
   .primer-input::placeholder {
@@ -40,5 +50,11 @@ padding: 10px;
 
   .btn-acceder-submit:hover{
     background-color: white;
-    color: blue;
+    color: rgb(0, 0, 0);
   }
+ #t-password{
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid white; 
+ }
