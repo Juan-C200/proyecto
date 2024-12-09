@@ -7,17 +7,13 @@ class SeñalMalEstadoController{
     public function getCreate(){
 
         $obj=new ReportesModel();
-        
-        $sql = "SELECT usu_id, usu_nombre1, usu_apellido1 FROM usuarios";
-        $result=$obj->consult($sql);
-        $usuario = pg_fetch_all($result);
 
-        $sql="SELECT tipo_senalizacion_id, tipo_senalizacion_nombre, tipo_senalizacion_ruta_img FROM tipos_senalizacion WHERE tipo_senalizacion_orientacion='vertical'"; 
+        $sql = "SELECT * FROM tipos_senalizacion WHERE tipo_senalizacion_orientacion = 'Vertical'";  
         $result=$obj->consult($sql);
-        $señales_verticales = pg_fetch_object($result);
-        
-        $sql="SELECT tipo_senalizacion_id, tipo_senalizacion_nombre, tipo_senalizacion_ruta_img FROM tipos_senalizacion WHERE tipo_senalizacion_orientacion='horizontal'"; 
-        $result=$obj->consult($sql2);
+        $señales_verticales = pg_fetch_all($result);
+
+        $sql = "SELECT * FROM tipos_senalizacion WHERE tipo_senalizacion_orientacion = 'Horizontal'";  
+        $result=$obj->consult($sql);
         $señales_horizontales = pg_fetch_all($result);
 
         $sql="SELECT tipo_dano_id, tipo_dano_nombre FROM tipo_dano"; 
