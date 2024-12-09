@@ -299,7 +299,7 @@
                                         "filter": "blur(5px)",
                                         "transition": "filter 0.3s ease"
                                     });
-                        $('#formulario')[0].reset();
+                        $('form').trigger('reset');
                       }else{
                        
                         //abrir modal de error
