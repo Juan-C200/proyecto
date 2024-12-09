@@ -32,12 +32,32 @@
             </ul>
         </li>
         <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
+            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#reporte_accidente"
+            aria-expanded="false" aria-controls="auth">
                 
                 <i class="lni lni-car-4"></i>
                 <span>Reportar un accidente</span>
+
             </a>
-           
+            <ul id="reporte_accidente" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                <li class="sidebar-item">
+                    <a href="<?php echo getUrl("accidentes", "Accidentes", "getCreate");?>" class="sidebar-link">reportar accidente</a>
+                </li>
+            </ul>
+            
+
+        </li>
+        <li class="sidebar-item">
+            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#reportes"
+                aria-expanded="false" aria-controls="auth">
+                <i class="lni lni-user-multiple-4"></i>
+                <span>Reportes</span>
+            </a>
+            <ul id="reportes" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                <li class="sidebar-item">
+                    <a href="<?php echo getUrl("Reportes", "PanelReportes", "getCreate");?>" class="sidebar-link">reportar</a>
+                </li>
+            </ul>
         </li>
         <li class="sidebar-item">
             <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#soli"

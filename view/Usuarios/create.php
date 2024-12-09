@@ -375,20 +375,19 @@
     ?>
     <script>
         // Función para alternar la visibilidad de la contraseña
-        $('#toggle-password').click(function() {
-            
-            // Alternar entre tipo password y text
-            var passwordField = $('#clave');
-            var icon = $('#eye-icon');
-
-            if (passwordField.attr('type') === 'password') {
-                passwordField.attr('type', 'text');
-                icon.removeClass('fa-eye').addClass('fa-eye-slash');
-            } else {
-                passwordField.attr('type', 'password');
-                icon.removeClass('fa-eye-slash').addClass('fa-eye');
-            }
-        });
+    $('#toggle-password').click(function() {
+        
+        var passwordField = $('#clave');
+        var icon = $('#eye-icon');
+        
+        if (passwordField.attr('type') === 'password') {
+            passwordField.attr('type', 'text');
+            icon.removeClass('fa-eye').addClass('fa-eye-slash');
+        } else {
+            passwordField.attr('type', 'password');
+            icon.removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+    });
 
         $('#toggle-password2').click(function() {
             var passwordField2 = $('#conf_clave');

@@ -219,10 +219,29 @@
                     
                 });
 
+             // Manejador de eventos para los botones que contienen los reductores
+             $('.boton_cambiar_tipo_reductor').on('click', function() {
+                $('#' + 'boton_panel_reductor_estructural').removeClass('btn-primary').addClass('btn-ligth');
+                $('#' + 'boton_panel_reductor_modular').removeClass('btn-primary').addClass('btn-ligth');
+                $('#' + 'boton_panel_reductor_señalizacion').removeClass('btn-primary').addClass('btn-ligth');
+
+
+                
+                // Obtener el valor del atributo 'data-panel' del botón presionado
+                var panel = $(this).data('panel');
+    
+                // Oculto paneles
+                $('#panel_reductor_estructural, #panel_reductor_modular, #panel_reductor_señalizacion').addClass('d-none');
+                
+    
+                // Muestro el panel el cual el boton referenciado fue oprimido
+                $('#' + panel).removeClass('d-none');
+                $('#' + 'boton_' + panel).removeClass('btn-success').addClass('btn-primary');
+                
+            });
         
         
-        
-            //});
+            
             $('.image-button').removeClass('btn-success').addClass('btn-light'); // 'btn-light' es el color blanco en Bootstrap
             $('.image-button').on('click', function() {
 
@@ -267,6 +286,30 @@
 
                 }
 
+            });
+
+            //para panel reportes
+            $('.categoriaR').on('click', function() {
+
+                formulario = "formulario_" + $(this).data('categoria');
+
+                if($(this).hasClass('btn-primary')){
+                    $('#' + formulario).fadeOut(400);
+                    $('#' + formulario).addClass('d-none');
+                    
+                    $(this).removeClass('btn-primary');
+                    $(this).addClass('btn-light');
+                }else{
+                    $('.categoriaR').removeClass('btn-primary');
+                    $('.categoriaR').removeClass('btn-light');
+
+                    $('.formulario').fadeOut(400);
+                    $('.formulario').addClass('d-none');
+                    $('#' + formulario).fadeIn(400);
+                    $('#' + formulario).removeClass('d-none');
+                    $(this).addClass('btn-primary');
+
+                }    
             });
 
             $('form').on('submit', function (e) {
