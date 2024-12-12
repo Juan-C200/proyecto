@@ -312,7 +312,7 @@
                 }    
             });
 
-            $('form').on('submit', function (e) {
+            $('#form').on('submit', function (e) {
                 e.preventDefault();
                 var url = $(this).attr('action');
                 var datosFormulario = new FormData(this);

@@ -86,9 +86,9 @@
         </li>
         
         <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
+            <a href="<?php echo getUrl("PQRS","PQRS","getCreate");?>" class="sidebar-link">
                 <i class="lni lni-gear-1"></i>
-                <span>Setting</span>
+                <span>PQRS</span>
             </a>
         </li>
         <li class="sidebar-item">
