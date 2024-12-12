@@ -75,7 +75,7 @@
                         <label for="segundo_nombre" class="form-label text-white">Segundo nombre</label>
                         <input type="text" class="form-control inputDatos" id="segundo_nombre"
                             name="segundo_nombre"
-                            value="<?php echo isset($_SESSION['values']['Segundo nombre']) ? htmlspecialchars($_SESSION['values']['Segundo nombre']) : ''; ?>" required>
+                            value="<?php echo isset($_SESSION['values']['Segundo nombre']) ? htmlspecialchars($_SESSION['values']['Segundo nombre']) : ''; ?>">
                         
                         <?php
                             if (isset($_SESSION['errores']['Segundo nombre'])) {
@@ -102,7 +102,7 @@
                         <label for="segundo_apellido" class="form-label text-white col-md-8">Segundo apellido</label>
                         <input type="text" class="form-control inputDatos " id="segundo_apellido"
                             name="segundo_apellido"
-                            value="<?php echo isset($_SESSION['values']['Segundo apellido']) ? htmlspecialchars($_SESSION['values']['Segundo apellido']) : ''; ?>" required>
+                            value="<?php echo isset($_SESSION['values']['Segundo apellido']) ? htmlspecialchars($_SESSION['values']['Segundo apellido']) : ''; ?>">
                         
                         <?php
                             if (isset($_SESSION['errores']['Segundo apellido'])) {

@@ -55,7 +55,7 @@
             </a>
             <ul id="reportes" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                 <li class="sidebar-item">
-                    <a href="<?php echo getUrl("Reportes", "SeñalMalEstado", "getCreate");?>" class="sidebar-link">reportar</a>
+                    <a href="<?php echo getUrl("Reportes", "Reporte", "getCreate");?>" class="sidebar-link">Reportar</a>
                 </li>
             </ul>
         </li>
@@ -67,7 +67,7 @@
             </a>
             <ul id="soli" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                 <li class="sidebar-item">
-                    <a href="<?php echo getUrl("Solicitudes", "SeñalNueva", "getCreate");?>" class="sidebar-link">Solicitar</a>
+                    <a href="<?php echo getUrl("Solicitudes", "Solicitud", "getCreate");?>" class="sidebar-link">Solicitar</a>
                 </li>
                 <li class="sidebar-item">
                     <a href="" class="sidebar-link">Consultar</a>
