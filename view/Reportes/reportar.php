@@ -2,11 +2,13 @@
 <div class="container" id="container">
     
     <div class="row mt-2 mb-2 p-4 justify-content-center">
-        <h1 class="text mb-1 mt-2">Solicitar</h1>
+        <h1 class="text mb-1 mt-2">Reportar</h1>
         <button class="categoria col-md-3 border rounded p-4 m-2 text-center btn btn-light" 
-        data-url="<?php echo getUrl("Solicitudes", "SeñalNueva","getCreate"); ?>">Señal nueva</button>
+        data-url="<?php echo getUrl("Reportes", "SeñalMalEstado","getCreate"); ?>">Señal en mal estado</button>
         <button class="categoria col-md-3 border rounded p-4 m-2 text-center btn btn-light" 
-        data-url="<?php echo getUrl("Solicitudes", "ReductorNuevo","getCreate"); ?>">Reductor de velocidad nuevo</button>
+        data-url="<?php echo getUrl("Reportes", "ReductorMalEstado","getCreate"); ?>">Reductor en mal estado</button>
+        <button class="categoria col-md-3 border rounded p-4 m-2 text-center btn btn-light" 
+        data-url="<?php echo getUrl("Reportes", "ViaMalEstado","getCreate"); ?>">Via en mal estado</button>
     </div>
     
     <div id="form">

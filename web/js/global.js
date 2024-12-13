@@ -65,7 +65,7 @@
                 
                 success: function(data){
                     
-                    table = capturarSubcadena(data,"<table class='table mt-3' id='tabla'>","</table>");//outer trae la etiqueta completa y le complemento la data para poder imprimirla
+                    table = capturarSubcadena(data,"<table class='table mt-3' id='tabla'>","</table>");
 
                     $('table').html(table);
                     
@@ -185,138 +185,124 @@
     
     
            
-                // Manejador de eventos para los botones
-                $('.boton_cambiar_tipo_señal').on('click', function() {
-                    $('#' + 'boton_panel_señal_vertical').removeClass('btn-primary').addClass('btn-ligth');
-                    $('#' + 'boton_panel_señal_horizontal').removeClass('btn-primary').addClass('btn-ligth');
+        // Manejador de eventos para los botones de las señales
+        $(document).on('click', '.tipo', function() {
 
-
-                    
-                    // Obtener el valor del atributo 'data-panel' del botón presionado
-                    var panel = $(this).data('panel');
-        
-                    // Oculto ambos paneles
-                    $('#panel_señal_vertical, #panel_señal_horizontal').addClass('d-none');
-                    
-        
-                    // Muestro el panel el cual el boton referenciado fue oprimido
-                    $('#' + panel).removeClass('d-none');
-                    $('#' + 'boton_' + panel).removeClass('btn-success').addClass('btn-primary');
-                    
-                });
-
-                $('.boton_cambiar_panel1').on('click', function() {
-                    // Obtener el valor del atributo 'data-panel' del botón presionado
-                    var panel = $(this).data('panel');
-                    
-        
-                    // Oculto ambos paneles
-                    $('.cajaSeñales3, .cajaSeñales4').addClass('d-none');
-                  
-        
-                    // Miestro el panel el cual el boton referenciado fue oprimido
-                    $('#' + panel).removeClass('d-none');
-                    
-                });
-
-             // Manejador de eventos para los botones que contienen los reductores
-             $('.boton_cambiar_tipo_reductor').on('click', function() {
-                $('#' + 'boton_panel_reductor_estructural').removeClass('btn-primary').addClass('btn-ligth');
-                $('#' + 'boton_panel_reductor_modular').removeClass('btn-primary').addClass('btn-ligth');
-                $('#' + 'boton_panel_reductor_señalizacion').removeClass('btn-primary').addClass('btn-ligth');
-
-
-                
-                // Obtener el valor del atributo 'data-panel' del botón presionado
-                var panel = $(this).data('panel');
-    
-                // Oculto paneles
-                $('#panel_reductor_estructural, #panel_reductor_modular, #panel_reductor_señalizacion').addClass('d-none');
-                
-    
-                // Muestro el panel el cual el boton referenciado fue oprimido
-                $('#' + panel).removeClass('d-none');
-                $('#' + 'boton_' + panel).removeClass('btn-success').addClass('btn-primary');
-                
-            });
-        
-        
             
-            $('.image-button').removeClass('btn-success').addClass('btn-light'); // 'btn-light' es el color blanco en Bootstrap
-            $('.image-button').on('click', function() {
+            $('.tipo').removeClass('btn-primary').addClass('btn-ligth');
+            $(this).addClass('btn-primary');
+            
+            // Obtener el valor del atributo 'data-panel' del botón presionado
+            var panel = $(this).data('panel');
 
-                
-                    $('.image-button').removeClass('btn-success').addClass('btn-light');
+            // Oculto ambos paneles
+            $('.panel').addClass('d-none');
+            
 
-                
-                    $('.image-button').addClass('btn-success'); 
-                    
-                    // Añadir la clase verde al botón seleccionado
-                    $(this).removeClass('btn-light').addClass('btn-success');
+            // Muestro el panel el cual el boton referenciado fue oprimido
+            $('#' + panel).removeClass('d-none');
+            
+            
+        });
+
+        // $(document).on('click', '.boton_cambiar_panel1', function() {
         
-                    // Obtener el valor del botón seleccionado
-                    var valorSeleccionado = $(this).val();
-                    console.log(valorSeleccionado);
-                    // Colocar el valor en el campo oculto
-                    $('#tipo_señal_seleccionada').val(valorSeleccionado);
+        //     // Obtener el valor del atributo 'data-panel' del botón presionado
+        //     var panel = $(this).data('panel');
+            
+
+        //     // Oculto ambos paneles
+        //     $('.cajaSeñales3, .cajaSeñales4').addClass('d-none');
+            
+
+        //     // Miestro el panel el cual el boton referenciado fue oprimido
+        //     $('#' + panel).removeClass('d-none');
+            
+        // });
+
+
+        
+
+        // Manejador de eventos para los botones que contienen los reductores
+        // $('.boton_cambiar_tipo_reductor').on('click', function() {
+        //     $('#' + 'boton_panel_reductor_estructural').removeClass('btn-primary').addClass('btn-ligth');
+        //     $('#' + 'boton_panel_reductor_modular').removeClass('btn-primary').addClass('btn-ligth');
+        //     $('#' + 'boton_panel_reductor_señalizacion').removeClass('btn-primary').addClass('btn-ligth');
+
+
+        //     // Obtener el valor del atributo 'data-panel' del botón presionado
+        //     var panel = $(this).data('panel');
+
+        //     // Oculto paneles
+        //     $('#panel_reductor_estructural, #panel_reductor_modular, #panel_reductor_señalizacion').addClass('d-none');
+            
+
+        //     // Muestro el panel el cual el boton referenciado fue oprimido
+        //     $('#' + panel).removeClass('d-none');
+        //     $('#' + 'boton_' + panel).removeClass('btn-success').addClass('btn-primary');
+            
+        // });
+        
+        
+        $(document).on('click', '.image-button', function() {//botones con imagenes
+            
+            $('.image-button').removeClass('btn-success').addClass('btn-light');
+
+
+            if($(this).hasClass('btn-success')){
                 
+                $(this).removeClass('btn-success');
+                $(this).addClass('btn-light');
+            }else{
+                $(this).removeClass('btn-light');
+                $(this).addClass('btn-success');
+            }
+
+            // Obtener el valor del botón seleccionado
+            var valorSeleccionado = $(this).val();
+            
+            // Colocar el valor en el campo oculto
+            $('.input_seleccionable').val(valorSeleccionado);
+
+        });
+
+        $('.categoria').click(function(){//para abrir el formulario
+            
+            let url = $(this).data('url');
+            
+            if($(this).hasClass('btn-primary')){
+                $('#form').fadeOut(400);
                 
-            });
+                $(this).removeClass('btn-primary');
+                $(this).addClass('btn-light');
+            }else{
+                $('.categoria').removeClass('btn-primary');
+                $('.categoria').removeClass('btn-light');
 
-            $('.categoria').click(function(){//para abrir el formulario
+                $('#form').fadeIn(400);
+                $(this).addClass('btn-primary');
+            }
 
-                let formulario = "formulario_" + $(this).data('categoria');
-                
-
-                if($(this).hasClass('btn-primary')){
-                    $('#' + formulario).fadeOut(400);
-                    $('#' + formulario).addClass('d-none');
-                    
-                    $(this).removeClass('btn-primary');
-                    $(this).addClass('btn-light');
-                }else{
-                    $('.categoria').removeClass('btn-primary');
-                    $('.categoria').removeClass('btn-light');
-
-                    $('.formularios').fadeOut(400);
-                    $('.formularios').addClass('d-none');
-                    $('#' + formulario).fadeIn(400);
-                    $('#' + formulario).removeClass('d-none');
-                    $(this).addClass('btn-primary');
-
+            $.ajax({
+                url:url,
+                success: function(data){
+                    console.log(data);
+                    form = capturarSubcadena(data,"<!-- formulario -->","<!-- finFormulario -->");
+                    $('#form').html(form);
                 }
-
             });
+            
+        });
+                
 
-            //para panel reportes
-            $('.categoriaR').on('click', function() {
-
-                formulario = "formulario_" + $(this).data('categoria');
-
-                if($(this).hasClass('btn-primary')){
-                    $('#' + formulario).fadeOut(400);
-                    $('#' + formulario).addClass('d-none');
-                    
-                    $(this).removeClass('btn-primary');
-                    $(this).addClass('btn-light');
-                }else{
-                    $('.categoriaR').removeClass('btn-primary');
-                    $('.categoriaR').removeClass('btn-light');
-
-                    $('.formulario').fadeOut(400);
-                    $('.formulario').addClass('d-none');
-                    $('#' + formulario).fadeIn(400);
-                    $('#' + formulario).removeClass('d-none');
-                    $(this).addClass('btn-primary');
-
-                }    
-            });
-
-            $('#form').on('submit', function (e) {
+        $(document).on('submit', '#form', function(e) {
+            
                 e.preventDefault();
+                
                 var url = $(this).attr('action');
                 var datosFormulario = new FormData(this);
-                var formulario = $(this).data('formulario');
+                alert(url);
+                
 
                 $.ajax({
                     url: url,
@@ -325,88 +311,59 @@
                     processData: false, 
                     contentType: false, 
                     success: function (respuesta) {
-                     
-                      if(respuesta.includes("Se registro exitosamente")){
-                        //abrir modal de solicitud exitosa
-                        $('#modal_solicitud_exitosa').fadeIn(400);
-                        $('#modal_solicitud_exitosa').removeClass('d-none');
-                        $('#container').css({
-                                        "filter": "blur(5px)",
-                                        "transition": "filter 0.3s ease"
-                                    });
-                        $('#nav').css({
-                                    "filter": "blur(5px)",
-                                    "transition": "filter 0.3s ease"
-                                });
-                        $('#sidebar').css({
-                                        "filter": "blur(5px)",
-                                        "transition": "filter 0.3s ease"
-                                    });
-                        $('form').trigger('reset');
-                      }else{
-                       
-                        //abrir modal de error
-                        $('#modal_error').fadeIn(400);
-                        $('#modal_error').removeClass('d-none');
-                        $('#container').css({
-                                        "filter": "blur(5px)",
-                                        "transition": "filter 0.3s ease"
-                                    });
-                        $('#nav').css({
-                                        "filter": "blur(5px)",
-                                        "transition": "filter 0.3s ease"
-                                    });
-                        $('#sidebar').css({
-                            "filter": "blur(5px)",
-                            "transition": "filter 0.3s ease"
-                        });
-
-                        sessionStorage.setItem('formulario', formulario);//si hay un error capturamos el formulario para asi poder mostrarlo al momento de que se recargue la pagina
-
+                        console.log(respuesta);
+                        form = capturarSubcadena(respuesta,"<!-- formulario -->","<!-- finFormulario -->");
+                        $('#form').html(form);
                         
-                      }
+                        if(respuesta.includes("Se registro exitosamente")){
+
+                            //abrir modal de solicitud exitosa
+                            $('#container').css({
+                                            "filter": "blur(5px)",
+                                            "transition": "filter 0.3s ease"
+                                        });
+                            $('#nav').css({
+                                        "filter": "blur(5px)",
+                                        "transition": "filter 0.3s ease"
+                                    });
+                            $('#sidebar').css({
+                                            "filter": "blur(5px)",
+                                            "transition": "filter 0.3s ease"
+                                        });
+                            $('#modal_exitoso').fadeIn(400);
+                            
+                            $('form').trigger('reset');
+                            $('.image-button').removeClass('btn-success');
+                        }else{
+                            
+                            //abrir modal de error
+                            $('#container').css({
+                                            "filter": "blur(5px)",
+                                            "transition": "filter 0.3s ease"
+                                        });
+                            $('#nav').css({
+                                            "filter": "blur(5px)",
+                                            "transition": "filter 0.3s ease"
+                                        });
+                            $('#sidebar').css({
+                                            "filter": "blur(5px)",
+                                            "transition": "filter 0.3s ease"
+                                        });
+                            $('#modal_error').fadeIn(400);
+                        }
                     }
                 });
-            });
+        });
 
-            //cerrar modal de error
-            $(document).on('click',".close_error", function(){
-                $('#modal_error').fadeOut(400);
-                $('#modal_error').addClass('d-none');
-                $('#container').removeAttr("style");
-                $('#nav').removeAttr("style");
-                $('#sidebar ').removeAttr("style");
+        $('.close').click(function() {
+        
+            $('#container').removeAttr("style");
+            $('#nav').removeAttr("style");
+            $('#sidebar ').removeAttr("style");
+            $('.modal').fadeOut(400);
+        });
 
-                sessionStorage.setItem('errores', 'true');
-                window.location.href = 'index.php?modulo=Solicitudes&controlador=SeñalNueva&funcion=getCreate';
-                
-                        
-            });
-
-
-
-            if (sessionStorage.getItem('errores') === 'true') {
-
-                let boton = $('[data-formulario="'+ sessionStorage.getItem('formulario') +'"]');//traemos el boton del cual el formulario fue enviado
-                
-                boton.click();
-                
-                sessionStorage.removeItem('formulario');
-                sessionStorage.removeItem('errores');
-            }
-
-
-
-            //cerrar modal de solicitud exitosa
-            $(document).on('click',".close", function(){
-                $('#modal_solicitud_exitosa').fadeOut(400);
-                $('#modal_solicitud_exitosa').addClass('d-none');
-                $('#container').removeAttr("style");
-                $('#nav').removeAttr("style");
-                $('#sidebar ').removeAttr("style");
-                
-                        
-            });
+            
 
             
         

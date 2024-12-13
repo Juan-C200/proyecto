@@ -1,40 +1,39 @@
 <?php
 
-include_once '../model/Reportes/SeñalMalEstadoModel.php';
+include_once '../model/Solicitudes/ReductorNuevoModel.php';
 
 
-class SeñalMalEstadoController{
+class ReductorNuevoController{
 
     public function getCreate(){
 
-        $obj=new SeñalMalEstadoModel();
+        $obj=new ReductorNuevoModel();
         
-        $sql = "SELECT * FROM tipos_senalizacion WHERE tipo_senalizacion_orientacion = 'Vertical'";  
+        $sql = "SELECT * FROM tipo_reductores WHERE tipo_reductor_categoria = 'Estructural'";  
         $result=$obj->consult($sql);
-        $señales_verticales = pg_fetch_all($result);
+        $reductores_estructurales = pg_fetch_all($result);
 
-        $sql = "SELECT * FROM tipos_senalizacion WHERE tipo_senalizacion_orientacion = 'Horizontal'";  
+        $sql = "SELECT * FROM tipo_reductores WHERE tipo_reductor_categoria = 'Modular'";  
         $result=$obj->consult($sql);
-        $señales_horizontales = pg_fetch_all($result);
+        $reductores_modulares = pg_fetch_all($result);
 
-        $sql = "SELECT * FROM tipo_dano";  
+        $sql = "SELECT * FROM tipo_reductores WHERE tipo_reductor_categoria = 'Señalizacion'";  
         $result=$obj->consult($sql);
-        $tipos_daños = pg_fetch_all($result);
-        
-        include_once '../view/Reportes/createSeñalMalEstado.php';
+        $reductores_señalizacion = pg_fetch_all($result);
+
+        include_once '../view/Solicitudes/createReductor.php';
     }
 
     
 
     function postCreate() {
-        $obj=new SeñalMalEstadoModel();
+        $obj=new ReductorNuevoModel();
         
-        $id = $obj->autoIncrement("solicitud_senalizaciones_mal_estado", "soli_senalizacion_mal_est_id");
+        $id = $obj->autoIncrement("solicitud_reductores_nuevos", "soli_reductor_nvo_id");
 
         $usu_id=$_SESSION['usu_id'];
 
-        $tipo_señal = $_POST['tipo_señal'] ?? '';
-        $tipo_daño = $_POST['tipo_daño'] ?? '';
+        $tipo_reductor = $_POST['tipo_reductor'] ?? '';
         
 
         $campo1 = $_POST['campo1'] ?? '';
@@ -48,12 +47,13 @@ class SeñalMalEstadoController{
         $descripcion = $_POST['descripcion'] ?? '';
         $img = $_FILES['foto']['name'];
 
-        $ruta = "assets/img/señalesNuevas/$img";
+        var_dump($img);
+
+        $ruta = "assets/img/reductoresNuevos/$img";
 
         $validacion=true;
 
-        validarCampo($tipo_señal, 'Tipo de señal', 'numeros');
-        validarCampo($tipo_daño, 'Tipo de daño', 'numeros');
+        validarCampo($tipo_reductor, 'Tipo de reductor', 'numeros');
         validarCampo($campo1, 'Tipo de vía', 'letras');
         validarCampo($campo2, 'Nombre o numero de vía', 'no');
         validarCampo($campo4, 'Numero de placa #1', 'no');
@@ -78,9 +78,10 @@ class SeñalMalEstadoController{
         if ($validacion) {
             
             
-            $sql = "INSERT INTO solicitud_senalizaciones_mal_estado (soli_senalizacion_mal_est_id,          soli_senalizacion_mal_est_tipo, soli_senalizacion_mal_est_descripcion, soli_senalizacion_mal_est_tipo_dano, 
-                    soli_senalizacion_mal_est_remitente_id, soli_senalizacion_mal_est_direccion, soli_senalizacion_mal_est_imagen, soli_senalizacion_mal_est_estado) 
-                    VALUES ($id, $tipo_señal, '$descripcion', $tipo_daño, $usu_id, '$direccion', '$ruta',3 )";
+            $sql = "INSERT INTO solicitud_reductores_nuevos (soli_reductor_nvo_id, soli_reductor_nvo_reductor_tipo,        
+                soli_reductor_nvo_desc, soli_reductor_nvo_remitente,
+                soli_reductor_nvo_direccion, soli_reductor_nvo_imagen, soli_reductor_nvo_estado) 
+                VALUES ($id, $tipo_reductor,'$descripcion',$usu_id,'$direccion','$ruta',3)";
 
             $ejecutar = $obj->insert($sql);
     
@@ -107,7 +108,6 @@ class SeñalMalEstadoController{
         }
 
         $this->getCreate();
-
     }
 }
 

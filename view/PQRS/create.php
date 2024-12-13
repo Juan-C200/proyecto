@@ -1,6 +1,6 @@
 <body>
    <form action="<?php echo getUrl("PQRS", "PQRS", "postCreate", null, "ajax"); ?>"  method="POST">
-        <div class="row">
+        <div class="row border rounded-3 bg-white mt-4 pb-4">
             <div class="col-12 md-12 mt-4">
                 <h2>Informacion del PQRS</h2>
             </div>
@@ -14,6 +14,11 @@
                     }
                     ?>
                 </select>
+                <?php
+                    if(isset($_SESSION['errores']['Tipo_PQRS'])){
+                        echo "<p class='text-danger'>".$_SESSION['errores']['Tipo_PQRS']. "</p>";
+                    }
+                ?>
             </div>
             <div class="col-12 md-6 mt-4">
 
@@ -26,9 +31,14 @@
                     }
                     ?>
                 </select>
+                <?php
+                    if(isset($_SESSION['errores']['servicios'])){
+                        echo "<p class='text-danger'>".$_SESSION['errores']['servicios']. "</p>";
+                    }
+                ?>
             </div>
         </div>
-        <div class="row mt-4">
+        <div class="row border rounded-3 bg-white mt-4 p-3">
             <div class="col-12 md-12">
                 <h2>Informacion del tipo de PQRS</h2>
             </div>
@@ -39,18 +49,28 @@
 
                     <label for="" class="form-label">Asunto</label>
                     <input type="text" class="form-control" name="asunto">
+                    <?php
+                        if(isset($_SESSION['errores']['asunto'])){
+                            echo "<p class='text-danger'>".$_SESSION['errores']['asunto']. "</p>";
+                        }
+                     ?>
 
                 </div>
                 <div class="col-8 md-12">
                     <label for="" class="form-label">Descripcion</label>
                     <textarea name="desc" id="" class="form-control" style="height: 150px"></textarea>
+                    <?php
+                        if(isset($_SESSION['errores']['descripcion'])){
+                            echo "<p class='text-danger'>".$_SESSION['errores']['descripcion']. "</p>";
+                        }
+                    ?>
                 </div>
 
             </div>
             <div class="row mt-4">
 
                 <input type="submit" value="Enviar" class="btn btn-primary">
-
+              
 
             </div>
         </div>

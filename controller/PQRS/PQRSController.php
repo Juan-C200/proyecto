@@ -17,21 +17,81 @@
             $obj = new PQRSModel();
             $id = $obj->autoIncrement('public."PQRS"',"PQRS_id");
             $tipoPQRS = $_POST['tipoPQRS'];
-            $servicio = $_POST['servicio'];
-            $asunto = $_POST['asunto'];
-            $desc = $_POST['desc'];
-            $estado = 3; 
-            $remitente = $_SESSION['usu_id'];
-            echo "Los datos enviados son: $tipoPQRS"." ".$servicio." ".$asunto." ".$desc;
-
-            $sql = "INSERT INTO PQRS(
-	            pqrs_id, pqrs_asunto, pqrs_tipo, pqrs_estado, pqrs_desc, pqrs_remitente, pqrs_servicio)
-	            VALUES ($id,'$asunto', $tipoPQRS,$estado,'$desc',$remitente,$servicio)";
-            $ejecutar = $obj->insert($sql);
-            if($ejecutar){
-                echo "Registro exitoso";
+            $validacion = true;
+            if(empty($tipoPQRS)){
+                $_SESSION['errores']['Tipo_PQRS'] = "El campo tipo PQRS es necesario";
+                $validacion = false;
+            }else{
+                $_SESSION['errores']['Tipo_PQRS'] = "";
             }
             
+            
+            $servicio = $_POST['servicio'];
+            if(empty($servicio)){
+                $_SESSION['errores']['servicios'] = "El campo tipo servicios es necesario";
+                $validacion = false;
+            }else{
+                $_SESSION['errores']['servicios'] = "";
+            }
+            $asunto = $_POST['asunto'];
+            if(empty($asunto)){
+                $_SESSION['errores']['asunto'] = "El campo asunto es necesario";
+                $validacion = false;
+            }else{
+                $_SESSION['errores']['asunto'] = "";
+                
+            }
+            if(!preg_match("/^.{0,20}$/",$asunto)){
+                $_SESSION['errores']['asunto'] = "El campo asunto debe tener como maximo 20 caracteres";
+                $validacion = false;
+            }
+            $desc = $_POST['desc'];
+            if(empty($desc)){
+                $_SESSION['errores']['descripcion'] = "El campo descripcion es necesario";
+                $validacion = false;
+            }else{
+                $_SESSION['errores']['descripcion'] = "";
+            }
+            $estado = 3; 
+            $remitente = $_SESSION['usu_id'];
+            $tabla = '"PQRS"';
+           
+            
+            if($validacion){
+                $sql = "INSERT INTO public.$tabla( pqrs_id, pqrs_asunto, pqrs_tipo, pqrs_estado, pqrs_desc, pqrs_remitente, pqrs_servicio) VALUES ($id,'$asunto',$tipoPQRS,$estado,'$desc',$remitente,$servicio)";
+                $ejecutar = $obj->insert($sql);
+                
+                if($ejecutar){
+                    
+                    unset($_SESSION['errores']);
+                    unset($_SESSION['values']);
+                    redirect('index.php');
+                }
+            }else{
+                redirect(getUrl("PQRS","PQRS","getCreate"));
+               
+                
+            }
+           
+            
+        }
+        
+        public function getPQRS(){
+            $obj = new PQRSModel();
+            $sql = 'SELECT 
+                    pqrs.*, 
+                    tp."tipo_PQRS_nombre", 
+                    s.servicio_nombre 
+                    FROM 
+                    public."PQRS" pqrs
+                    INNER JOIN 
+                    public."tipo_PQRS" tp ON tp."tipo_PQRS_id" = pqrs."pqrs_tipo"
+                    INNER JOIN 
+                     public."servicios" s ON s."servicio_id" = pqrs."pqrs_servicio"';
+                     
+            $result = $obj->consult($sql);
+            $pqrs = pg_fetch_all($result);
+            include_once '../view/PQRS/consult.php';
         }
     }
 ?>

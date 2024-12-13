@@ -69,7 +69,9 @@
     }
 
     function validarCampo($campo, $nombre_campo, $tipo){
-
+        if(!empty($campo)){
+            $_SESSION['errores'][$nombre_campo] = "";
+        }
         if (empty($campo)) {
             $_SESSION['errores'][$nombre_campo] = "El campo '$nombre_campo' es requerido.";
             
@@ -103,6 +105,10 @@
                     }
                     $_SESSION['values'][$nombre_campo] = $campo;
                     break;
+                case 'asunto':
+                    if(!preg_match("/^.{0,20}$/",$campo)){
+                        $_SESSION['errores'][$nombre_campo] = "El campo '$nombre_campo' debe tener como maximo 20 caracteres";
+                    }
                 default:
                     $_SESSION['values'][$nombre_campo] = $campo;
                     break;

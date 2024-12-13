@@ -18,7 +18,7 @@ class SeñalNuevaController{
         $señales_horizontales = pg_fetch_all($result);
 
 
-        include_once '../view/Solicitudes/solicitar.php';
+        include_once '../view/Solicitudes/createSeñal.php';
     }
 
     
@@ -44,8 +44,6 @@ class SeñalNuevaController{
         $descripcion = $_POST['descripcion'] ?? '';
         $img = $_FILES['foto']['name'];
 
-        var_dump($img);
-
         $ruta = "assets/img/señalesNuevas/$img";
 
         $validacion=true;
@@ -55,7 +53,6 @@ class SeñalNuevaController{
         validarCampo($campo2, 'Nombre o numero de vía', 'no');
         validarCampo($campo4, 'Numero de placa #1', 'no');
         validarCampo($campo5, 'Numero de placa #2', 'no');
-        validarCampo($descripcion, 'Descripción', 'no');
         validarCampo($img, 'Adjuntar imagen de la señal en mal estado', 'no');
 
         // Validaciónes opcionales
@@ -63,7 +60,7 @@ class SeñalNuevaController{
             validarCampo($campo3, 'Prefijo o cuadrante', 'letras');
         } 
         if (!empty($descripcion)) {
-            validarCampo($descripcion, 'Descripción', 'letras');
+            validarCampo($descripcion, 'Descripción', 'no');
         } 
 
         // Si hay errores no deja avanzar
@@ -96,14 +93,16 @@ class SeñalNuevaController{
                 
             } else {
                 echo "no se registro el reporte";
-                redirect(getUrl("Solicitudes", "SeñalNueva", "getCreate"));
+                
             }
         } else {
             
             echo "no se registro el reporte";
-            redirect(getUrl("Solicitudes", "SeñalNueva", "getCreate"));
+            
             
         }
+
+        $this->getCreate();
 
     }
 }
