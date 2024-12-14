@@ -12,6 +12,6 @@
     <link href="https://cdn.lineicons.com/5.0/lineicons.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/sidebar.css">
     <link rel="stylesheet" href="assets/css/navbar.css">
-   
+    <link rel="stylesheet" href = "assets/css/tablas.css">
     <title>SIGARV</title>
 </head>

@@ -58,3 +58,6 @@ padding: 10px;
   border-right: none;
   border-bottom: 2px solid white; 
  }
+ .error{
+    color: white;
+ }

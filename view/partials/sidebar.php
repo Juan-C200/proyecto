@@ -84,11 +84,35 @@
             </a>
           
         </li>
-        
+        <?php 
+            // if($_SESSION['usu_rol']==1){
+
+            
+
+        ?>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#pqrs"
+                    aria-expanded="false" aria-controls="auth">
+                    <i class="lni lni-gear-1"></i>
+                    <span>PQRS</span>
+                </a>
+                <ul id="pqrs" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <li class="sidebar-item">
+                        <a href="<?php echo getUrl("PQRS", "PQRS", "getCreate");?>" class="sidebar-link">Registrar un PQRS</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="<?php echo getURL("PQRS","PQRS","getPQRS");?>" class="sidebar-link">Consultar</a>
+                    </li>
+                </ul>
+            </li>
+        <?php
+
+            // }
+        ?>
         <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
+            <a href="<?php echo getUrl("PQRS","PQRS","getCreate");?>" class="sidebar-link">
                 <i class="lni lni-gear-1"></i>
-                <span>Setting</span>
+                <span>PQRS</span>
             </a>
         </li>
         <li class="sidebar-item">
