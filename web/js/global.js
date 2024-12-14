@@ -153,31 +153,31 @@
             $('#navbar ').removeAttr("style");
         });
 
-        $('#validate_password').click(function(){
-            let url = $(this).attr("data-url");
-            let pass = $('#contraseña').val();
-            console.log(pass);
+        // $('#validate_password').click(function(){
+        //     let url = $(this).attr("data-url");
+        //     let pass = $('#contraseña').val();
+        //     console.log(pass);
 
             
-            $.ajax({
-                url:url,
-                data:{'password' : pass},
-                type: 'POST',
-                success: function(data){
-                    console.log(data);
-                    if(data.includes("correcta")){
+        //     $.ajax({
+        //         url:url,
+        //         data:{'password' : pass},
+        //         type: 'POST',
+        //         success: function(data){
+        //             console.log(data);
+        //             if(data.includes("correcta")){
 
-                        $("#form_update").submit();
-                        alert("La contraseña es correcta.");
-                    }else{
+        //                 $("#form_update").submit();
+        //                 alert("La contraseña es correcta.");
+        //             }else{
                         
-                        $('#error_contraseña').removeClass('d-none');
-                    }
+        //                 $('#error_contraseña').removeClass('d-none');
+        //             }
                     
-                }
+        //         }
 
-            });
-        });
+        //     });
+        // });
 
 
 
@@ -204,45 +204,6 @@
             
             
         });
-
-        // $(document).on('click', '.boton_cambiar_panel1', function() {
-        
-        //     // Obtener el valor del atributo 'data-panel' del botón presionado
-        //     var panel = $(this).data('panel');
-            
-
-        //     // Oculto ambos paneles
-        //     $('.cajaSeñales3, .cajaSeñales4').addClass('d-none');
-            
-
-        //     // Miestro el panel el cual el boton referenciado fue oprimido
-        //     $('#' + panel).removeClass('d-none');
-            
-        // });
-
-
-        
-
-        // Manejador de eventos para los botones que contienen los reductores
-        // $('.boton_cambiar_tipo_reductor').on('click', function() {
-        //     $('#' + 'boton_panel_reductor_estructural').removeClass('btn-primary').addClass('btn-ligth');
-        //     $('#' + 'boton_panel_reductor_modular').removeClass('btn-primary').addClass('btn-ligth');
-        //     $('#' + 'boton_panel_reductor_señalizacion').removeClass('btn-primary').addClass('btn-ligth');
-
-
-        //     // Obtener el valor del atributo 'data-panel' del botón presionado
-        //     var panel = $(this).data('panel');
-
-        //     // Oculto paneles
-        //     $('#panel_reductor_estructural, #panel_reductor_modular, #panel_reductor_señalizacion').addClass('d-none');
-            
-
-        //     // Muestro el panel el cual el boton referenciado fue oprimido
-        //     $('#' + panel).removeClass('d-none');
-        //     $('#' + 'boton_' + panel).removeClass('btn-success').addClass('btn-primary');
-            
-        // });
-        
         
         $(document).on('click', '.image-button', function() {//botones con imagenes
             
@@ -270,6 +231,7 @@
             
             let url = $(this).data('url');
             
+            
             if($(this).hasClass('btn-primary')){
                 $('#form').fadeOut(400);
                 
@@ -278,7 +240,7 @@
             }else{
                 $('.categoria').removeClass('btn-primary');
                 $('.categoria').removeClass('btn-light');
-
+                
                 $('#form').fadeIn(400);
                 $(this).addClass('btn-primary');
             }
@@ -295,13 +257,13 @@
         });
                 
 
-        $(document).on('submit', 'form', function(e) {
+        $(document).on('submit', '.formularios', function(e) {
             
                 e.preventDefault();
                 
                 var url = $(this).attr('action');
                 var datosFormulario = new FormData(this);
-                alert(url);
+                
                 
 
                 $.ajax({
@@ -311,7 +273,7 @@
                     processData: false, 
                     contentType: false, 
                     success: function (respuesta) {
-                        console.log(respuesta);
+                        
                         form = capturarSubcadena(respuesta,"<!-- formulario -->","<!-- finFormulario -->");
                         $('#form').html(form);
                         
@@ -327,6 +289,10 @@
                                         "transition": "filter 0.3s ease"
                                     });
                             $('#sidebar').css({
+                                            "filter": "blur(5px)",
+                                            "transition": "filter 0.3s ease"
+                                        });
+                            $('#form').css({
                                             "filter": "blur(5px)",
                                             "transition": "filter 0.3s ease"
                                         });
@@ -349,6 +315,11 @@
                                             "filter": "blur(5px)",
                                             "transition": "filter 0.3s ease"
                                         });
+                                        
+                            $('#form').css({
+                                            "filter": "blur(5px)",
+                                            "transition": "filter 0.3s ease"
+                                        });
                             $('#modal_error').fadeIn(400);
                         }
                     }
@@ -360,6 +331,7 @@
             $('#container').removeAttr("style");
             $('#nav').removeAttr("style");
             $('#sidebar ').removeAttr("style");
+            $('#form').removeAttr("style");
             $('.modal').fadeOut(400);
         });
 

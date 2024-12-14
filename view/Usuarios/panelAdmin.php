@@ -1,7 +1,7 @@
-<body class="bg-dark pb-5">
+
 
     <div class="container pt-5">
-        <h1 class="text-white text-center">!Hola, <?php echo $_SESSION['rol_nombre']." ".$_SESSION['usu_nombre1'];?>¡</h1>
+        <h1 class="text text-center">¡Hola, <?php echo $_SESSION['rol_nombre']." ".$_SESSION['usu_nombre1'];?>!</h1>
     
         <div class="row mt-3 ms-0" id="panel_admin">
             <div class="boxDatos row col-md-6 border  rounded-3 p-4 ">
@@ -15,4 +15,3 @@
             
         </div>
     </div>
-</body>

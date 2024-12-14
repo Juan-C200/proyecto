@@ -1,6 +1,6 @@
 <!-- formulario -->
 <div class="formularios mb-5">
-    <form action="<?php echo getUrl("Reportes", "ReductorMalEstado", "postCreate", false,"ajax");?>" method="POST" class="form-control p-4" enctype="multipart/form-data">
+    <form action="<?php echo getUrl("Reportes", "ReductorMalEstado", "postCreate", false,"ajax");?>" method="POST" class="form-control p-4 formularios" enctype="multipart/form-data">
 
         <div class="row justify-content-center">
             

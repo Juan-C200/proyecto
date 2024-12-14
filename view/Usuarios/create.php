@@ -6,10 +6,11 @@
 ?>
 
 
+<div class="container" id="container">
+    <div class="formularios pt-5" id="form">
+        <!-- formulario -->
 
-    <div class="container pt-5">
-
-        <form action="<?php echo getUrl("Usuarios", "Usuarios", "postCreate",false,"ajax"); ?> " method="POST" id="registroForm">
+        <form action="<?php echo getUrl("Usuarios", "Usuarios", "postCreate",false,"ajax"); ?> " class="formularios" method="POST" id="registroForm">
             <div class="row justify-content-center">
                 <h3 class="text-center  mb-1 mt-1">Registrar Usuario</h3>
 
@@ -365,7 +366,53 @@
             </div>
 
         </form>
+        <!-- finFormulario -->
     </div>
+    </div>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal" id="modal_error" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close close"></button>
+      </div>
+      <div class="modal-body">
+        mall
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary ">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modal_exitoso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close close"></button>
+      </div>
+      <div class="modal-body">
+        Biennn
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary ">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
     <?php
     if(!isset($_SESSION['auth'])){
@@ -373,37 +420,4 @@
     }
 
     ?>
-    <script>
-        // Función para alternar la visibilidad de la contraseña
-    $('#toggle-password').click(function() {
-        
-        var passwordField = $('#clave');
-        var icon = $('#eye-icon');
-        
-        if (passwordField.attr('type') === 'password') {
-            passwordField.attr('type', 'text');
-            icon.removeClass('fa-eye').addClass('fa-eye-slash');
-        } else {
-            passwordField.attr('type', 'password');
-            icon.removeClass('fa-eye-slash').addClass('fa-eye');
-        }
-    });
-
-        $('#toggle-password2').click(function() {
-            var passwordField2 = $('#conf_clave');
-            var icon2 = $('#eye-icon2');
-
-            if (passwordField2.attr('type') === 'password') {
-                passwordField2.attr('type', 'text');
-                icon2.removeClass('fa-eye').addClass('fa-eye-slash');
-            } else {
-                passwordField2.attr('type', 'password');
-                icon2.removeClass('fa-eye-slash').addClass('fa-eye');
-            }
-        });
-    </script>
     
-
-
-
-</html>

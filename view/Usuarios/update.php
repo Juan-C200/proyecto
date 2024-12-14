@@ -1,19 +1,20 @@
 <?php                              
     foreach($usuarios as $usu){
 ?>
-<body class="bg-dark pb-5" >
 
-    <div class="container pt-5" id="container">
 
-        <form action="<?php echo getUrl("Usuarios", "Usuarios", "postUpdate"); ?> " method="POST" id="form_update">
+    
+    <div class="formularios mb-5" id="form">
+    <!-- formulario -->
+        <form action="<?php echo getUrl("Usuarios", "Usuarios", "postUpdate", false, "ajax"); ?> " class="formularios" method="POST" id="form_update">
             <input type="hidden" name="id" value=<?php echo $usu["usu_id"] ?>>
             <div class="row justify-content-center">
-                <h3 class="text-center text-white mb-1 mt-1">Editar perfil</h3>
+                <h3 class="text-center text mb-1 mt-1">Editar perfil</h3>
 
-                <p class="text-white"><b>Los campos especificados con (*) son campos obligatorios.</p>
+                <p class="text"><b>Los campos especificados con (*) son campos obligatorios.</p>
 
                 <div class="boxDatos row border rounded-3 p-4">
-                    <h4>Datos de identificación</h4>
+                    <h4 class="text-white">Datos de identificación</h4>
 
                     <div class="col-md-3 p-2">
                         <label for="tipoDocumento" class="form-label text-white">Tipo documento*</label>
@@ -102,7 +103,7 @@
                             } else {
                                 echo '';
                             }
-                        ?>" required>
+                        ?>">
                         <?php
                             if (isset($_SESSION['errores']['Segundo nombre'])) {
                                 echo "<p class=' text-danger'>" . $_SESSION['errores']['Segundo nombre'] . "</p>";
@@ -144,7 +145,7 @@
                             } else {
                                 echo '';
                             }
-                        ?>" required>
+                        ?>">
                         <?php
                             if (isset($_SESSION['errores']['Segundo apellido'])) {
                                 echo "<p class=' text-danger'>" . $_SESSION['errores']['Segundo apellido'] . "</p>";
@@ -154,7 +155,7 @@
                     </div>
 
                     <div class="col-md-3 p-2">
-                        <label for="segundo_apellido" class="form-label text-white">Genero*</label>
+                        <label for="sexo" class="form-label text-white">Genero*</label>
                         <select type="text" class="form-control boxDatos rounded-5" id="genero"
                             name="sexo">
                         <option value="">Seleccione...</option>
@@ -196,7 +197,7 @@
                     ?>      
 
                                 <div class="col-md-3 p-2">
-                                    <label for="rol" class="form-label text-white">Rol*</label>
+                                    <label for="rol_id" class="form-label text-white">Rol*</label>
                                     <select type="text" class="form-control boxDatos rounded-5"
                                         name="rol_id">
                                     <?php 
@@ -230,7 +231,7 @@
 
                 
                 <div class="boxDatos row border rounded-3 p-4 mt-4">
-                    <h4>Datos de contacto</h4>
+                    <h4 class="text-white">Datos de contacto</h4>
 
                     <div class="col-md-6">
                         <label for="correo" class="form-label text-white col-md-6">Correo*</label>
@@ -278,7 +279,7 @@
                             <h5 for="" class="form-label text-white pt-4">Dirección</h5>
 
                             <div class="col-md-4 p-2">
-                                <label for="" class="form-label text-white">Tipo de vía*</label>
+                                <label for="campo1" class="form-label text-white">Tipo de vía*</label>
                                 <select name="campo1" class="form-control boxDatos rounded-5" >
                                     <option value="">Seleccione...</option>
 
@@ -324,7 +325,7 @@
                             </div>
                             
                             <div class="col-md-4 p-2">
-                                <label for="" class="form-label text-white">Nombre o número de vía*</label>
+                                <label for="campo2" class="form-label text-white">Nombre o número de vía*</label>
                                 <input type="text" value="<?php  
                                     if (isset($_SESSION['values']['Nombre o numero de vía'])) {
                                         echo htmlspecialchars($_SESSION['values']['Nombre o numero de vía']);
@@ -342,7 +343,7 @@
                             </div>
 
                             <div class="col-md-4 p-2">
-                                <label for="" class="form-label text-white">Prefijo o cuadrante</label>
+                                <label for="campo3" class="form-label text-white">Prefijo o cuadrante</label>
                                 <select name="campo3" class="form-control boxDatos rounded-5" id="prefijo">
                                     <option value="">Seleccione...</option>
 
@@ -416,6 +417,8 @@
                                     if (isset($_SESSION['errores']['Numero de placa #2'])) {
                                         echo "<p class=' text-danger'>" . $_SESSION['errores']['Numero de placa #2'] . "</p>";
                                     }
+                                    unset($_SESSION['errores']);
+                                    unset($_SESSION['values']);
                                 ?>
                             </div>
                             
@@ -424,10 +427,11 @@
                 </div>
 
             </div>
-            <div class="d-flex justify-content-center mt-3">
-                <button type="button" class="btn btn-primary" id="boton_editar" value="Editar">Editar</button>
+            <div class="col-md-12 mt-3">
+                <input type="submit" value="Enviar" class="btn btn-primary mt-3">
             </div>
-        
+            </form>
+        <!-- finFormulario -->
     </div>
     
     
@@ -437,7 +441,7 @@
 ?>
 
 <!-- Modal -->
-<div class="modal d-none" id="modal">
+<!-- <div class="modal d-none" id="modal">
     <div class="modal-dialog modal-dialog-centered ">
         
         
@@ -467,40 +471,45 @@
         </form>
     </div>
     
+</div> -->
+
+
+<!-- Modal -->
+<div class="modal" id="modal_error" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close close"></button>
+      </div>
+      <div class="modal-body">
+        mall
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary ">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modal_exitoso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close close"></button>
+      </div>
+      <div class="modal-body">
+        Biennn
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary ">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 
-   
-    <script>
-        // Función para alternar la visibilidad de la contraseña
-        $('#toggle-password').click(function() {
-            // Alternar entre tipo password y text
-            var passwordField = $('#clave');
-            var icon = $('#eye-icon');
-
-            if (passwordField.attr('type') === 'password') {
-                passwordField.attr('type', 'text');
-                icon.removeClass('fa-eye').addClass('fa-eye-slash');
-            } else {
-                passwordField.attr('type', 'password');
-                icon.removeClass('fa-eye-slash').addClass('fa-eye');
-            }
-        });
-
-        $('#toggle-password2').click(function() {
-            var passwordField2 = $('#conf_clave');
-            var icon2 = $('#eye-icon2');
-
-            if (passwordField2.attr('type') === 'password') {
-                passwordField2.attr('type', 'text');
-                icon2.removeClass('fa-eye').addClass('fa-eye-slash');
-            } else {
-                passwordField2.attr('type', 'password');
-                icon2.removeClass('fa-eye-slash').addClass('fa-eye');
-            }
-        });
-    </script>
-
-</body>
-
-</html>

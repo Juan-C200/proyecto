@@ -8,13 +8,13 @@
     }
     
     
-    echo "<body>";
+    echo "<body style='background-color: #f2f4f7;'>";
         echo "<div class = 'wrapper d-flex'>";
             include_once "../view/partials/sidebar.php";
             echo "<div class = 'main-panel flex-grow-1'>";
                 include_once "../view/partials/navbar.php";
             
-                echo"<div class = 'container' id='contenedor'>";
+                echo"<div class = 'container' id='contenedor' >";
            
 
 

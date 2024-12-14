@@ -26,7 +26,7 @@
         <button type="button" class="btn-close close"></button>
       </div>
       <div class="modal-body">
-        mally
+        mall
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary ">Close</button>

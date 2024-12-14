@@ -2,7 +2,7 @@
 
 class Conexion {
     private $host = 'localhost';
-    private $port = '5432';
+    private $port = '5433';
     private $dbname = 'geovisor';
     private $user = 'postgres';
     private $password = '12345';

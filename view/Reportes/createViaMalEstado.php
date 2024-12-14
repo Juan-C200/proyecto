@@ -1,96 +1,38 @@
 <!-- formulario -->
 <div class="formularios mb-5">
-    <form action="<?php echo getUrl("Solicitudes", "ReductorNuevo", "postCreate", false,"ajax");?>" method="POST" class="form-control p-4 formularios" enctype="multipart/form-data">
+    <form action="<?php echo getUrl("Reportes", "ViaMalEstado", "postCreate", false,"ajax");?>" method="POST" class="form-control p-4 formularios" enctype="multipart/form-data">
 
-        <div class="row justify-content-center">
-            
-            <small class="text-warning">Complete los datos del formulario</small>
-            
-            
-            <div class="row mt-2 justify-content-center">
-                <button type="button" class="btn btn-primary col-md-3 border-1 rounded-1 tipo" data-panel="panel_reductor_modular" >Reductor modular</button>
-                <button type="button" class="btn btn-ligth col-md-3 border-1 rounded-1 tipo" data-panel="panel_reductor_señalizacion" >Reductor de señalizacion</button>
-                <button type="button" class="btn btn-ligth col-md-3 border-1 rounded-1 tipo" data-panel="panel_reductor_estructural" >Reductor estructural</button>
-            </div>
-            
-            <div class="box p-3 border rounded-3">
-                <div class=" p-1 col-md-12 panel" id="panel_reductor_modular">
-                    <h5>Reductores modulares</h5>                    
-                    <div class="row gap-2">
-                        <?php
-                            // Iteramos sobre el array y generamos un botón por cada imagen
-                            foreach ($reductores_modulares as $reductor) {
-                                // Verificar si la ruta de la imagen existe
-                            
-                                    echo '<button type="button" class="btn btn-light image-button col-md-2" name="tipo_señal"  value="'.$reductor['tipo_reductor_id'].'">';
-                                    echo '<img src="' . $reductor['tipo_reductor_ruta_img'] . '" alt="' . $reductor['tipo_reductor_nombre'] . '" class="col-md-3">';
-                                    echo '<p>' . $reductor['tipo_reductor_nombre'] . '</p>';
-                                    echo '</button>';
-                                
-                            }
-                        ?>
-                        
-                    </div>
-
-                </div>
-                <div class="panel p-1 col-md-12 d-none" id="panel_reductor_señalizacion">
-                    <h5>Reductores de señalizacion</h5>
-                    <div class="row gap-2">
-                        <?php
-                            // Iteramos sobre el array y generamos un botón por cada imagen
-                            foreach ($reductores_señalizacion as $reductor) {
-                                // Verificar si la ruta de la imagen existe
-                            
-                                    echo '<button type="button" class="btn btn-light image-button col-md-2" name="tipo_señal"  value="'.$reductor['tipo_reductor_id'].'">';
-                                    echo '<img src="' . $reductor['tipo_reductor_ruta_img'] . '" alt="' . $reductor['tipo_reductor_nombre'] . '" class="col-md-3">';
-                                    echo '<p>' . $reductor['tipo_reductor_nombre'] . '</p>';
-                                    echo '</button>';
-                                
-                            }
-                        ?>
-                        
-                    </div>
-                    
-                    
-                </div>
-                <div class="panel p-1 col-md-12 d-none" id="panel_reductor_estructural">
-                    <h5>Reductores estructurales</h5>
-                    <div class="row gap-2">
-                        <?php
-                            // Iteramos sobre el array y generamos un botón por cada imagen
-                            foreach ($reductores_estructurales as $reductor) {
-                                // Verificar si la ruta de la imagen existe
-                            
-                                    echo '<button type="button" class="btn btn-light image-button col-md-2" name="tipo_señal"  value="'.$reductor['tipo_reductor_id'].'">';
-                                    echo '<img src="' . $reductor['tipo_reductor_ruta_img'] . '" alt="' . $reductor['tipo_reductor_nombre'] . '" class="col-md-3">';
-                                    echo '<p>' . $reductor['tipo_reductor_nombre'] . '</p>';
-                                    echo '</button>';
-                                
-                            }
-                        ?>
-                        
-                    </div>
-                    
-                    
-                </div>
-                
-            </div>
-            <div class="">
-                <input type="hidden" name="tipo_reductor" class="input_seleccionable">
-            </div>
-            
-        </div>
-
-    
-        <?php
-            if (isset($_SESSION['errores']['Tipo de reductor'])) {
-                echo "<p class=' text-danger'>" . $_SESSION['errores']['Tipo de reductor'] . "</p>";
-            }
-        ?>
+        <small class="text-warning">Complete los datos del formulario</small>
 
         <div class="mt-1">
 
             <div class="row mt-4 p-1">
+                <div class="col-md-4 p-2 mb-4">
+                    <label for="tipo_daño" class="form-label">Tipo de daño*</label>
+                    <select name="tipo_daño" class="form-control" id="">
+                        <option value="">Seleccione...</option>
+                        <?php 
+                            
+                            foreach($tipos_daños as $tipo_daño){
+                                if(isset($_SESSION['values']['Tipo de daño']) &&
+                                    $_SESSION['values']['Tipo de daño'] == $tipo_daño['tipo_dano_id']){
+                                    $selected="selected";
+                                }else{
+                                    $selected="";
+                                }
+                                
+                                echo "<option value='".$tipo_daño['tipo_dano_id']."' ".$selected.">".$tipo_daño['tipo_dano_nombre']."</option>";
+                            }    
+                        
+                        ?>
+                        
+                    </select>
+                    <?php
+                        if (isset($_SESSION['errores']['Tipo de daño'])) {
+                            echo "<p class=' text-danger'>" . $_SESSION['errores']['Tipo de daño'] . "</p>";
+                        }
+                    ?>
+                </div>
                 <h7 for="direccion" class="form-label"><b>Dirección</b></h7>
                 <div class="col-md-4 p-2">
                     <label for="" class="form-label">Tipo de vía*</label>

@@ -1,6 +1,6 @@
 <!-- formulario -->
 <div class="formularios mb-5">
-    <form action="<?php echo getUrl("Reportes", "SeñalMalEstado", "postCreate", false,"ajax");?>" method="POST" class="form-control p-4" enctype="multipart/form-data">
+    <form action="<?php echo getUrl("Reportes", "SeñalMalEstado", "postCreate", false,"ajax");?>" method="POST" class="form-control p-4 formularios" enctype="multipart/form-data">
 
         <div class="row justify-content-center">
             
@@ -55,7 +55,7 @@
                 
             </div>
             <div class="">
-                <input type="hidden" name="tipo_reductor" class="input_seleccionable">
+                <input type="hidden" name="tipo_señal" class="input_seleccionable">
             </div>
             
         </div>

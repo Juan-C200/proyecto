@@ -1,39 +1,29 @@
 <?php
 
-include_once '../model/Reportes/SeñalMalEstadoModel.php';
+include_once '../model/Reportes/ViaMalEstadoModel.php';
 
 
-class SeñalMalEstadoController{
+class ViaMalEstadoController{
 
     public function getCreate(){
 
-        $obj=new SeñalMalEstadoModel();
+        $obj=new ViaMalEstadoModel();
         
-        $sql = "SELECT * FROM tipos_senalizacion WHERE tipo_senalizacion_orientacion = 'Vertical'";  
-        $result=$obj->consult($sql);
-        $señales_verticales = pg_fetch_all($result);
-
-        $sql = "SELECT * FROM tipos_senalizacion WHERE tipo_senalizacion_orientacion = 'Horizontal'";  
-        $result=$obj->consult($sql);
-        $señales_horizontales = pg_fetch_all($result);
-
-        $sql = "SELECT * FROM tipo_dano WHERE tipo_dano_control = 'Señales'";  
+        $sql = "SELECT * FROM tipo_dano WHERE tipo_dano_control = 'Via publica'";  
         $result=$obj->consult($sql);
         $tipos_daños = pg_fetch_all($result);
-        
-        include_once '../view/Reportes/createSeñalMalEstado.php';
+
+        include_once '../view/Reportes/createViaMalEstado.php';
     }
 
     
 
     function postCreate() {
-        $obj=new SeñalMalEstadoModel();
+        $obj=new ViaMalEstadoModel();
         
-        $id = $obj->autoIncrement("solicitud_senalizaciones_mal_estado", "soli_senalizacion_mal_est_id");
+        $id = $obj->autoIncrement("solicitud_via_mal_estado", "solicitud_via_mal_estado");
 
         $usu_id=$_SESSION['usu_id'];
-
-        $tipo_señal = $_POST['tipo_señal'] ?? '';
         $tipo_daño = $_POST['tipo_daño'] ?? '';
         
 
@@ -52,7 +42,6 @@ class SeñalMalEstadoController{
 
         $validacion=true;
 
-        validarCampo($tipo_señal, 'Tipo de señal', 'numeros');
         validarCampo($tipo_daño, 'Tipo de daño', 'numeros');
         validarCampo($campo1, 'Tipo de vía', 'letras');
         validarCampo($campo2, 'Nombre o numero de vía', 'no');
@@ -72,16 +61,17 @@ class SeñalMalEstadoController{
         if (!empty($_SESSION['errores'])) {
             $validacion = false;
         }
-        $sql = "INSERT INTO solicitud_senalizaciones_mal_estado (soli_senalizacion_mal_est_id, soli_senalizacion_mal_est_tipo, soli_senalizacion_mal_est_descripcion, soli_senalizacion_mal_est_tipo_dano, 
-        soli_senalizacion_mal_est_remitente_id, soli_senalizacion_mal_est_direccion, soli_senalizacion_mal_est_imagen, soli_senalizacion_mal_est_estado) 
-        VALUES ($id, $tipo_señal, '$descripcion', $tipo_daño, $usu_id, '$direccion', '$ruta',3 )";
+        
+
         
         if ($validacion) {
             
-            
-            
+            $sql = "INSERT INTO solicitud_via_mal_estado (solicitud_via_mal_estado, soli_via_mal_est_desc, soli_via_mal_est_tipo_dano, soli_via_mal_est_via, 
+                    soli_via_mal_est_remitente, soli_via_mal_est_imagen, soli_via_mal_est_estado) 
+                    VALUES ($id, '$descripcion', $tipo_daño, '$direccion', $usu_id, '$ruta',3 )";
 
             $ejecutar = $obj->insert($sql);
+            
     
             if ($ejecutar) {
 
@@ -104,10 +94,9 @@ class SeñalMalEstadoController{
             
             
         }
-
-        echo $sql;
+        
+        
         $this->getCreate();
-
     }
 }
 

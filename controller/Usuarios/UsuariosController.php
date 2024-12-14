@@ -30,10 +30,16 @@ class UsuariosController{
         
     }
 
-    public function getUpdate(){
+    public function getUpdate($id = null){
         $obj = new UsuariosModel();
 
-        $usu_id= $_GET['usu_id'];
+        $usu_id = '';
+        if ($id !== null) {
+            $usu_id = $id;
+        } else {
+            $usu_id= $_GET['usu_id'];
+        }
+        
 
         $sql = "SELECT * FROM usuarios u
                 JOIN roles r ON r.rol_id = u.usu_rol
@@ -150,15 +156,19 @@ class UsuariosController{
             if ($ejecutar) {
                 unset($_SESSION['errores']);
                 unset($_SESSION['values']);
-                redirect(getUrl("Usuarios","Usuarios","getUpdate",array("usu_id"=>$id)));
+
+                echo "Se registro exitosamente";
                 
             } else {
-                redirect(getUrl("Usuarios","Usuarios","getUpdate",array("usu_id"=>$id)));
+                echo "no se actualizo el usuarios";
             }
         } else {
-            redirect(getUrl("Usuarios","Usuarios","getUpdate",array("usu_id"=>$id)));
+            echo "no se actualizo el usuarios";
             
         }
+
+        $this->getUpdate($id);
+
          
     }
 
@@ -198,23 +208,6 @@ class UsuariosController{
         }
 
     }
-
-    public function buscar(){
-        $obj = new UsuariosModel();
-        $buscar = $_POST['buscar'];
-        $sql = "SELECT * FROM usuarios u
-                JOIN roles r ON r.rol_id = u.usu_rol
-                JOIN estados e ON e.est_id = u.usu_estado
-                JOIN tipo_documento tp ON tp.tipo_docu_id = u.usu_tipo_docu 
-                WHERE u.usu_nombre1 LIKE '%$buscar%' OR u.usu_nombre2 LIKE '%$buscar%'
-                OR u.usu_apellido1 LIKE '%$buscar%' OR u.usu_apellido2 LIKE '%$buscar%' ORDER BY usu_id";
-
-        $result=$obj->consult($sql);
-
-        $usuarios = pg_fetch_all($result);
-        include_once "../view/Usuarios/consult.php";
-    }
-
 
     public function getCreate(){
 
@@ -324,27 +317,22 @@ class UsuariosController{
                 unset($_SESSION['errores']);
                 unset($_SESSION['values']);
 
-                if(!isset($_SESSION['auth'])){
-                    redirect(getUrl("Usuarios","Usuarios","getCreate",false,"ajax"));
-                }else{
-                    redirect(getUrl("Usuarios","Usuarios","getCreate"));
-                }
+                echo "Se registro exitosamente";
+                
+                
                 
             } else {
-                if(!isset($_SESSION['auth'])){
-                    redirect(getUrl("Usuarios","Usuarios","getCreate",false,"ajax"));
-                }else{
-                    redirect(getUrl("Usuarios","Usuarios","getCreate"));
-                }
+                echo "no se registro el reporte";
+                
             }
         } else {
-            if(!isset($_SESSION['auth'])){
-                redirect(getUrl("Usuarios","Usuarios","getCreate",false,"ajax"));
-            }else{
-                redirect(getUrl("Usuarios","Usuarios","getCreate"));
-            }
+            
+            echo "no se registro el reporte";
+            
             
         }
+
+        $this->getCreate();
          
     }
 

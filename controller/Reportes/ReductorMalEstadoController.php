@@ -21,7 +21,7 @@ class ReductorMalEstadoController{
         $result=$obj->consult($sql);
         $reductores_señalizacion = pg_fetch_all($result);
 
-        $sql = "SELECT * FROM tipo_dano";  
+        $sql = "SELECT * FROM tipo_dano WHERE tipo_dano_control = 'Señales'";  
         $result=$obj->consult($sql);
         $tipos_daños = pg_fetch_all($result);
 
